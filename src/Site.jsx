@@ -30,7 +30,7 @@ const specs = [
   { icon:"🤰", t:"Périnatalité & Projet de naissance", d:"Suivi complet de grossesse, préparation corporelle, projet de naissance, post-partum. Certificat d'études spécialisées en ostéopathie pédiatrique.", k:["grossesse","accouchement","post-partum","naissance"], cat:"f" },
   { icon:"👶", t:"Nourrissons", d:"Évaluation psychomotrice, mobilité et micro-mobilité clinique avant toute correction. Torticolis, plagiocéphalie, coliques, reflux. Réseau de référents en lactation.", k:["bébé","nourrisson","coliques","plagiocéphalie"], cat:"f" },
   { icon:"🧒", t:"Pédiatrie & Adolescents", d:"Scoliose, troubles posturaux de croissance, troubles neurologiques de l'enfant. Formation directe avec Viola Frymann sur ce sujet.", k:["scoliose","croissance","adolescent","enfant","neurologique"], cat:"f" },
-  { icon:"🧠", t:"Crânio-sacré & Biodynamique", d:"Migraines, vertiges, acouphènes, troubles de l'ATM, tensions profondes. Écoute fine des rythmes du système nerveux central et autonome.", k:["migraines","vertiges","acouphènes","ATM","crânien"], cat:"s" },
+  { icon:"🧠", t:"Crânio-sacré & Biodynamique", d:"Migraines fonctionnelles, vertiges fonctionnels, troubles de l'ATM, tensions profondes. Écoute fine des rythmes du système nerveux central et autonome.", k:["migraines","vertiges","ATM","crânien"], cat:"s" },
   { icon:"🫁", t:"Ostéopathie viscérale", d:"Troubles digestifs, reflux, ballonnements, colopathie fonctionnelle. Enseignant en ostéopathie viscérale pendant 17 ans à l'ESO Paris.", k:["digestion","reflux","ballonnements","intestin"], cat:"s" },
   { icon:"🏃", t:"Sport & Entretien corporel", d:"Entretien du sportif, optimisation, prévention des blessures, récupération. Approche systémique du geste et de la performance.", k:["sportif","tendinite","performance","récupération"], cat:"d" },
   { icon:"🥋", t:"Arts martiaux, Yoga & Pilates", d:"Prise en charge des professeurs et élèves pratiquant les arts martiaux, le yoga et le pilates. Biomécanique spécifique du geste, prévention et récupération. Depuis 2004.", k:["aikido","yoga","pilates","arts martiaux","judo","karaté"], cat:"d" },
@@ -145,6 +145,7 @@ export default function Site({ onBlog }){
               </p>
               <div style={{display:"flex",gap:14,flexWrap:"wrap"}}>
                 <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Prendre rendez-vous</Btn>
+                <Btn href={`sms:${MOBILE.replace(/\s/g,"")}`} v="outline">{MOBILE} — SMS</Btn>
               </div>
               <p style={{fontSize:12,color:C.muted,marginTop:12,fontStyle:"italic"}}>
                 Pas de Doctolib — par choix. Rendez-vous par téléphone ou SMS.
@@ -251,7 +252,7 @@ export default function Site({ onBlog }){
 
       {/* ═══ HÉRITAGE ═══ */}
       <S id="heritage" bg={C.cream}>
-        <T tag="Héritage · Filiation directe" title={<>La pure tradition ostéopathique mondiale<br/><em style={{fontStyle:"italic",color:C.gold}}>aujourd'hui révolue</em></>} sub="L'ostéopathie se transmet de maître à élève, par les mains. Cette chaîne remonte à 1874. J'ai eu le privilège de la recevoir directement — comme assistant de Viola Frymann et élève de Wernham, Barral, Paoletti, Caporossi. Une formation que les écoles d'aujourd'hui ne transmettent plus."/>
+        <T tag="Héritage · Filiation directe" title={<>La pure tradition ostéopathique mondiale<br/><em style={{fontStyle:"italic",color:C.gold}}>aujourd'hui révolue</em></>} sub="L'ostéopathie se transmet de maître à élève, par les mains. Cette chaîne remonte à 1874. J'ai eu le privilège de la recevoir directement — comme assistant de Viola Frymann et élève de Wernham, Briend, Paoletti, Caporossi. Une formation que les écoles d'aujourd'hui ne transmettent plus."/>
         <div style={{maxWidth:700,margin:"0 auto"}}>
           {lineage.map((l,i)=>(
             <div key={i} style={{display:"flex",gap:20,alignItems:"flex-start"}}>
@@ -317,7 +318,7 @@ export default function Site({ onBlog }){
               Diplômé D.O. et D.O.E. en 2004, j'ai validé mon diplôme européen devant la Faculté de Médecine de Genève — un diplôme que très peu d'ostéopathes ont passé. Mon D.O.F. a été obtenu par Validation des Acquis de l'Expérience, alors que j'enseignais déjà aux futurs diplômés à l'ESO, prestigieuse école d'ostéopathie située sur le campus universitaire Descartes.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
-              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Jean-Pierre Barral, de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a nommé dans son équipe pédagogique de succession), de Pierre Tricot, de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé à la pulsologie de Nogier depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
+              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a nommé dans son équipe pédagogique de succession), de Pierre Tricot, de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé à la pulsologie de Nogier depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
               Durant mes études, j'ai effectué de nombreux stages en milieu hospitalier — chirurgie de la main, pédiatrie, maternité — qui m'ont forgé un regard clinique affûté et une capacité de diagnostic différentiel que la pratique en cabinet seule ne permet pas d'acquérir. J'ai également réalisé de nombreuses séances de dissection à la Faculté de Médecine de l'Université Paris Descartes, rue des Saints-Pères, notamment sur les nerfs crâniens — une connaissance anatomique directe, irremplaçable.
