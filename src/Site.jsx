@@ -268,11 +268,105 @@ export default function Site({ onBlog }){
             </div>
           ))}
         </div>
+
+        {/* ── DIAGRAMME DE FILIATION ── */}
+        <div style={{marginTop:56,maxWidth:mob?360:680,margin:"56px auto 0"}}>
+          <p style={{textAlign:"center",fontFamily:F.h,fontSize:mob?16:19,color:C.navy,fontWeight:500,marginBottom:mob?24:32,letterSpacing:0.5}}>
+            Deux branches de Sutherland — un praticien
+          </p>
+
+          {/* Still */}
+          <div style={{textAlign:"center"}}>
+            <div style={{display:"inline-block",background:"rgba(26,43,74,0.05)",border:"1px solid rgba(26,43,74,0.12)",borderRadius:8,padding:mob?"10px 14px":"12px 22px"}}>
+              <div style={{fontFamily:F.h,fontSize:mob?12:14,fontWeight:600,color:C.navy}}>A.T. Still (1828–1917)</div>
+            </div>
+          </div>
+          <div style={{width:2,height:mob?16:22,background:"rgba(184,149,106,0.3)",margin:"0 auto"}}/>
+
+          {/* Sutherland */}
+          <div style={{textAlign:"center"}}>
+            <div style={{display:"inline-block",background:"rgba(26,43,74,0.05)",border:"1px solid rgba(26,43,74,0.12)",borderRadius:8,padding:mob?"10px 14px":"12px 22px"}}>
+              <div style={{fontFamily:F.h,fontSize:mob?12:14,fontWeight:600,color:C.navy}}>W.G. Sutherland (1873–1954)</div>
+              <div style={{fontSize:mob?10:11,color:C.muted,marginTop:2}}>Concept crânien</div>
+            </div>
+          </div>
+
+          {/* Split connector */}
+          <div style={{position:"relative",height:mob?52:62,maxWidth:mob?320:540,margin:"0 auto"}}>
+            <div style={{position:"absolute",left:"50%",top:0,width:2,height:12,background:"rgba(184,149,106,0.3)",transform:"translateX(-50%)"}}/>
+            <div style={{position:"absolute",top:12,left:mob?"12%":"20%",right:mob?"12%":"20%",height:2,background:"rgba(184,149,106,0.3)"}}/>
+            <div style={{position:"absolute",left:mob?"12%":"20%",top:12,width:2,height:mob?40:50,background:"rgba(184,149,106,0.3)"}}/>
+            <div style={{position:"absolute",right:mob?"12%":"20%",top:12,width:2,height:mob?40:50,background:"rgba(184,149,106,0.3)"}}/>
+            <div style={{position:"absolute",left:0,bottom:mob?2:4,width:"48%",textAlign:"center",fontSize:mob?8:10,color:C.gold,letterSpacing:mob?0.3:1.2,fontWeight:500,lineHeight:1.5}}>
+              Formation initiale<br/>Tradition crânienne
+            </div>
+            <div style={{position:"absolute",right:0,bottom:mob?2:4,width:"48%",textAlign:"center",fontSize:mob?8:10,color:C.gold,letterSpacing:mob?0.3:1.2,fontWeight:500,lineHeight:1.5}}>
+              Approfondissement<br/>Biodynamique fluidique
+            </div>
+          </div>
+
+          {/* Two branches */}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:mob?8:28,maxWidth:mob?320:540,margin:"0 auto"}}>
+            {/* Left branch — tradition crânienne */}
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+              {[
+                {n:"V. Frymann (1921–2016)",s:"Magoun, Schooley"},
+                {n:"F. Peyralade (1928–2013)",s:"SERETO — 1978"},
+                {n:"R. Caporossi",s:"Fonde l'ESO — 1990"},
+                {n:"ESO Paris",s:"1998–2004 puis 17 ans"},
+              ].map((item,i)=>(
+                <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
+                  <div style={{background:i===3?"rgba(180,210,175,0.15)":"rgba(200,218,195,0.18)",border:`1px solid rgba(180,200,170,${0.45-i*0.05})`,borderRadius:8,padding:mob?"9px 8px":"11px 16px",textAlign:"center",width:"100%",maxWidth:mob?160:230}}>
+                    <div style={{fontFamily:F.h,fontSize:mob?11:13,fontWeight:600,color:C.navy}}>{item.n}</div>
+                    <div style={{fontSize:mob?9:11,color:C.muted,marginTop:1}}>{item.s}</div>
+                  </div>
+                  {i<3&&<div style={{width:2,height:mob?12:18,background:"rgba(184,149,106,0.25)"}}/>}
+                </div>
+              ))}
+            </div>
+            {/* Right branch — biodynamique */}
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+              {[
+                {n:"R.E. Becker (1910–1996)",s:"Travaux tardifs de Sutherland"},
+                {n:"J.A. Duval",s:"Élève direct de Becker"},
+                {n:"R. Briend",s:"Modèle fluidique — 1999"},
+              ].map((item,i)=>(
+                <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
+                  <div style={{background:`rgba(185,195,215,${0.2-i*0.03})`,border:`1px solid rgba(175,190,210,${0.5-i*0.05})`,borderRadius:8,padding:mob?"9px 8px":"11px 16px",textAlign:"center",width:"100%",maxWidth:mob?160:230}}>
+                    <div style={{fontFamily:F.h,fontSize:mob?11:13,fontWeight:600,color:C.navy}}>{item.n}</div>
+                    <div style={{fontSize:mob?9:11,color:C.muted,marginTop:1}}>{item.s}</div>
+                  </div>
+                  {i<2&&<div style={{width:2,height:mob?12:18,background:"rgba(184,149,106,0.25)"}}/>}
+                </div>
+              ))}
+              {/* Extending line to match left column height */}
+              <div style={{width:2,height:mob?53:69,background:"rgba(184,149,106,0.18)"}}/>
+            </div>
+          </div>
+
+          {/* Convergence connector */}
+          <svg viewBox="0 0 200 35" style={{width:"100%",maxWidth:mob?320:540,height:mob?30:42,display:"block",margin:"0 auto",overflow:"visible"}}>
+            <line x1="50" y1="0" x2="100" y2="35" stroke="rgba(184,149,106,0.3)" strokeWidth="0.7"/>
+            <line x1="150" y1="0" x2="100" y2="35" stroke="rgba(184,149,106,0.3)" strokeWidth="0.7"/>
+          </svg>
+
+          {/* Nicolas Mildner */}
+          <div style={{textAlign:"center"}}>
+            <div style={{display:"inline-block",background:"rgba(184,149,106,0.07)",border:"1px solid rgba(184,149,106,0.22)",borderRadius:10,padding:mob?"13px 18px":"16px 32px",boxShadow:"0 2px 12px rgba(184,149,106,0.06)"}}>
+              <div style={{fontFamily:F.h,fontSize:mob?14:18,fontWeight:600,color:C.navy}}>Nicolas Mildner D.O.</div>
+              <div style={{fontSize:mob?10:12,color:C.muted,marginTop:3}}>Ostéopathe exclusif — depuis 2004</div>
+            </div>
+          </div>
+
+          <p style={{textAlign:"center",fontSize:mob?11:13,color:C.muted,marginTop:14,letterSpacing:0.3}}>
+            + S. Paoletti · J.-P. Barral · J. Wernham
+          </p>
+        </div>
+
         <div style={{textAlign:"center",marginTop:40}}>
           <p style={{fontSize:13.5,color:C.muted,fontStyle:"italic",maxWidth:600,margin:"0 auto",lineHeight:1.7}}>
-            « Lorsque j'ai commencé en 1998, la France comptait environ 444 ostéopathes D.O. inscrits au ROF.
-            Aujourd'hui, ils sont près de 47 400. La profession a été multipliée par 107 en une génération.
-            La formation que j'ai reçue appartient à un autre monde. »
+            « Lorsque j'ai commencé en 1998, le Registre des Ostéopathes de France ne comptait que quelques centaines de D.O.
+            Aujourd'hui, ils sont plus de 47 000. La formation que j'ai reçue appartient à un autre monde. »
           </p>
         </div>
       </S>
@@ -318,7 +412,7 @@ export default function Site({ onBlog }){
               Diplômé D.O. et D.O.E. en 2004, j'ai validé mon diplôme européen devant la Faculté de Médecine de Genève — un diplôme que très peu d'ostéopathes ont passé. Mon D.O.F. a été obtenu par Validation des Acquis de l'Expérience, alors que j'enseignais déjà aux futurs diplômés à l'ESO, prestigieuse école d'ostéopathie située sur le campus universitaire Descartes.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
-              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a proposé d'intégrer son équipe pédagogique de succession — j'ai décliné, convaincu qu'il me fallait davantage de maturité clinique), de Pierre Tricot, de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé à la pulsologie de Nogier depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
+              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a proposé d'intégrer son équipe pédagogique de succession — j'ai décliné, convaincu qu'il me fallait davantage de maturité clinique), de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé à la pulsologie de Nogier depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
               Durant mes études, j'ai effectué de nombreux stages en milieu hospitalier — chirurgie de la main, pédiatrie, maternité — qui m'ont forgé un regard clinique affûté et une capacité de diagnostic différentiel que la pratique en cabinet seule ne permet pas d'acquérir. J'ai également réalisé de nombreuses séances de dissection à la Faculté de Médecine de l'Université Paris Descartes, rue des Saints-Pères, notamment sur les nerfs crâniens — une connaissance anatomique directe, irremplaçable.
@@ -351,7 +445,7 @@ export default function Site({ onBlog }){
                 {l:"D.O. n°379 — Collégiale Académique",d:"Génération charnière, avant les décrets de 2007"},
                 {l:"CES Ostéopathie Pédiatrique",d:"Certificat d'études spécialisées — 2011"},
                 {l:"Stages hospitaliers & dissections",d:"Chirurgie, pédiatrie, maternité · Fac. Médecine Paris Descartes"},
-                {l:"Standards de la profession",d:"Participant aux travaux d'élaboration du référentiel métier"},
+                {l:"Standards de la profession",d:"Participant aux travaux d'élaboration du référentiel métier et à la sélection des premiers Masters 2"},
                 {l:"Enseignant ESO · 5 matières · 17 ans",d:"Commissions recherche, pédagogie, évaluation"},
                 {l:"Filiation directe",d:"Frymann · Barral · Paoletti · Caporossi · Wernham · Briend · Tricot"},
                 {l:"Publication Le Monde / SFDO",d:"Article national — décembre 2005"},
