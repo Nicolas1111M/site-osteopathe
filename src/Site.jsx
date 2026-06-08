@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react";
 // ═══════════════════════════════════════════════════
 
 const PHONE = "01 42 02 11 18";
+const MOBILE = "06 68 80 14 42";
 const ADDR = "72 avenue de la Bourdonnais, 75007 Paris";
 const REVIEW = "https://search.google.com/local/writereview?placeid=ChIJ8SKn3CBw5kcRAxZkc56Vsuw";
 
@@ -18,9 +19,9 @@ const lineage = [
   { name:"Andrew Taylor Still", role:"Fondateur de l'ostéopathie — 1874", era:"Origine" },
   { name:"W.G. Sutherland · J.M. Littlejohn", role:"Pionniers du crânien et de l'ostéopathie européenne", era:"Transmission" },
   { name:"Viola Frymann · John Wernham", role:"Bâtisseurs de l'ostéopathie internationale — assistant et filiation directe", era:"Maîtres" },
-  { name:"J.-P. Barral · S. Paoletti · R. Caporossi", role:"Pionniers mondiaux de la manipulation viscérale, fasciale et biodynamique", era:"Pionniers" },
-  { name:"R. Briend · D. Lehougre · GLEM Lyon · Latour · Foissy", role:"Architectes de l'ostéopathie française — R. Briend a proposé à N. Mildner la succession de son enseignement", era:"Héritage français" },
-  { name:"Nicolas Mildner — D.O. n°360", role:"Collégiale Académique de France · Diplômé 2004 · Enseignant ESO 2004–2021", era:"Aujourd'hui" },
+  { name:"J.-P. Barral · S. Paoletti · R. Caporossi", role:"Pionniers mondiaux — manipulation viscérale, approche fasciale, philosophie ostéopathique crânienne et neurovégétative", era:"Pionniers" },
+  { name:"R. Briend · P. Tricot · D. Lehougre · GLEM Lyon · Latour · Foissy", role:"Architectes de l'ostéopathie française — R. Briend, pionnier de la biodynamique, a nommé N. Mildner dans son équipe pédagogique de succession", era:"Héritage français" },
+  { name:"Nicolas Mildner — D.O. n°379", role:"Collégiale Académique de France · Diplômé 2004 · Enseignant ESO 2004–2021", era:"Aujourd'hui" },
 ];
 
 const specs = [
@@ -30,7 +31,7 @@ const specs = [
   { icon:"👶", t:"Nourrissons", d:"Évaluation psychomotrice, mobilité et micro-mobilité clinique avant toute correction. Torticolis, plagiocéphalie, coliques, reflux. Réseau de référents en lactation.", k:["bébé","nourrisson","coliques","plagiocéphalie"], cat:"f" },
   { icon:"🧒", t:"Pédiatrie & Adolescents", d:"Scoliose, troubles posturaux de croissance, troubles neurologiques de l'enfant. Formation directe avec Viola Frymann sur ce sujet.", k:["scoliose","croissance","adolescent","enfant","neurologique"], cat:"f" },
   { icon:"🧠", t:"Crânio-sacré & Biodynamique", d:"Migraines, vertiges, acouphènes, troubles de l'ATM, tensions profondes. Écoute fine des rythmes du système nerveux central et autonome.", k:["migraines","vertiges","acouphènes","ATM","crânien"], cat:"s" },
-  { icon:"🫁", t:"Ostéopathie viscérale", d:"Troubles digestifs, reflux, ballonnements, colopathie fonctionnelle. Formation directe avec Jean-Pierre Barral, créateur de la manipulation viscérale.", k:["digestion","reflux","ballonnements","intestin"], cat:"s" },
+  { icon:"🫁", t:"Ostéopathie viscérale", d:"Troubles digestifs, reflux, ballonnements, colopathie fonctionnelle. Enseignant en ostéopathie viscérale pendant 17 ans à l'ESO Paris.", k:["digestion","reflux","ballonnements","intestin"], cat:"s" },
   { icon:"🏃", t:"Sport & Entretien corporel", d:"Entretien du sportif, optimisation, prévention des blessures, récupération. Approche systémique du geste et de la performance.", k:["sportif","tendinite","performance","récupération"], cat:"d" },
   { icon:"🥋", t:"Arts martiaux, Yoga & Pilates", d:"Prise en charge des professeurs et élèves pratiquant les arts martiaux, le yoga et le pilates. Biomécanique spécifique du geste, prévention et récupération. Depuis 2004.", k:["aikido","yoga","pilates","arts martiaux","judo","karaté"], cat:"d" },
   { icon:"🎵", t:"Musiciens & Chant lyrique", d:"Instrumentistes, chanteurs lyriques, troubles de la voix. Collaboration avec orthophoniste depuis 2009 pour la prise en charge pluridisciplinaire des troubles vocaux.", k:["musicien","chanteur","voix","instrumentiste","lyrique"], cat:"s" },
@@ -63,7 +64,7 @@ const techniques = [
   "Fasciale","Tissulaire","Crânio-sacrée","Biodynamique","Viscérale",
   "Posturale","Myofasciale thoraco-abdominale","Auriculothérapie réflexe",
   "Pulsologie (RAC/VAS de Nogier)","Intégrative","Étiothérapie",
-  "Désengrammation","Bioélectronique de Vincent",
+  "Désengrammation",
 ];
 
 // ── UTILS ──
@@ -124,7 +125,7 @@ export default function Site({ onBlog }){
             <div>
               <div style={{display:"inline-block",background:"rgba(26,43,74,0.06)",borderRadius:20,padding:"6px 16px",marginBottom:24}}>
                 <span style={{fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:C.navy,fontWeight:500}}>
-                  Génération charnière · D.O. n°360 · Depuis 1998
+                  Génération charnière · D.O. n°379 · Depuis 1998
                 </span>
               </div>
               <h1 style={{fontFamily:F.h,fontSize:mob?34:50,fontWeight:500,color:C.navy,lineHeight:1.15,marginBottom:6}}>Nicolas Mildner</h1>
@@ -146,16 +147,16 @@ export default function Site({ onBlog }){
                 <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Prendre rendez-vous</Btn>
               </div>
               <p style={{fontSize:12,color:C.muted,marginTop:12,fontStyle:"italic"}}>
-                Pas de Doctolib — par choix. Chaque rendez-vous commence par un échange direct.
+                Pas de Doctolib — par choix. Rendez-vous par téléphone ou SMS.
               </p>
             </div>
 
             {/* Stats card */}
             <div style={{background:"rgba(255,255,255,0.7)",backdropFilter:"blur(12px)",borderRadius:16,padding:"32px 28px",border:"1px solid rgba(184,149,106,0.1)"}}>
               {[
-                {n:"D.O. n°360",l:"Collégiale Académique de France",sub:"Parmi les premières générations de D.O. structurés"},
+                {n:"D.O. n°379",l:"Collégiale Académique de France",sub:"Parmi les premières générations de D.O. structurés"},
                 {n:"22+",l:"ans de pratique clinique",sub:"Consultations depuis 2004 · Clinique dès les études"},
-                {n:"17",l:"ans d'enseignement à l'ESO",sub:"6 matières · Commissions recherche et pédagogie"},
+                {n:"17",l:"ans d'enseignement à l'ESO",sub:"5 matières · Commissions recherche et pédagogie"},
                 {n:"18",l:"champs de spécialisation",sub:"Du nourrisson au chanteur lyrique"},
                 {n:"5.0★",l:"note Google",sub:"100 % par le bouche-à-oreille depuis 22 ans"},
               ].map((s,i)=>(
@@ -175,7 +176,7 @@ export default function Site({ onBlog }){
       {/* ═══ BANDEAU ═══ */}
       <section style={{background:C.navy,padding:mob?"16px 16px":"24px 24px"}}>
         <div style={{maxWidth:1100,margin:"0 auto",display:"flex",justifyContent:"center",gap:mob?12:24,flexWrap:"wrap"}}>
-          {["Agréé Ministère de la Santé","Co-auteur du référentiel métier","Faculté de Médecine de Genève","Diagnostic différentiel","CES Ostéopathie Pédiatrique","Article Le Monde / SFDO"].map((t,i)=>
+          {["Agréé Ministère de la Santé","Participant aux standards de la profession","Faculté de Médecine de Genève","Diagnostic différentiel","CES Ostéopathie Pédiatrique","Article Le Monde / SFDO"].map((t,i)=>
             <div key={i} style={{display:"flex",alignItems:"center",gap:7}}>
               <div style={{width:5,height:5,borderRadius:"50%",background:C.gold}}/>
               <span style={{color:"rgba(255,255,255,0.7)",fontSize:mob?10:11,letterSpacing:0.3}}>{t}</span>
@@ -189,7 +190,7 @@ export default function Site({ onBlog }){
         <T tag="Mon approche" title={<>Systémique · Neurovégétatif · <em style={{fontStyle:"italic",color:C.gold}}>Vitalité</em></>} sub="L'ostéopathie est avant tout une technique réflexe. Je ne « remets pas en place » — je dialogue avec votre système nerveux pour restaurer les conditions de votre vitalité."/>
         <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"repeat(3,1fr)",gap:22,marginBottom:40}}>
           {[
-            {icon:"🔬",t:"Systémique",txt:"Votre corps est un tout. Une douleur d'épaule peut naître du bassin, de la mâchoire ou d'une cicatrice. La bioélectronique de Vincent me permet d'évaluer votre terrain global — pH, oxydo-réduction, résistivité — pour comprendre le contexte biologique de vos symptômes."},
+            {icon:"🔬",t:"Systémique",txt:"Votre corps est un tout. Une douleur d'épaule peut naître du bassin, de la mâchoire ou d'une cicatrice. Je prends en compte l'ensemble de votre terrain — structurel, viscéral, crânien — pour comprendre le contexte global de vos symptômes."},
             {icon:"🧬",t:"Neurovégétatif",txt:"Je travaille avec votre système nerveux autonome — l'équilibre sympathique et parasympathique qui régit la douleur, le stress, la digestion, le sommeil. Le RAC de Nogier, que je pratique depuis 26 ans, me donne un biofeedback en temps réel de votre système autonome."},
             {icon:"✦",t:"Vitalité",txt:"Quand le système est rééquilibré, le corps se répare. Je ne promets pas un résultat — parce que la guérison dépend aussi de votre vitalité. Je restaure les conditions. Le reste appartient à la vie."},
           ].map(p=>(
@@ -218,7 +219,7 @@ export default function Site({ onBlog }){
               <div>
                 <h3 style={{fontFamily:F.h,fontSize:16,color:"#fff",marginBottom:8,fontWeight:500}}>Une relation, pas un produit</h3>
                 <p style={{fontSize:13,lineHeight:1.85,color:"rgba(255,255,255,0.55)"}}>
-                  Je ne suis pas sur Doctolib — par choix. L'ostéopathie est une relation humaine, pas une prestation de service. Chaque rendez-vous commence par un échange téléphonique direct. Certains de mes patients me consultent depuis plus de 20 ans.
+                  Je ne suis pas sur Doctolib — par choix. L'ostéopathie est une relation humaine, pas une prestation de service. Appelez-moi ou envoyez un SMS — je vous répondrai personnellement. Certains de mes patients me consultent depuis plus de 20 ans.
                 </p>
               </div>
             </div>
@@ -313,13 +314,16 @@ export default function Site({ onBlog }){
         <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:mob?28:48,alignItems:"start"}}>
           <div style={{textAlign:"left"}}>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
-              Diplômé D.O. et D.O.E. en 2004, j'ai validé mon diplôme européen devant la Faculté de Médecine de Genève — un examen médical que très peu d'ostéopathes ont passé. Mon D.O.F. a été obtenu par Validation des Acquis de l'Expérience, alors que j'enseignais déjà aux futurs diplômés à l'ESO.
+              Diplômé D.O. et D.O.E. en 2004, j'ai validé mon diplôme européen devant la Faculté de Médecine de Genève — un diplôme que très peu d'ostéopathes ont passé. Mon D.O.F. a été obtenu par Validation des Acquis de l'Expérience, alors que j'enseignais déjà aux futurs diplômés à l'ESO, prestigieuse école d'ostéopathie située sur le campus universitaire Descartes.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
-              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Jean-Pierre Barral (créateur de la manipulation viscérale), de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (biodynamique), de René Briend, de Didier Lehougre, du GLEM de Lyon et de l'étiothérapie de Latour. Formé à la bioélectronique de Vincent pour l'évaluation du terrain et à la pulsologie de Nogier depuis l'an 2000.
+              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Jean-Pierre Barral, de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a nommé dans son équipe pédagogique de succession), de Pierre Tricot, de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé à la pulsologie de Nogier depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
-              À l'ESO, j'ai enseigné six matières pendant 17 ans — clinique, générale, myofasciale thoraco-abdominale, viscérale, posturale et biodynamique. J'ai participé aux Commissions de Recherche, Pédagogie et Évaluation, ainsi qu'à l'élaboration du référentiel métier de la profession. Titulaire du Certificat d'Études Spécialisées en Ostéopathie Pédiatrique.
+              Durant mes études, j'ai effectué de nombreux stages en milieu hospitalier — chirurgie de la main, pédiatrie, maternité — qui m'ont forgé un regard clinique affûté et une capacité de diagnostic différentiel que la pratique en cabinet seule ne permet pas d'acquérir. J'ai également réalisé de nombreuses séances de dissection à la Faculté de Médecine de l'Université Paris Descartes, rue des Saints-Pères, notamment sur les nerfs crâniens — une connaissance anatomique directe, irremplaçable.
+            </p>
+            <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
+              À l'ESO — prestigieuse école d'ostéopathie située sur le campus universitaire Descartes — j'ai enseigné cinq matières pendant 17 ans : clinique, générale, myofasciale thoraco-abdominale, viscérale et structurelle. J'ai participé à la formation de nombreux ostéopathes aujourd'hui en exercice. J'ai intégré les Commissions de Recherche, Pédagogie et Évaluation, et participé aux travaux d'élaboration des standards de la profession. Titulaire du Certificat d'Études Spécialisées en Ostéopathie Pédiatrique.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
               Dès 2004, j'ai débuté mes consultations et intégré une équipe spécialisée en urgences ostéopathiques. En 2005, j'ai créé un second cabinet au sein d'une équipe médicale pluridisciplinaire, et contribué à un article du SFDO publié dans Le Monde. Depuis 2004, je prends en charge des professeurs et élèves de Yoga et d'Aikido. Depuis 2009, je collabore avec une orthophoniste pour les troubles de la voix. Sensibilisé à l'homéopathie et aux avancées sur le microbiote, je propose également un accompagnement dans le cadre de bilans complémentaires (tests Zamaria, ImuPro, neurotransmetteurs).
@@ -343,11 +347,12 @@ export default function Site({ onBlog }){
             <div style={{background:"#fff",borderRadius:14,padding:"28px 24px",border:"1px solid rgba(184,149,106,0.06)"}}>
               {[
                 {l:"D.O. · D.O.E. · D.O.F.",d:"Triple diplôme — Faculté de Médecine de Genève"},
-                {l:"D.O. n°360 — Collégiale Académique",d:"Génération charnière, avant les décrets de 2007"},
+                {l:"D.O. n°379 — Collégiale Académique",d:"Génération charnière, avant les décrets de 2007"},
                 {l:"CES Ostéopathie Pédiatrique",d:"Certificat d'études spécialisées — 2011"},
-                {l:"Référentiel métier",d:"Co-auteur des standards de la profession"},
-                {l:"Enseignant ESO · 6 matières · 17 ans",d:"Commissions recherche, pédagogie, évaluation"},
-                {l:"Filiation directe",d:"Frymann · Barral · Paoletti · Caporossi · Wernham · Briend"},
+                {l:"Stages hospitaliers & dissections",d:"Chirurgie, pédiatrie, maternité · Fac. Médecine Paris Descartes"},
+                {l:"Standards de la profession",d:"Participant aux travaux d'élaboration du référentiel métier"},
+                {l:"Enseignant ESO · 5 matières · 17 ans",d:"Commissions recherche, pédagogie, évaluation"},
+                {l:"Filiation directe",d:"Frymann · Barral · Paoletti · Caporossi · Wernham · Briend · Tricot"},
                 {l:"Publication Le Monde / SFDO",d:"Article national — décembre 2005"},
                 {l:"Patientèle internationale",d:"Paris · Province · Europe · États-Unis"},
               ].map((c,i)=>(
@@ -370,7 +375,7 @@ export default function Site({ onBlog }){
           <T tag="La différence" title={<>Ce que 22 ans de mains<br/><em style={{fontStyle:"italic",color:C.gold}}>changent réellement</em></>} light/>
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"repeat(3,1fr)",gap:20,marginBottom:36}}>
             {[
-              {i:"🎯",t:"Le diagnostic",d:"22 ans de palpation clinique, RAC de Nogier depuis 26 ans, bioélectronique de Vincent, diagnostic différentiel. Mes mains perçoivent ce que les appareils ne montrent pas."},
+              {i:"🎯",t:"Le diagnostic",d:"22 ans de palpation clinique, RAC de Nogier depuis 26 ans, dissections à la Faculté de Médecine, diagnostic différentiel. Mes mains perçoivent ce que les appareils ne montrent pas."},
               {i:"🔗",t:"La vision intégrée",d:"18 spécialisations dans un cadre unique. Un vertige peut venir des cervicales. Une infertilité, du bassin. Un trouble de la voix, du thorax. Tout est connecté."},
               {i:"⏱️",t:"La durabilité",d:"45 min à 1 h de consultation. La cause, jamais le symptôme seul. Des patients fidèles depuis 2004 en témoignent. Le bouche-à-oreille a fait le reste."},
             ].map(d=>(
@@ -437,12 +442,13 @@ export default function Site({ onBlog }){
               <div style={{background:C.sage,borderRadius:12,padding:"20px 22px",marginBottom:24,border:"1px solid rgba(184,149,106,0.06)"}}>
                 <p style={{fontSize:13,color:C.navy,fontWeight:500,marginBottom:6}}>Pourquoi pas de Doctolib ?</p>
                 <p style={{fontSize:12.5,color:C.muted,lineHeight:1.7}}>
-                  L'ostéopathie n'est pas un produit à réserver en ligne. C'est une relation qui commence dès le premier échange téléphonique. Je préfère vous écouter avant de vous recevoir.
+                  L'ostéopathie n'est pas un produit à réserver en ligne. C'est une relation. Appelez-moi ou envoyez un SMS — je vous répondrai personnellement.
                 </p>
               </div>
               {[
                 {t:"Adresse",c:ADDR,sub:"Métro École Militaire (8) · La Tour-Maubourg (8)"},
-                {t:"Téléphone",c:PHONE,link:`tel:${PHONE.replace(/\s/g,"")}`,big:true},
+                {t:"Téléphone cabinet",c:PHONE,link:`tel:${PHONE.replace(/\s/g,"")}`,big:true},
+                {t:"Mobile / SMS",c:MOBILE,link:`tel:${MOBILE.replace(/\s/g,"")}`,big:true,sub:"Envoyez un SMS pour prendre rendez-vous"},
               ].map(d=><div key={d.t} style={{marginBottom:22}}>
                 <h4 style={{fontSize:10.5,color:C.navy,fontWeight:600,marginBottom:5,letterSpacing:2,textTransform:"uppercase"}}>{d.t}</h4>
                 {d.link?<a href={d.link} style={{fontSize:d.big?(mob?18:22):15,color:C.navy,textDecoration:"none",fontFamily:d.big?F.h:F.b,fontWeight:500}}>{d.c}</a>:<p style={{fontSize:15,color:C.text}}>{d.c}</p>}
@@ -457,7 +463,10 @@ export default function Site({ onBlog }){
                 <p style={{fontSize:16,color:C.text}}><strong>80 — 90 €</strong> · 45 min à 1 h</p>
                 <p style={{fontSize:12,color:C.muted,marginTop:3}}>Chèque ou espèces · Remboursement mutuelle selon contrat</p>
               </div>
-              <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Appeler le cabinet</Btn>
+              <div style={{display:"flex",flexDirection:mob?"column":"row",gap:10}}>
+                <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Appeler</Btn>
+                <Btn href={`sms:${MOBILE.replace(/\s/g,"")}`} v="outline">SMS — {MOBILE}</Btn>
+              </div>
             </div>
           </div>
           <div style={{borderRadius:16,overflow:"hidden",border:"1px solid rgba(184,149,106,0.08)",minHeight:mob?300:420}}>
