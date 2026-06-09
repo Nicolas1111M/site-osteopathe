@@ -21,7 +21,7 @@ const lineage = [
   { name:"Viola Frymann · John Wernham", role:"Bâtisseurs de l'ostéopathie internationale — assistant et filiation directe", era:"Maîtres" },
   { name:"J.-P. Barral · S. Paoletti · R. Caporossi", role:"Pionniers mondiaux — manipulation viscérale, approche fasciale, philosophie ostéopathique crânienne et neurovégétative", era:"Pionniers" },
   { name:"R. Briend · P. Tricot · D. Lehougre · GLEM Lyon · Latour · Foissy", role:"Architectes de l'ostéopathie française — R. Briend, pionnier de la biodynamique, a proposé à N. Mildner d'intégrer son équipe pédagogique de succession — décliné par exigence envers soi-même", era:"Héritage français" },
-  { name:"Nicolas Mildner — D.O. n°379", role:"Collégiale Académique de France · Diplômé 2004 · Enseignant ESO 2004–2021", era:"Aujourd'hui" },
+  { name:"Nicolas Mildner — D.O. n°379", role:"Collégiale Académique de France · Diplômé 2004 · Enseignant ESO 2004–2020", era:"Aujourd'hui" },
 ];
 
 const specs = [
