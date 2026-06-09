@@ -53,12 +53,9 @@ const testimonials = [
   { t:"Je n'ai jamais senti cela. Personne ne m'avait jamais expliqué ce qui se passait dans mon corps de cette façon.", a:"Nouvelle patiente" },
 ];
 
-const blogs = [
-  { title:"Torticolis : que faire en attendant votre ostéopathe ?", ex:"Le torticolis touche 70 % des adultes. Premiers réflexes, postures à éviter, et quand consulter.", tag:"Douleurs", t:"4 min" },
-  { title:"Ostéopathie et fertilité : un accompagnement méconnu", ex:"Comment l'ostéopathie peut optimiser le terrain physiologique de la conception.", tag:"Fertilité", t:"5 min" },
-  { title:"Musiciens : quand le corps ne suit plus l'instrument", ex:"Troubles musculo-squelettiques du musicien, dystonie focale, et approche ostéopathique.", tag:"Musiciens", t:"5 min" },
-  { title:"Le stress se loge dans le corps : comprendre la somatisation", ex:"Comment le système nerveux autonome transforme le stress en douleurs physiques.", tag:"Neurovégétatif", t:"6 min" },
-];
+import posts from "./posts.json";
+
+const blogs = posts.filter(p => !p.content.startsWith("Article à générer"));
 
 const techniques = [
   "Fasciale","Tissulaire","Crânio-sacrée","Biodynamique","Viscérale",
@@ -506,22 +503,26 @@ export default function Site({ onBlog }){
       <S id="blog" bg={C.sage}>
         <T tag="Conseils & Recherche" title="Le blog du cabinet"/>
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(250px,1fr))",gap:18}}>
-          {blogs.map(p=><article key={p.title} style={{background:"#fff",borderRadius:12,overflow:"hidden",border:"1px solid rgba(184,149,106,0.05)",transition:"all 0.3s",cursor:"pointer"}}
+          {blogs.map(p=><article key={p.id} onClick={onBlog} style={{background:"#fff",borderRadius:12,overflow:"hidden",border:"1px solid rgba(184,149,106,0.05)",transition:"all 0.3s",cursor:"pointer"}}
             onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 24px rgba(26,43,74,0.04)";}}
             onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
             <div style={{height:130,background:`linear-gradient(135deg,${C.cream},${C.warm})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
-              <span style={{fontSize:10,color:C.muted,letterSpacing:2,textTransform:"uppercase"}}>Image</span>
+              <span style={{fontSize:10,color:C.muted,letterSpacing:2,textTransform:"uppercase"}}>{p.tag}</span>
             </div>
             <div style={{padding:"18px 20px"}}>
               <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
                 <span style={{background:"rgba(184,149,106,0.1)",color:C.navy,padding:"2px 8px",borderRadius:8,fontSize:10,fontWeight:500}}>{p.tag}</span>
-                <span style={{fontSize:10,color:C.muted}}>{p.t}</span>
+                <span style={{fontSize:10,color:C.muted}}>{p.readTime}</span>
               </div>
               <h3 style={{fontFamily:F.h,fontSize:15,color:C.navy,marginBottom:6,fontWeight:500,lineHeight:1.35}}>{p.title}</h3>
-              <p style={{fontSize:12,color:C.muted,lineHeight:1.7}}>{p.ex}</p>
+              <p style={{fontSize:12,color:C.muted,lineHeight:1.7}}>{p.excerpt}</p>
+              <p style={{fontSize:10.5,color:C.muted,marginTop:8}}>{new Date(p.date).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})}</p>
             </div>
           </article>)}
         </div>
+        {blogs.length>0&&<div style={{textAlign:"center",marginTop:28}}>
+          <Btn href="#" v="outline" style={{fontSize:13,padding:"10px 24px"}} onClick={e=>{e.preventDefault();onBlog();}}>Tous les articles →</Btn>
+        </div>}
       </S>
 
       {/* ═══ CONTACT ═══ */}
