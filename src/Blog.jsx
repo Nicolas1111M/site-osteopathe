@@ -45,7 +45,7 @@ export default function Blog({ onBack }) {
             <div>
               <p style={{ fontFamily: F.h, fontSize: 16, color: C.navy, fontWeight: 500 }}>Nicolas Mildner</p>
               <p style={{ fontSize: 11, color: C.gold, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 2 }}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>
-              <p style={{ fontSize: 12, color: C.muted, marginTop: 6, lineHeight: 1.6 }}>22 ans de pratique clinique. Filiation Frymann · Barral · Paoletti · Wernham. Approche systémique et neurovégétative.</p>
+              <p style={{ fontSize: 12, color: C.muted, marginTop: 6, lineHeight: 1.6 }}>22 ans de pratique clinique. Filiation Frymann · Paoletti · Caporossi · Wernham · Briend. Approche systémique et neurovégétative.</p>
               <p style={{ fontSize: 13, color: C.navy, fontWeight: 500, marginTop: 6 }}>01 42 02 11 18</p>
             </div>
           </div>
