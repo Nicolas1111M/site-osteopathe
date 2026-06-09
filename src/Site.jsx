@@ -35,10 +35,10 @@ const specs = [
   { icon:"🏃", t:"Sport & Entretien corporel", d:"Entretien du sportif, optimisation, prévention des blessures, récupération. Approche systémique du geste et de la performance.", k:["sportif","tendinite","performance","récupération"], cat:"d" },
   { icon:"🥋", t:"Arts martiaux, Yoga & Pilates", d:"Prise en charge des professeurs et élèves pratiquant les arts martiaux, le yoga et le pilates. Biomécanique spécifique du geste, prévention et récupération. Depuis 2004.", k:["aikido","yoga","pilates","arts martiaux","judo","karaté"], cat:"d" },
   { icon:"🎵", t:"Musiciens & Chant lyrique", d:"Instrumentistes, chanteurs lyriques, troubles de la voix. Ancien élève de conservatoire à Paris — compréhension directe des exigences corporelles du musicien professionnel.", k:["musicien","chanteur","voix","instrumentiste","lyrique"], cat:"s" },
-  { icon:"🦷", t:"Orthodontie & Enfants", d:"Accompagnement ostéopathique des traitements orthodontiques chez l'enfant et l'adolescent. Interactions crâniennes, posturales et occlusales. Suivi coordonné avec l'orthodontiste.", k:["orthodontie","appareil dentaire","mâchoire","occlusion","enfant"], cat:"f" },
+  { icon:"🦷", t:"Orthodontie & Enfants", d:"Accompagnement ostéopathique des traitements orthodontiques chez l'enfant et l'adolescent. Interactions crâniennes, posturales et occlusales.", k:["orthodontie","appareil dentaire","mâchoire","occlusion","enfant"], cat:"f" },
   { icon:"🔬", t:"Bilans complémentaires", d:"Accompagnement dans le cadre de bilans d'allergies alimentaires (tests Zamaria), tests ImuPro (intolérances), bilans des neurotransmetteurs. Sensibilisé à l'homéopathie et aux avancées sur le microbiote.", k:["allergie","ImuPro","Zamaria","microbiote","neurotransmetteurs","intolérance"], cat:"s" },
-  { icon:"🏥", t:"Post-opératoire", d:"Récupération après chirurgie orthopédique, abdominale, gynécologique. Adhérences, cicatrices, restauration de la mobilité. Coordination avec l'équipe chirurgicale.", k:["chirurgie","cicatrice","adhérences","post-op"], cat:"s" },
-  { icon:"🧍", t:"Posturologie", d:"Analyse et rééquilibrage postural global. Troubles de la statique, interactions podales, occlusales et oculaires.", k:["posture","statique","déséquilibre","podal"], cat:"d" },
+  { icon:"🏥", t:"Post-opératoire", d:"Récupération après chirurgie orthopédique, abdominale, gynécologique. Adhérences, cicatrices, restauration de la mobilité.", k:["chirurgie","cicatrice","adhérences","post-op"], cat:"s" },
+  { icon:"🧍", t:"Posturologie", d:"Analyse et rééquilibrage postural global. Troubles de la statique, interactions podales, occlusales et oculaires. Coordination avec l'équipe de praticiens spécialisés.", k:["posture","statique","déséquilibre","podal"], cat:"d" },
   { icon:"😰", t:"Stress, Burn-out & Somatisations", d:"Anxiété, troubles du sommeil, épuisement, douleurs sans cause apparente. Rééquilibrage du terrain neurovégétatif.", k:["stress","burn-out","insomnie","anxiété","somatisation"], cat:"s" },
   { icon:"👴", t:"Seniors & Gériatrie", d:"Maintien de l'autonomie, prévention des chutes, gestion de l'arthrose, accompagnement du vieillissement.", k:["arthrose","mobilité","chutes","gériatrie"], cat:"s" },
   { icon:"🧩", t:"Problèmes complexes", d:"Patients en errance thérapeutique, cas résistants, douleurs chroniques multi-factorielles. La Loi du Cas Unique : chaque situation mérite une analyse neuve.", k:["douleur chronique","errance","complexe","résistant"], cat:"d" },
@@ -63,7 +63,7 @@ const blogs = [
 const techniques = [
   "Fasciale","Tissulaire","Crânio-sacrée","Biodynamique","Viscérale",
   "Posturale","Myofasciale thoraco-abdominale","Auriculothérapie réflexe",
-  "Pulsologie (RAC/VAS de Nogier)","Intégrative","Étiothérapie",
+  "Pouls de Paul Nogier (RAC/VAS)","Intégrative","Étiothérapie",
   "Désengrammation",
 ];
 
@@ -145,7 +145,7 @@ export default function Site({ onBlog }){
               </p>
               <div style={{display:"flex",gap:14,flexWrap:"wrap"}}>
                 <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Prendre rendez-vous</Btn>
-                <Btn href={`sms:${MOBILE.replace(/\s/g,"")}`} v="outline">{MOBILE} — SMS</Btn>
+                <Btn href={`tel:${MOBILE.replace(/\s/g,"")}`} v="outline">{MOBILE} — Appel ou SMS</Btn>
               </div>
               <p style={{fontSize:12,color:C.muted,marginTop:12,fontStyle:"italic"}}>
                 Pas de Doctolib — par choix. Rendez-vous par téléphone ou SMS.
@@ -192,7 +192,7 @@ export default function Site({ onBlog }){
         <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"repeat(3,1fr)",gap:22,marginBottom:40}}>
           {[
             {icon:"🔬",t:"Systémique",txt:"Votre corps est un tout. Une douleur d'épaule peut naître du bassin, de la mâchoire ou d'une cicatrice. Je prends en compte l'ensemble de votre terrain — structurel, viscéral, crânien — pour comprendre le contexte global de vos symptômes."},
-            {icon:"🧬",t:"Neurovégétatif",txt:"Je travaille avec votre système nerveux autonome — l'équilibre sympathique et parasympathique qui régit la douleur, le stress, la digestion, le sommeil. Le RAC de Nogier, que je pratique depuis 26 ans, me donne un biofeedback en temps réel de votre système autonome."},
+            {icon:"🧬",t:"Neurovégétatif",txt:"Je travaille avec votre système nerveux autonome — l'équilibre sympathique et parasympathique qui régit la douleur, le stress, la digestion, le sommeil. Le RAC de Paul Nogier, que je pratique depuis 26 ans, me donne un biofeedback en temps réel de votre système autonome."},
             {icon:"✦",t:"Vitalité",txt:"Quand le système est rééquilibré, le corps se répare. Je ne promets pas un résultat — parce que la guérison dépend aussi de votre vitalité. Je restaure les conditions. Le reste appartient à la vie."},
           ].map(p=>(
             <div key={p.t} style={{background:C.sage,borderRadius:14,padding:"34px 26px",border:"1px solid rgba(184,149,106,0.06)"}}>
@@ -357,10 +357,6 @@ export default function Site({ onBlog }){
               <div style={{fontSize:mob?10:12,color:C.muted,marginTop:3}}>Ostéopathe exclusif — depuis 2004</div>
             </div>
           </div>
-
-          <p style={{textAlign:"center",fontSize:mob?11:13,color:C.muted,marginTop:14,letterSpacing:0.3}}>
-            + S. Paoletti · J.-P. Barral · J. Wernham
-          </p>
         </div>
 
         <div style={{textAlign:"center",marginTop:40}}>
@@ -412,7 +408,7 @@ export default function Site({ onBlog }){
               Diplômé D.O. et D.O.E. en 2004, j'ai validé mon diplôme européen devant la Faculté de Médecine de Genève — un diplôme que très peu d'ostéopathes ont passé. Mon D.O.F. a été obtenu par Validation des Acquis de l'Expérience, alors que j'enseignais déjà aux futurs diplômés à l'ESO, prestigieuse école d'ostéopathie située sur le campus universitaire Descartes.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
-              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a proposé d'intégrer son équipe pédagogique de succession — j'ai décliné, convaincu qu'il me fallait davantage de maturité clinique), de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé à la pulsologie de Nogier depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
+              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a proposé d'intégrer son équipe pédagogique de succession — j'ai décliné, convaincu qu'il me fallait davantage de maturité clinique), de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé au pouls de Paul Nogier (RAC) depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
               Durant mes études, j'ai effectué de nombreux stages en milieu hospitalier — chirurgie de la main, pédiatrie, maternité — qui m'ont forgé un regard clinique affûté et une capacité de diagnostic différentiel que la pratique en cabinet seule ne permet pas d'acquérir. J'ai également réalisé de nombreuses séances de dissection à la Faculté de Médecine de l'Université Paris Descartes, rue des Saints-Pères, notamment sur les nerfs crâniens — une connaissance anatomique directe, irremplaçable.
@@ -447,7 +443,7 @@ export default function Site({ onBlog }){
                 {l:"Stages hospitaliers & dissections",d:"Chirurgie, pédiatrie, maternité · Fac. Médecine Paris Descartes"},
                 {l:"Standards de la profession",d:"Participant aux travaux d'élaboration du référentiel métier et à la sélection des premiers Masters 2"},
                 {l:"Enseignant ESO · 5 matières · 17 ans",d:"Commissions recherche, pédagogie, évaluation"},
-                {l:"Filiation directe",d:"Frymann · Barral · Paoletti · Caporossi · Wernham · Briend · Tricot"},
+                {l:"Filiation directe",d:"Frymann · Paoletti · Caporossi · Wernham · Briend"},
                 {l:"Publication Le Monde / SFDO",d:"Article national — décembre 2005"},
                 {l:"Patientèle internationale",d:"Paris · Province · Europe · États-Unis"},
               ].map((c,i)=>(
@@ -470,7 +466,7 @@ export default function Site({ onBlog }){
           <T tag="La différence" title={<>Ce que 22 ans de mains<br/><em style={{fontStyle:"italic",color:C.gold}}>changent réellement</em></>} light/>
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"repeat(3,1fr)",gap:20,marginBottom:36}}>
             {[
-              {i:"🎯",t:"Le diagnostic",d:"22 ans de palpation clinique, RAC de Nogier depuis 26 ans, dissections à la Faculté de Médecine, diagnostic différentiel. Mes mains perçoivent ce que les appareils ne montrent pas."},
+              {i:"🎯",t:"Le diagnostic",d:"22 ans de palpation clinique, RAC de Paul Nogier depuis 26 ans, dissections à la Faculté de Médecine, diagnostic différentiel. Mes mains perçoivent ce que les appareils ne montrent pas."},
               {i:"🔗",t:"La vision intégrée",d:"18 spécialisations dans un cadre unique. Un vertige peut venir des cervicales. Une infertilité, du bassin. Un trouble de la voix, du thorax. Tout est connecté."},
               {i:"⏱️",t:"La durabilité",d:"45 min à 1 h de consultation. La cause, jamais le symptôme seul. Des patients fidèles depuis 2004 en témoignent. Le bouche-à-oreille a fait le reste."},
             ].map(d=>(
@@ -543,7 +539,7 @@ export default function Site({ onBlog }){
               {[
                 {t:"Adresse",c:ADDR,sub:"Métro École Militaire (8) · La Tour-Maubourg (8)"},
                 {t:"Téléphone cabinet",c:PHONE,link:`tel:${PHONE.replace(/\s/g,"")}`,big:true},
-                {t:"Mobile / SMS",c:MOBILE,link:`tel:${MOBILE.replace(/\s/g,"")}`,big:true,sub:"Envoyez un SMS pour prendre rendez-vous"},
+                {t:"Mobile",c:MOBILE,link:`tel:${MOBILE.replace(/\s/g,"")}`,big:true,sub:"Appel ou SMS pour prendre rendez-vous"},
               ].map(d=><div key={d.t} style={{marginBottom:22}}>
                 <h4 style={{fontSize:10.5,color:C.navy,fontWeight:600,marginBottom:5,letterSpacing:2,textTransform:"uppercase"}}>{d.t}</h4>
                 {d.link?<a href={d.link} style={{fontSize:d.big?(mob?18:22):15,color:C.navy,textDecoration:"none",fontFamily:d.big?F.h:F.b,fontWeight:500}}>{d.c}</a>:<p style={{fontSize:15,color:C.text}}>{d.c}</p>}
@@ -560,7 +556,7 @@ export default function Site({ onBlog }){
               </div>
               <div style={{display:"flex",flexDirection:mob?"column":"row",gap:10}}>
                 <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Appeler</Btn>
-                <Btn href={`sms:${MOBILE.replace(/\s/g,"")}`} v="outline">SMS — {MOBILE}</Btn>
+                <Btn href={`tel:${MOBILE.replace(/\s/g,"")}`} v="outline">Appel / SMS — {MOBILE}</Btn>
               </div>
             </div>
           </div>
