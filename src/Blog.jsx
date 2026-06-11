@@ -4,8 +4,8 @@ import posts from "./posts.json";
 const F = { h:"'Playfair Display','Georgia',serif", b:"'DM Sans','Helvetica Neue',sans-serif" };
 const C = { navy:"#1A2B4A", cream:"#FAF7F2", gold:"#B8956A", sage:"#F4F1EC", text:"#3A3A3A", muted:"#7A7A7A" };
 
-export default function Blog({ onBack }) {
-  const [selectedPost, setSelectedPost] = useState(null);
+export default function Blog({ onBack, initialPost }) {
+  const [selectedPost, setSelectedPost] = useState(initialPost || null);
   const [filterTag, setFilterTag] = useState("all");
 
   const tags = ["all", ...new Set(posts.map(p => p.tag))];

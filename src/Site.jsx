@@ -55,7 +55,7 @@ const testimonials = [
 
 import posts from "./posts.json";
 
-const blogs = posts.filter(p => !p.content.startsWith("Article à générer"));
+const blogs = posts.filter(p => !p.content.startsWith("Article à générer")).sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
 
 const techniques = [
   "Fasciale","Tissulaire","Crânio-sacrée","Biodynamique","Viscérale",
@@ -523,7 +523,7 @@ export default function Site({ onBlog }){
       <S id="blog" bg={C.sage}>
         <T tag="Conseils & Recherche" title="Le blog du cabinet"/>
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(250px,1fr))",gap:18}}>
-          {blogs.map(p=><article key={p.id} onClick={onBlog} style={{background:"#fff",borderRadius:12,overflow:"hidden",border:"1px solid rgba(184,149,106,0.05)",transition:"all 0.3s",cursor:"pointer"}}
+          {blogs.map(p=><article key={p.id} onClick={()=>onBlog(p.id)} style={{background:"#fff",borderRadius:12,overflow:"hidden",border:"1px solid rgba(184,149,106,0.05)",transition:"all 0.3s",cursor:"pointer"}}
             onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 24px rgba(26,43,74,0.04)";}}
             onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
             <div style={{height:130,background:`linear-gradient(135deg,${C.cream},${C.warm})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
