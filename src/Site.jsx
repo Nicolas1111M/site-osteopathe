@@ -79,11 +79,25 @@ export default function Site({ onBlog }){
   const[cat,setCat]=useState("all");
   const[openCard,setOpenCard]=useState(null);
   const[menuOpen,setMenuOpen]=useState(false);
+  const[nlEmail,setNlEmail]=useState("");
+  const[nlStatus,setNlStatus]=useState("idle");
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>50);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{const t=setInterval(()=>setTIdx(p=>(p+1)%testimonials.length),6000);return()=>clearInterval(t);},[]);
   const filtered=cat==="all"?specs:specs.filter(s=>s.cat===cat);
   const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Contact",h:"#contact"}];
   const cats=[{k:"all",l:"Tout voir (18)"},{k:"d",l:"Douleurs & Mouvement"},{k:"f",l:"Femme & Enfant"},{k:"s",l:"Spécialisé"}];
+
+  const handleSubscribe=async()=>{
+    if(!nlEmail||!nlEmail.includes("@"))return;
+    setNlStatus("loading");
+    try{
+      const r=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:nlEmail})});
+      const d=await r.json();
+      if(d.success){setNlStatus(d.already?"already":"success");setNlEmail("");}
+      else{setNlStatus("error");}
+    }catch(e){setNlStatus("error");}
+    setTimeout(()=>setNlStatus("idle"),5000);
+  };
 
   return(
     <div style={{fontFamily:F.b,color:C.text,background:C.cream,minHeight:"100vh"}}>
@@ -122,7 +136,7 @@ export default function Site({ onBlog }){
             <div>
               <div style={{display:"inline-block",background:"rgba(26,43,74,0.06)",borderRadius:20,padding:"6px 16px",marginBottom:24}}>
                 <span style={{fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:C.navy,fontWeight:500}}>
-                  Génération charnière · D.O. n°379 · Depuis 1998
+                  Génération charnière · D.O. n°379
                 </span>
               </div>
               <h1 style={{fontFamily:F.h,fontSize:mob?34:50,fontWeight:500,color:C.navy,lineHeight:1.15,marginBottom:6}}>Nicolas Mildner</h1>
@@ -264,6 +278,12 @@ export default function Site({ onBlog }){
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ── AUTOGRAPHES — Wernham (1999) & Caporossi (2017) ── */}
+        <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:mob?24:49,margin:mob?"36px auto":"48px auto",maxWidth:700,padding:"0 20px",flexDirection:mob?"column":"row"}}>
+          <img src="/autographe_Wernham.png" alt="Dédicace de John Wernham à Nicolas Mildner, 1999" style={{width:mob?180:250,opacity:0.40,filter:"sepia(1) saturate(3.4) brightness(0.6) hue-rotate(-5deg)"}}/>
+          <img src="/autographe_roger.png" alt="Dédicace de Roger Caporossi à Nicolas Mildner, 2017" style={{width:mob?220:319,opacity:0.40,filter:"sepia(1) saturate(3.4) brightness(0.6) hue-rotate(-5deg)"}}/>
         </div>
 
         {/* ── DIAGRAMME DE FILIATION ── */}
@@ -577,10 +597,16 @@ export default function Site({ onBlog }){
         <div style={{maxWidth:460,margin:"0 auto"}}>
           <h3 style={{fontFamily:F.h,fontSize:mob?17:20,color:"#fff",marginBottom:8,fontWeight:500}}>Conseils ostéo, chaque mois</h3>
           <p style={{fontSize:13,color:"rgba(255,255,255,0.4)",marginBottom:20}}>Un conseil clinique pratique. Pas de spam. Jamais.</p>
-          <div style={{display:"flex",flexDirection:mob?"column":"row",gap:10,maxWidth:380,margin:"0 auto"}}>
-            <input type="email" placeholder="votre@email.com" style={{flex:1,padding:"12px 16px",borderRadius:8,border:"1px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.05)",color:"#fff",fontSize:14,outline:"none",fontFamily:F.b}}/>
-            <button style={{background:C.gold,color:"#fff",border:"none",padding:"12px 20px",borderRadius:8,fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:F.b}}>S'inscrire</button>
-          </div>
+          {nlStatus==="success"?(
+            <p style={{color:C.gold,fontSize:15,fontWeight:500}}>✓ Inscription confirmée — à très bientôt !</p>
+          ):nlStatus==="already"?(
+            <p style={{color:C.gold,fontSize:15,fontWeight:500}}>Vous êtes déjà inscrit — merci de votre fidélité.</p>
+          ):(
+            <div style={{display:"flex",flexDirection:mob?"column":"row",gap:10,maxWidth:380,margin:"0 auto"}}>
+              <input type="email" placeholder="votre@email.com" value={nlEmail} onChange={e=>setNlEmail(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")handleSubscribe();}} style={{flex:1,padding:"12px 16px",borderRadius:8,border:"1px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.05)",color:"#fff",fontSize:14,outline:"none",fontFamily:F.b}}/>
+              <button onClick={handleSubscribe} disabled={nlStatus==="loading"} style={{background:nlStatus==="error"?"#c0392b":C.gold,color:"#fff",border:"none",padding:"12px 20px",borderRadius:8,fontSize:13,fontWeight:500,cursor:nlStatus==="loading"?"wait":"pointer",fontFamily:F.b,opacity:nlStatus==="loading"?0.7:1,transition:"all 0.3s"}}>{nlStatus==="loading"?"Inscription...":nlStatus==="error"?"Réessayer":"S'inscrire"}</button>
+            </div>
+          )}
         </div>
       </section>
 
