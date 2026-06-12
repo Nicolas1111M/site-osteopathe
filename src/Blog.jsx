@@ -26,9 +26,23 @@ export default function Blog({ onBack, initialPost }) {
           <p style={{ fontSize: 13, color: C.muted, marginBottom: 32 }}>Publié le {new Date(post.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Nicolas Mildner, Ostéopathe D.O.</p>
 
           <div style={{ fontSize: 16, lineHeight: 1.9, color: C.text }}>
-            {post.content.split("\n").filter(Boolean).map((p, i) => (
-              <p key={i} style={{ marginBottom: 16 }}>{p}</p>
-            ))}
+            {(() => {
+              const lines = post.content.split("\n");
+              const elements = [];
+              for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                const prevEmpty = i === 0 || lines[i-1].trim() === "";
+                const nextEmpty = i === lines.length-1 || lines[i+1]?.trim() === "";
+                const isHeading = prevEmpty && nextEmpty && line.length < 120 && !line.endsWith(".");
+                if (isHeading) {
+                  elements.push(<h2 key={i} style={{ fontFamily: F.h, fontSize: 22, color: C.navy, fontWeight: 500, margin: "36px 0 16px", lineHeight: 1.35 }}>{line}</h2>);
+                } else {
+                  elements.push(<p key={i} style={{ marginBottom: 16 }}>{line}</p>);
+                }
+              }
+              return elements;
+            })()}
           </div>
 
           {/* Author signature */}
@@ -46,7 +60,7 @@ export default function Blog({ onBack, initialPost }) {
               <p style={{ fontFamily: F.h, fontSize: 16, color: C.navy, fontWeight: 500 }}>Nicolas Mildner</p>
               <p style={{ fontSize: 11, color: C.gold, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 2 }}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>
               <p style={{ fontSize: 12, color: C.muted, marginTop: 6, lineHeight: 1.6 }}>22 ans de pratique clinique. Filiation Frymann · Paoletti · Caporossi · Wernham · Briend. Approche systémique et neurovégétative.</p>
-              <p style={{ fontSize: 13, color: C.navy, fontWeight: 500, marginTop: 6 }}>01 42 02 11 18</p>
+              <p style={{ fontSize: 13, color: C.navy, fontWeight: 500, marginTop: 6 }}>01 42 02 11 18 · 06 68 80 14 42</p>
             </div>
           </div>
         </div>
