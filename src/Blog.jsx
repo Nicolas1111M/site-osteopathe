@@ -45,6 +45,43 @@ export default function Blog({ onBack, initialPost }) {
             })()}
           </div>
 
+          {/* FAQ — collapsible */}
+          {post.faq && post.faq.length > 0 && (
+            <div style={{ marginTop: 48 }}>
+              <h2 style={{ fontFamily: F.h, fontSize: 22, color: C.navy, fontWeight: 500, marginBottom: 20 }}>Questions fréquentes</h2>
+              {post.faq.map((item, i) => (
+                <details key={i} style={{
+                  marginBottom: 10, background: C.sage, borderRadius: 10,
+                  border: "1px solid rgba(184,149,106,0.08)", overflow: "hidden",
+                }}>
+                  <summary style={{
+                    padding: "16px 20px", cursor: "pointer", fontFamily: F.b,
+                    fontSize: 15, color: C.navy, fontWeight: 500, lineHeight: 1.4,
+                    listStyle: "none",
+                  }}>{item.q}</summary>
+                  <p style={{
+                    padding: "0 20px 16px", fontSize: 14, color: C.muted,
+                    lineHeight: 1.8, margin: 0,
+                  }}>{item.a}</p>
+                </details>
+              ))}
+            </div>
+          )}
+
+          {/* Sources */}
+          {post.sources && post.sources.length > 0 && (
+            <div style={{ marginTop: 40, padding: "24px 22px", background: C.sage, borderRadius: 12, border: "1px solid rgba(184,149,106,0.06)" }}>
+              <h3 style={{ fontFamily: F.h, fontSize: 17, color: C.navy, fontWeight: 500, marginBottom: 14 }}>Sources vérifiées</h3>
+              <ol style={{ margin: 0, paddingLeft: 18 }}>
+                {post.sources.map((s, i) => (
+                  <li key={i} style={{ fontSize: 12.5, color: C.muted, lineHeight: 1.7, marginBottom: 6 }}>
+                    <a href={s.url} target="_blank" rel="noopener" style={{ color: C.navy, textDecoration: "none", borderBottom: "1px solid rgba(184,149,106,0.2)" }}>{s.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
           {/* Author signature */}
           <div style={{
             marginTop: 48, padding: "24px 28px", background: C.sage,
@@ -60,7 +97,10 @@ export default function Blog({ onBack, initialPost }) {
               <p style={{ fontFamily: F.h, fontSize: 16, color: C.navy, fontWeight: 500 }}>Nicolas Mildner</p>
               <p style={{ fontSize: 11, color: C.gold, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 2 }}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>
               <p style={{ fontSize: 12, color: C.muted, marginTop: 6, lineHeight: 1.6 }}>22 ans de pratique clinique. Filiation Frymann · Paoletti · Caporossi · Wernham · Briend. Approche systémique et neurovégétative.</p>
-              <p style={{ fontSize: 13, color: C.navy, fontWeight: 500, marginTop: 6 }}>01 42 02 11 18 · 06 68 80 14 42</p>
+              <p style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>72 avenue de la Bourdonnais, 75007 Paris</p>
+              <p style={{ fontSize: 13, color: C.navy, fontWeight: 500, marginTop: 6 }}>
+                <a href="tel:0142021118" style={{ color: C.navy, textDecoration: "none" }}>01 42 02 11 18</a> · <a href="tel:0668801442" style={{ color: C.navy, textDecoration: "none" }}>06 68 80 14 42</a>
+              </p>
             </div>
           </div>
         </div>
