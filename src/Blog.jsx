@@ -1,22 +1,80 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import posts from "./posts.json";
 
 const F = { h:"'Playfair Display','Georgia',serif", b:"'DM Sans','Helvetica Neue',sans-serif" };
 const C = { navy:"#1A2B4A", cream:"#FAF7F2", gold:"#B8956A", sage:"#F4F1EC", text:"#3A3A3A", muted:"#7A7A7A" };
 
+/* ── SEO: update document meta per article ── */
+function useDocumentMeta(title, description) {
+  useEffect(() => {
+    if (title) document.title = title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && description) metaDesc.setAttribute("content", description);
+    return () => {
+      document.title = "Nicolas Mildner — Ostéopathe D.O. Paris 7\u1d49 | La Loi du Cas Unique";
+      if (metaDesc) metaDesc.setAttribute("content", "Nicolas Mildner, ostéopathe D.O./D.O.E./D.O.F. à Paris 7\u1d49. 22 ans d\u2019expérience, 18 spécialisations. Approche systémique et neurovégétative. Tél. 01 42 02 11 18 · 06 68 80 14 42.");
+    };
+  }, [title, description]);
+}
+
+/* ── BlogPosting structured data ── */
+function BlogPostingLD({ post }) {
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "datePublished": post.date,
+    "author": {
+      "@type": "Person",
+      "name": "Nicolas Mildner",
+      "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.",
+      "url": "https://nicolas-mildner-osteopathe.fr"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cabinet Nicolas Mildner — Ostéopathe D.O.",
+      "url": "https://nicolas-mildner-osteopathe.fr"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.nicolas-mildner-osteopathe.fr/blog/${post.id}`
+    },
+    "keywords": Array.isArray(post.keywords) ? post.keywords.join(", ") : (post.keywords || ""),
+    "wordCount": post.content ? post.content.split(/\s+/).length : undefined
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+    />
+  );
+}
+
 export default function Blog({ onBack, initialPost }) {
-  const [selectedPost, setSelectedPost] = useState(initialPost || null);
+  const navigate = useNavigate();
   const [filterTag, setFilterTag] = useState("all");
+
+  const post = initialPost ? posts.find(p => p.id === initialPost) : null;
+
+  useDocumentMeta(
+    post ? `${post.title} — Nicolas Mildner, Ostéopathe D.O. Paris 7\u1d49` : "Blog — Nicolas Mildner, Ostéopathe D.O. Paris 7\u1d49",
+    post ? post.excerpt : "Articles fondés sur la recherche PubMed. Vulgarisés, sourcés, rigoureux. Par Nicolas Mildner, ostéopathe D.O. à Paris 7\u1d49."
+  );
 
   const tags = ["all", ...new Set(posts.map(p => p.tag))];
   const filtered = filterTag === "all" ? posts : posts.filter(p => p.tag === filterTag);
 
-  if (selectedPost) {
-    const post = posts.find(p => p.id === selectedPost);
+  /* ── Article view ── */
+  if (post) {
     return (
       <div style={{ fontFamily: F.b, background: C.cream, minHeight: "100vh", padding: "40px 24px" }}>
+        <BlogPostingLD post={post} />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
         <div style={{ maxWidth: 740, margin: "0 auto" }}>
-          <button onClick={() => setSelectedPost(null)} style={{
+          <button onClick={() => navigate("/blog")} style={{
             background: "none", border: "none", color: C.gold, fontSize: 14,
             cursor: "pointer", fontFamily: F.b, marginBottom: 32, padding: 0,
           }}>← Retour aux articles</button>
@@ -43,6 +101,14 @@ export default function Blog({ onBack, initialPost }) {
               }
               return elements;
             })()}
+          </div>
+
+          {/* Closing CTA */}
+          <div style={{ marginTop: 36, padding: "20px 22px", background: "rgba(184,149,106,0.06)", borderRadius: 10, borderLeft: `3px solid ${C.gold}` }}>
+            <p style={{ fontSize: 14, color: C.text, lineHeight: 1.8 }}>
+              Pour en discuter, Nicolas Mildner, ostéopathe D.O. à Paris 7ᵉ, est joignable au <a href="tel:0142021118" style={{ color: C.navy, fontWeight: 600, textDecoration: "none" }}>01 42 02 11 18</a> — rendez-vous uniquement par téléphone.
+            </p>
+            <p style={{ fontSize: 13, color: C.muted, marginTop: 6, fontStyle: "italic" }}>— Nicolas Mildner, ostéopathe D.O.</p>
           </div>
 
           {/* FAQ */}
@@ -98,8 +164,10 @@ export default function Blog({ onBack, initialPost }) {
     );
   }
 
+  /* ── Blog listing ── */
   return (
     <div style={{ fontFamily: F.b, background: C.cream, minHeight: "100vh", padding: "40px 24px" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         <button onClick={onBack} style={{
           background: "none", border: "none", color: C.gold, fontSize: 14,
@@ -130,7 +198,7 @@ export default function Blog({ onBack, initialPost }) {
         {/* Articles grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
           {filtered.map(p => (
-            <article key={p.id} onClick={() => setSelectedPost(p.id)} style={{
+            <article key={p.id} onClick={() => navigate(`/blog/${p.id}`)} style={{
               background: "#fff", borderRadius: 12, overflow: "hidden",
               border: "1px solid rgba(184,149,106,0.06)", cursor: "pointer",
               transition: "all 0.3s",
@@ -138,7 +206,7 @@ export default function Blog({ onBack, initialPost }) {
               onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(26,43,74,0.05)"; }}
               onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
               <div style={{ height: 140, background: `linear-gradient(135deg, ${C.sage}, ${C.cream})`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: 10, color: C.muted, letterSpacing: 2, textTransform: "uppercase" }}>Image</span>
+                <span style={{ fontSize: 10, color: C.muted, letterSpacing: 2, textTransform: "uppercase" }}>{p.tag}</span>
               </div>
               <div style={{ padding: "20px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>

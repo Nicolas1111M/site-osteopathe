@@ -19,9 +19,9 @@ const lineage = [
   { name:"Andrew Taylor Still", role:"Fondateur de l'ostéopathie — 1874", era:"Origine" },
   { name:"W.G. Sutherland · J.M. Littlejohn", role:"Pionniers du crânien et de l'ostéopathie européenne", era:"Transmission" },
   { name:"Viola Frymann · John Wernham", role:"Bâtisseurs de l'ostéopathie internationale — assistant et filiation directe", era:"Maîtres" },
-  { name:"J.-P. Barral · S. Paoletti · R. Caporossi", role:"Pionniers mondiaux — manipulation viscérale, approche fasciale, philosophie ostéopathique crânienne et neurovégétative", era:"Pionniers" },
-  { name:"R. Briend · P. Tricot · D. Lehougre · GLEM Lyon · Latour · Foissy", role:"Architectes de l'ostéopathie française — R. Briend, pionnier de la biodynamique, a proposé à N. Mildner d'intégrer son équipe pédagogique de succession — décliné par exigence envers soi-même", era:"Héritage français" },
-  { name:"Nicolas Mildner — D.O. n°379", role:"Collégiale Académique de France · Diplômé 2004 · Enseignant ESO 2004–2020", era:"Aujourd'hui" },
+  { name:"S. Paoletti · R. Caporossi", role:"Pionniers — approche fasciale, philosophie ostéopathique crânienne et neurovégétative", era:"Pionniers" },
+  { name:"R. Briend · D. Lehougre · GLEM Lyon · Latour · Foissy", role:"Architectes de l'ostéopathie française — R. Briend, pionnier de la biodynamique, a proposé à N. Mildner d'intégrer son équipe pédagogique de succession — décliné par exigence envers soi-même", era:"Héritage français" },
+  { name:"Nicolas Mildner — D.O. n°00379", role:"Collégiale Académique de France · Diplômé 2004 · Enseignant ESO 2004–2020", era:"Aujourd'hui" },
 ];
 
 const specs = [
@@ -84,7 +84,7 @@ export default function Site({ onBlog }){
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>50);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{const t=setInterval(()=>setTIdx(p=>(p+1)%testimonials.length),6000);return()=>clearInterval(t);},[]);
   const filtered=cat==="all"?specs:specs.filter(s=>s.cat===cat);
-  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Contact",h:"#contact"}];
+  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Blog",h:"#blog"},{l:"Contact",h:"#contact"}];
   const cats=[{k:"all",l:"Tout voir (18)"},{k:"d",l:"Douleurs & Mouvement"},{k:"f",l:"Femme & Enfant"},{k:"s",l:"Spécialisé"}];
 
   const handleSubscribe=async()=>{
@@ -136,7 +136,7 @@ export default function Site({ onBlog }){
             <div>
               <div style={{display:"inline-block",background:"rgba(26,43,74,0.06)",borderRadius:20,padding:"6px 16px",marginBottom:24}}>
                 <span style={{fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:C.navy,fontWeight:500}}>
-                  Génération charnière · D.O. n°379
+                  Génération charnière · D.O. n°00379
                 </span>
               </div>
               <h1 style={{fontFamily:F.h,fontSize:mob?34:50,fontWeight:500,color:C.navy,lineHeight:1.15,marginBottom:6}}>Nicolas Mildner</h1>
@@ -166,7 +166,7 @@ export default function Site({ onBlog }){
             {/* Stats card */}
             <div style={{background:"rgba(255,255,255,0.7)",backdropFilter:"blur(12px)",borderRadius:16,padding:"32px 28px",border:"1px solid rgba(184,149,106,0.1)"}}>
               {[
-                {n:"D.O. n°379",l:"Collégiale Académique de France",sub:"Parmi les premières générations de D.O. structurés"},
+                {n:"D.O. n°00379",l:"Collégiale Académique de France",sub:"Parmi les premières générations de D.O. structurés"},
                 {n:"22+",l:"ans de pratique clinique",sub:"Consultations depuis 2004 · Clinique dès les études"},
                 {n:"17",l:"ans d'enseignement à l'ESO",sub:"5 matières · Commissions recherche et pédagogie"},
                 {n:"18",l:"champs de spécialisation",sub:"Du nourrisson au chanteur lyrique"},
@@ -455,7 +455,7 @@ export default function Site({ onBlog }){
             <div style={{background:"#fff",borderRadius:14,padding:"28px 24px",border:"1px solid rgba(184,149,106,0.06)"}}>
               {[
                 {l:"D.O. · D.O.E. · D.O.F.",d:"Triple diplôme — Faculté de Médecine de Genève"},
-                {l:"D.O. n°379 — Collégiale Académique",d:"Génération charnière, avant les décrets de 2007"},
+                {l:"D.O. n°00379 — Collégiale Académique",d:"Génération charnière, avant les décrets de 2007"},
                 {l:"CES Ostéopathie Pédiatrique",d:"Certificat d'études spécialisées — 2011"},
                 {l:"Stages hospitaliers & dissections",d:"Chirurgie, pédiatrie, maternité · Fac. Médecine Paris Descartes"},
                 {l:"Standards de la profession",d:"Participant aux travaux d'élaboration du référentiel métier et à la sélection des premiers Masters 2"},
@@ -616,11 +616,11 @@ export default function Site({ onBlog }){
           <div>
             <span style={{fontFamily:F.h,fontSize:16,color:"#fff",fontWeight:500}}>Nicolas Mildner</span>
             <span style={{fontSize:9,color:C.gold,marginLeft:8,letterSpacing:2}}>D.O. · D.O.E. · D.O.F.</span>
-            <p style={{fontSize:11,color:"rgba(255,255,255,0.25)",marginTop:8,lineHeight:1.6}}>{ADDR}<br/>Tél. {PHONE}</p>
+            <p style={{fontSize:11,color:"rgba(255,255,255,0.25)",marginTop:8,lineHeight:1.6}}>{ADDR}<br/>Tél. {PHONE} · Mobile {MOBILE}</p>
           </div>
           <div style={{display:"flex",gap:32}}>
-            {[{t:"Navigation",ls:[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"}]},
-              {t:"Infos",ls:[{l:"Mentions légales",h:"#"},{l:"Confidentialité",h:"#"},{l:"Laisser un avis",h:REVIEW},{l:"Appeler",h:`tel:${PHONE.replace(/\s/g,"")}`}]}
+            {[{t:"Navigation",ls:[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Blog",h:"#blog"}]},
+              {t:"Infos",ls:[{l:"Mentions légales",h:"#"},{l:"Confidentialité",h:"#"},{l:"Laisser un avis",h:REVIEW},{l:"Appeler",h:`tel:${PHONE.replace(/\s/g,"")}`},{l:"SMS / Mobile",h:`tel:${MOBILE.replace(/\s/g,"")}`}]}
             ].map(col=><div key={col.t}>
               <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>{col.t}</p>
               {col.ls.map(lnk=><a key={lnk.l} href={lnk.h} style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>{lnk.l}</a>)}
