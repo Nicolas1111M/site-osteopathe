@@ -45,24 +45,14 @@ export default function Blog({ onBack, initialPost }) {
             })()}
           </div>
 
-          {/* FAQ — collapsible */}
+          {/* FAQ */}
           {post.faq && post.faq.length > 0 && (
             <div style={{ marginTop: 48 }}>
               <h2 style={{ fontFamily: F.h, fontSize: 22, color: C.navy, fontWeight: 500, marginBottom: 20 }}>Questions fréquentes</h2>
               {post.faq.map((item, i) => (
-                <details key={i} style={{
-                  marginBottom: 10, background: C.sage, borderRadius: 10,
-                  border: "1px solid rgba(184,149,106,0.08)", overflow: "hidden",
-                }}>
-                  <summary style={{
-                    padding: "16px 20px", cursor: "pointer", fontFamily: F.b,
-                    fontSize: 15, color: C.navy, fontWeight: 500, lineHeight: 1.4,
-                    listStyle: "none",
-                  }}>{item.q}</summary>
-                  <p style={{
-                    padding: "0 20px 16px", fontSize: 14, color: C.muted,
-                    lineHeight: 1.8, margin: 0,
-                  }}>{item.a}</p>
+                <details key={i} style={{ marginBottom: 10, background: C.sage, borderRadius: 10, border: "1px solid rgba(184,149,106,0.08)", overflow: "hidden" }}>
+                  <summary style={{ padding: "16px 20px", cursor: "pointer", fontFamily: F.b, fontSize: 15, color: C.navy, fontWeight: 500, lineHeight: 1.4 }}>{item.q}</summary>
+                  <p style={{ padding: "0 20px 16px", fontSize: 14, color: C.muted, lineHeight: 1.8, margin: 0 }}>{item.a}</p>
                 </details>
               ))}
             </div>

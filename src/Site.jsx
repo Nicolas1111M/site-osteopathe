@@ -84,7 +84,7 @@ export default function Site({ onBlog }){
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>50);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{const t=setInterval(()=>setTIdx(p=>(p+1)%testimonials.length),6000);return()=>clearInterval(t);},[]);
   const filtered=cat==="all"?specs:specs.filter(s=>s.cat===cat);
-  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Blog",h:"#blog"},{l:"Contact",h:"#contact"}];
+  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Contact",h:"#contact"}];
   const cats=[{k:"all",l:"Tout voir (18)"},{k:"d",l:"Douleurs & Mouvement"},{k:"f",l:"Femme & Enfant"},{k:"s",l:"Spécialisé"}];
 
   const handleSubscribe=async()=>{
@@ -616,11 +616,11 @@ export default function Site({ onBlog }){
           <div>
             <span style={{fontFamily:F.h,fontSize:16,color:"#fff",fontWeight:500}}>Nicolas Mildner</span>
             <span style={{fontSize:9,color:C.gold,marginLeft:8,letterSpacing:2}}>D.O. · D.O.E. · D.O.F.</span>
-            <p style={{fontSize:11,color:"rgba(255,255,255,0.25)",marginTop:8,lineHeight:1.6}}>{ADDR}<br/>Tél. {PHONE} · Mobile {MOBILE}</p>
+            <p style={{fontSize:11,color:"rgba(255,255,255,0.25)",marginTop:8,lineHeight:1.6}}>{ADDR}<br/>Tél. {PHONE}</p>
           </div>
           <div style={{display:"flex",gap:32}}>
-            {[{t:"Navigation",ls:[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Blog",h:"#blog"}]},
-              {t:"Infos",ls:[{l:"Mentions légales",h:"#"},{l:"Confidentialité",h:"#"},{l:"Laisser un avis",h:REVIEW},{l:"Appeler",h:`tel:${PHONE.replace(/\s/g,"")}`},{l:"SMS / Mobile",h:`tel:${MOBILE.replace(/\s/g,"")}`}]}
+            {[{t:"Navigation",ls:[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"}]},
+              {t:"Infos",ls:[{l:"Mentions légales",h:"#"},{l:"Confidentialité",h:"#"},{l:"Laisser un avis",h:REVIEW},{l:"Appeler",h:`tel:${PHONE.replace(/\s/g,"")}`}]}
             ].map(col=><div key={col.t}>
               <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>{col.t}</p>
               {col.ls.map(lnk=><a key={lnk.l} href={lnk.h} style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>{lnk.l}</a>)}
