@@ -53,6 +53,26 @@ function BlogPostingLD({ post, articleData }) {
   );
 }
 
+/* ── FAQPage structured data (article-specific) ── */
+function ArticleFAQLD({ faq }) {
+  if (!faq || faq.length === 0) return null;
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+    />
+  );
+}
+
 export default function Blog({ onBack, initialPost }) {
   const navigate = useNavigate();
   const [filterTag, setFilterTag] = useState("all");
@@ -84,6 +104,7 @@ export default function Blog({ onBack, initialPost }) {
     return (
       <div style={{ fontFamily: F.b, background: C.cream, minHeight: "100vh", padding: "40px 24px" }}>
         <BlogPostingLD post={post} articleData={articleData} />
+        {articleData && <ArticleFAQLD faq={articleData.faq} />}
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
         <div style={{ maxWidth: 740, margin: "0 auto" }}>
           <button onClick={() => navigate("/blog")} style={{
