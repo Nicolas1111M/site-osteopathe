@@ -3,7 +3,7 @@ import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const posts = JSON.parse(readFileSync(join(__dirname, "src/posts.json"), "utf-8"));
+const posts = JSON.parse(readFileSync(join(__dirname, "src/posts-index.json"), "utf-8"));
 const domain = "https://www.nicolas-mildner-osteopathe.fr";
 const today = new Date().toISOString().split("T")[0];
 

@@ -53,9 +53,9 @@ const testimonials = [
   { t:"Je n'ai jamais senti cela. Personne ne m'avait jamais expliqué ce qui se passait dans mon corps de cette façon.", a:"Nouvelle patiente" },
 ];
 
-import posts from "./posts.json";
+import posts from "./posts-index.json";
 
-const blogs = posts.filter(p => !p.content.startsWith("Article à générer")).sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
+const blogs = posts.sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
 
 const techniques = [
   "Fasciale","Tissulaire","Crânio-sacrée","Biodynamique","Viscérale",
