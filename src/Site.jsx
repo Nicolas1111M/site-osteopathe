@@ -69,7 +69,7 @@ function useR(){const r=useRef(null);const[v,setV]=useState(false);useEffect(()=
 function useM(){const[m,setM]=useState(typeof window!=="undefined"&&window.innerWidth<768);useEffect(()=>{const h=()=>setM(window.innerWidth<768);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h);},[]);return m;}
 function S({children,bg,id}){const[r,v]=useR();const m=typeof window!=="undefined"&&window.innerWidth<768;return<section ref={r} id={id} style={{background:bg||"transparent",padding:m?"48px 16px":"84px 24px",opacity:v?1:0,transform:v?"translateY(0)":"translateY(20px)",transition:"opacity 0.75s,transform 0.75s"}}><div style={{maxWidth:1100,margin:"0 auto"}}>{children}</div></section>;}
 function T({tag,title,sub,light}){const m=typeof window!=="undefined"&&window.innerWidth<768;return<div style={{textAlign:"center",marginBottom:m?32:48}}>{tag&&<p style={{fontSize:11,letterSpacing:5,textTransform:"uppercase",color:C.gold,marginBottom:14,fontWeight:500}}>{tag}</p>}<h2 style={{fontFamily:F.h,fontSize:m?24:34,color:light?"#fff":C.navy,fontWeight:500,lineHeight:1.3}}>{title}</h2>{sub&&<p style={{color:light?"rgba(255,255,255,0.5)":C.muted,marginTop:14,fontSize:m?13:15,maxWidth:580,margin:"14px auto 0",lineHeight:1.75}}>{sub}</p>}</div>;}
-function Btn({href,children,v:vr="primary",style:s={}}){const[h,setH]=useState(false);const b=vr==="primary"?{background:h?C.gold:C.navy,color:"#fff",border:"none",boxShadow:h?"0 6px 20px rgba(184,149,106,0.2)":"0 3px 12px rgba(26,43,74,0.1)"}:{background:"transparent",color:h?C.gold:C.navy,border:`1.5px solid ${h?C.gold:C.navy}`};return<a href={href} target={href?.startsWith("http")?"_blank":undefined} rel="noopener" onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)} style={{display:"inline-block",padding:"14px 30px",borderRadius:8,fontSize:14,textDecoration:"none",fontWeight:500,transition:"all 0.3s",transform:h?"translateY(-2px)":"none",...b,...s}}>{children}</a>;}
+function Btn({href,children,v:vr="primary",style:s={},onClick,...rest}){const[h,setH]=useState(false);const b=vr==="primary"?{background:h?C.gold:C.navy,color:"#fff",border:"none",boxShadow:h?"0 6px 20px rgba(184,149,106,0.2)":"0 3px 12px rgba(26,43,74,0.1)"}:{background:"transparent",color:h?C.gold:C.navy,border:`1.5px solid ${h?C.gold:C.navy}`};return<a href={href} target={href?.startsWith("http")?"_blank":undefined} rel="noopener" onClick={onClick} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)} style={{display:"inline-block",padding:"14px 30px",borderRadius:8,fontSize:14,textDecoration:"none",fontWeight:500,transition:"all 0.3s",transform:h?"translateY(-2px)":"none",...b,...s}} {...rest}>{children}</a>;}
 
 // ── MAIN ──
 export default function Site({ onBlog }){
@@ -543,7 +543,7 @@ export default function Site({ onBlog }){
           </article>)}
         </div>
         {blogs.length>0&&<div style={{textAlign:"center",marginTop:28}}>
-          <Btn href="#" v="outline" style={{fontSize:13,padding:"10px 24px"}} onClick={e=>{e.preventDefault();onBlog();}}>Tous les articles →</Btn>
+          <Btn href="/blog" v="outline" style={{fontSize:13,padding:"10px 24px"}} onClick={e=>{e.preventDefault();onBlog();}}>Tous les articles →</Btn>
         </div>}
       </S>
 

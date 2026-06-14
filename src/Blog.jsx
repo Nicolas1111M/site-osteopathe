@@ -18,59 +18,24 @@ function useDocumentMeta(title, description) {
   }, [title, description]);
 }
 
-/* ── BlogPosting structured data ── */
-function BlogPostingLD({ post, articleData }) {
-  const ld = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "description": post.excerpt,
-    "datePublished": post.date,
-    "author": {
-      "@type": "Person",
-      "name": "Nicolas Mildner",
-      "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.",
-      "url": "https://nicolas-mildner-osteopathe.fr"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Cabinet Nicolas Mildner — Ostéopathe D.O.",
-      "url": "https://nicolas-mildner-osteopathe.fr"
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://www.nicolas-mildner-osteopathe.fr/blog/${post.id}`
-    },
-    "keywords": Array.isArray(post.keywords) ? post.keywords.join(", ") : (post.keywords || ""),
-    "wordCount": articleData?.content ? articleData.content.split(/\s+/).length : undefined
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
-    />
-  );
-}
-
-/* ── FAQPage structured data (article-specific) ── */
-function ArticleFAQLD({ faq }) {
-  if (!faq || faq.length === 0) return null;
-  const ld = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faq.map(item => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": { "@type": "Answer", "text": item.a }
-    }))
-  };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
-    />
-  );
+/* ── JSON-LD managed via <head> — prevents duplication with prerender.js ── */
+function useJsonLd(id, data) {
+  useEffect(() => {
+    if (!data) return;
+    const json = JSON.stringify(data);
+    let el = document.getElementById(id);
+    if (el) {
+      // prerender.js already injected this — update content
+      el.textContent = json;
+    } else {
+      el = document.createElement("script");
+      el.id = id;
+      el.type = "application/ld+json";
+      el.textContent = json;
+      document.head.appendChild(el);
+    }
+    return () => { const old = document.getElementById(id); if (old) old.remove(); };
+  }, [id, data]);
 }
 
 export default function Blog({ onBack, initialPost }) {
@@ -96,6 +61,29 @@ export default function Blog({ onBack, initialPost }) {
     post ? post.excerpt : "Articles fondés sur la recherche PubMed. Vulgarisés, sourcés, rigoureux. Par Nicolas Mildner, ostéopathe D.O. à Paris 7\u1d49."
   );
 
+  /* ── JSON-LD (managed in <head>, avoids duplication with prerender.js) ── */
+  useJsonLd("ld-blogposting", post ? {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "datePublished": post.date,
+    "author": { "@type": "Person", "name": "Nicolas Mildner", "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.", "url": "https://nicolas-mildner-osteopathe.fr" },
+    "publisher": { "@type": "Organization", "name": "Cabinet Nicolas Mildner — Ostéopathe D.O.", "url": "https://nicolas-mildner-osteopathe.fr" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://www.nicolas-mildner-osteopathe.fr/blog/${post.id}` },
+    "keywords": Array.isArray(post.keywords) ? post.keywords.join(", ") : (post.keywords || ""),
+    "wordCount": articleData?.content ? articleData.content.split(/\s+/).length : undefined
+  } : null);
+
+  useJsonLd("ld-faq", (post && articleData?.faq?.length) ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": articleData.faq.map(item => ({
+      "@type": "Question", "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  } : null);
+
   const tags = ["all", ...new Set(postsIndex.map(p => p.tag))];
   const filtered = filterTag === "all" ? postsIndex : postsIndex.filter(p => p.tag === filterTag);
 
@@ -103,8 +91,6 @@ export default function Blog({ onBack, initialPost }) {
   if (post) {
     return (
       <div style={{ fontFamily: F.b, background: C.cream, minHeight: "100vh", padding: "40px 24px" }}>
-        <BlogPostingLD post={post} articleData={articleData} />
-        {articleData && <ArticleFAQLD faq={articleData.faq} />}
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
         <div style={{ maxWidth: 740, margin: "0 auto" }}>
           <button onClick={() => navigate("/blog")} style={{

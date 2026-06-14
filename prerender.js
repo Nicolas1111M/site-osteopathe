@@ -73,7 +73,7 @@ function faqJsonLd(faq) {
       "acceptedAnswer": { "@type": "Answer", "text": item.a }
     }))
   };
-  return `<script type="application/ld+json">${JSON.stringify(ld)}</script>`;
+  return `<script type="application/ld+json" id="ld-faq">${JSON.stringify(ld)}</script>`;
 }
 
 /** Build sources HTML */
@@ -111,7 +111,7 @@ function blogPostingJsonLd(post, wordCount) {
     "keywords": Array.isArray(post.keywords) ? post.keywords.join(", ") : "",
     "wordCount": wordCount
   };
-  return `<script type="application/ld+json">${JSON.stringify(ld)}</script>`;
+  return `<script type="application/ld+json" id="ld-blogposting">${JSON.stringify(ld)}</script>`;
 }
 
 // ── Generate each article page ──
