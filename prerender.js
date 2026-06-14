@@ -82,7 +82,7 @@ function sourcesHtml(sources) {
   const items = sources.map(s =>
     `<li><a href="${escapeHtml(s.url)}" rel="noopener">${escapeHtml(s.text)}</a></li>`
   ).join("\n");
-  return `<section aria-label="Sources"><h3>Sources vérifiées</h3><ol>\n${items}\n</ol></section>`;
+  return `<section aria-label="Sources"><h3>Sources</h3><ol>\n${items}\n</ol></section>`;
 }
 
 /** BlogPosting JSON-LD */

@@ -164,7 +164,7 @@ export default function Blog({ onBack, initialPost }) {
               {/* Sources */}
               {articleData.sources && articleData.sources.length > 0 && (
                 <div style={{ marginTop: 40, padding: "24px 22px", background: C.sage, borderRadius: 12, border: "1px solid rgba(184,149,106,0.06)" }}>
-                  <h3 style={{ fontFamily: F.h, fontSize: 17, color: C.navy, fontWeight: 500, marginBottom: 14 }}>Sources vérifiées</h3>
+                  <h3 style={{ fontFamily: F.h, fontSize: 17, color: C.navy, fontWeight: 500, marginBottom: 14 }}>Sources</h3>
                   <ol style={{ margin: 0, paddingLeft: 18 }}>
                     {articleData.sources.map((s, i) => (
                       <li key={i} style={{ fontSize: 12.5, color: C.muted, lineHeight: 1.7, marginBottom: 6 }}>
