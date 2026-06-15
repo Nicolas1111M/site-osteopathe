@@ -122,6 +122,15 @@ export default function Blog({ onBack, initialPost }) {
                       elements.push(<p key={i} style={{ marginBottom: 16 }}>{line}</p>);
                     }
                   }
+                  /* Red-flags block — inserted after intro paragraph */
+                  if (articleData.redflags) {
+                    elements.splice(1, 0,
+                      <div key="redflags" style={{ background: "#FCEDEC", borderLeft: "4px solid #C0392B", padding: "16px 20px", borderRadius: 8, margin: "20px 0" }}>
+                        <p style={{ fontFamily: F.h, fontSize: 16, color: "#C0392B", fontWeight: 600, marginBottom: 6 }}>{articleData.redflags.title}</p>
+                        <p style={{ fontSize: 14.5, color: "#7a2018", lineHeight: 1.7, margin: 0 }}>{articleData.redflags.text}</p>
+                      </div>
+                    );
+                  }
                   return elements;
                 })()}
               </div>
