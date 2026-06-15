@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 // ═══════════════════════════════════════════════════
 // NICOLAS MILDNER — OSTÉOPATHE D.O. · D.O.E. · D.O.F.
@@ -84,7 +85,7 @@ export default function Site({ onBlog }){
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>50);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{const t=setInterval(()=>setTIdx(p=>(p+1)%testimonials.length),6000);return()=>clearInterval(t);},[]);
   const filtered=cat==="all"?specs:specs.filter(s=>s.cat===cat);
-  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Blog",h:"#blog"},{l:"Contact",h:"#contact"}];
+  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Paris 7ᵉ",h:"/osteopathe-paris-7",isRoute:true},{l:"Blog",h:"#blog"},{l:"Contact",h:"#contact"}];
   const cats=[{k:"all",l:"Tout voir (18)"},{k:"d",l:"Douleurs & Mouvement"},{k:"f",l:"Femme & Enfant"},{k:"s",l:"Spécialisé"}];
 
   const handleSubscribe=async()=>{
@@ -116,14 +117,14 @@ export default function Site({ onBlog }){
             <button onClick={()=>setMenuOpen(!menuOpen)} style={{background:"none",border:"none",cursor:"pointer",padding:8,fontSize:24,color:C.navy,lineHeight:1}}>{menuOpen?"✕":"☰"}</button>
           ):(
             <div style={{display:"flex",gap:22,alignItems:"center"}}>
-              {navLinks.map(n=><a key={n.l} href={n.h} style={{textDecoration:"none",color:C.navy,fontSize:12.5,fontWeight:400}}>{n.l}</a>)}
+              {navLinks.map(n=>n.isRoute?<Link key={n.l} to={n.h} style={{textDecoration:"none",color:C.navy,fontSize:12.5,fontWeight:400}}>{n.l}</Link>:<a key={n.l} href={n.h} style={{textDecoration:"none",color:C.navy,fontSize:12.5,fontWeight:400}}>{n.l}</a>)}
               <Btn href={`tel:${PHONE.replace(/\s/g,"")}`} style={{padding:"9px 18px",fontSize:12.5}}>Appeler le cabinet</Btn>
             </div>
           )}
         </div>
         {mob&&menuOpen&&(
           <div style={{background:"rgba(250,247,242,0.98)",backdropFilter:"blur(16px)",padding:"16px 24px 20px",borderTop:"1px solid rgba(184,149,106,0.08)",display:"flex",flexDirection:"column",gap:14}}>
-            {navLinks.map(n=><a key={n.l} href={n.h} onClick={()=>setMenuOpen(false)} style={{textDecoration:"none",color:C.navy,fontSize:15,fontWeight:400,padding:"4px 0"}}>{n.l}</a>)}
+            {navLinks.map(n=>n.isRoute?<Link key={n.l} to={n.h} onClick={()=>setMenuOpen(false)} style={{textDecoration:"none",color:C.navy,fontSize:15,fontWeight:400,padding:"4px 0"}}>{n.l}</Link>:<a key={n.l} href={n.h} onClick={()=>setMenuOpen(false)} style={{textDecoration:"none",color:C.navy,fontSize:15,fontWeight:400,padding:"4px 0"}}>{n.l}</a>)}
             <Btn href={`tel:${PHONE.replace(/\s/g,"")}`} style={{padding:"12px 18px",fontSize:14,textAlign:"center",marginTop:4}}>01 42 02 11 18 — Appeler</Btn>
           </div>
         )}
@@ -525,7 +526,7 @@ export default function Site({ onBlog }){
       <S id="blog" bg={C.sage}>
         <T tag="Conseils & Recherche" title="Le blog du cabinet"/>
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(250px,1fr))",gap:18}}>
-          {blogs.map(p=><article key={p.id} onClick={()=>onBlog(p.id)} style={{background:"#fff",borderRadius:12,overflow:"hidden",border:"1px solid rgba(184,149,106,0.05)",transition:"all 0.3s",cursor:"pointer"}}
+          {blogs.map(p=><Link key={p.id} to={`/blog/${p.id}`} style={{textDecoration:"none",color:"inherit"}}><article style={{background:"#fff",borderRadius:12,overflow:"hidden",border:"1px solid rgba(184,149,106,0.05)",transition:"all 0.3s",cursor:"pointer",height:"100%"}}
             onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 24px rgba(26,43,74,0.04)";}}
             onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
             <div style={{height:130,background:`linear-gradient(135deg,${C.cream},${C.warm})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
@@ -540,10 +541,10 @@ export default function Site({ onBlog }){
               <p style={{fontSize:12,color:C.muted,lineHeight:1.7}}>{p.excerpt}</p>
               <p style={{fontSize:10.5,color:C.muted,marginTop:8}}>{new Date(p.date).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})}</p>
             </div>
-          </article>)}
+          </article></Link>)}
         </div>
         {blogs.length>0&&<div style={{textAlign:"center",marginTop:28}}>
-          <Btn href="/blog" v="outline" style={{fontSize:13,padding:"10px 24px"}} onClick={e=>{e.preventDefault();onBlog();}}>Tous les articles →</Btn>
+          <Link to="/blog" style={{display:"inline-block",padding:"10px 24px",borderRadius:8,fontSize:13,textDecoration:"none",fontWeight:500,color:C.navy,border:`1.5px solid ${C.navy}`,transition:"all 0.3s"}}>Tous les articles →</Link>
         </div>}
       </S>
 
@@ -621,16 +622,28 @@ export default function Site({ onBlog }){
             <p style={{fontSize:11,color:"rgba(255,255,255,0.25)",marginTop:8,lineHeight:1.6}}>{ADDR}<br/>Tél. {PHONE} · Mobile {MOBILE}</p>
           </div>
           <div style={{display:"flex",gap:32}}>
-            {[{t:"Navigation",ls:[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Blog",h:"#blog"}]},
-              {t:"Infos",ls:[{l:"Mentions légales",h:"#"},{l:"Confidentialité",h:"#"},{l:"Laisser un avis",h:REVIEW},{l:"Appeler",h:`tel:${PHONE.replace(/\s/g,"")}`},{l:"SMS / Mobile",h:`tel:${MOBILE.replace(/\s/g,"")}`}]}
-            ].map(col=><div key={col.t}>
-              <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>{col.t}</p>
-              {col.ls.map(lnk=><a key={lnk.l} href={lnk.h} style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>{lnk.l}</a>)}
-            </div>)}
+            <div>
+              <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Navigation</p>
+              <a href="#approche" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Approche</a>
+              <a href="#heritage" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Héritage</a>
+              <a href="#specs" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Spécialisations</a>
+              <a href="#parcours" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Parcours</a>
+              <Link to="/osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Ostéopathe Paris 7</Link>
+              <Link to="/blog" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Blog</Link>
+            </div>
+            <div>
+              <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Infos</p>
+              <a href="#" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Mentions légales</a>
+              <a href="#" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Confidentialité</a>
+              <a href={REVIEW} target="_blank" rel="noopener" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Laisser un avis</a>
+              <a href={`tel:${PHONE.replace(/\s/g,"")}`} style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Appeler</a>
+              <a href={`tel:${MOBILE.replace(/\s/g,"")}`} style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>SMS / Mobile</a>
+            </div>
           </div>
         </div>
         <div style={{maxWidth:1100,margin:"24px auto 0",borderTop:"1px solid rgba(255,255,255,0.04)",paddingTop:14,textAlign:"center"}}>
           <p style={{fontSize:10,color:"rgba(255,255,255,0.15)"}}>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7ᵉ — La Loi du Cas Unique</p>
+          <p style={{fontSize:9,color:"rgba(255,255,255,0.08)",marginTop:6}}>Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" target="_blank" rel="noopener" style={{color:"rgba(255,255,255,0.08)",textDecoration:"none"}}>proxiosteo.fr</a></p>
         </div>
       </footer>
 

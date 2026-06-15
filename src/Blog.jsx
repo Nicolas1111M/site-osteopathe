@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import postsIndex from "./posts-index.json";
 
 const F = { h:"'Playfair Display','Georgia',serif", b:"'DM Sans','Helvetica Neue',sans-serif" };
@@ -138,7 +138,7 @@ export default function Blog({ onBack, initialPost }) {
               {/* Closing CTA */}
               <div style={{ marginTop: 36, padding: "20px 22px", background: "rgba(184,149,106,0.06)", borderRadius: 10, borderLeft: `3px solid ${C.gold}` }}>
                 <p style={{ fontSize: 14, color: C.text, lineHeight: 1.8 }}>
-                  Pour en discuter, Nicolas Mildner, ostéopathe D.O. à Paris 7ᵉ, est joignable au <a href="tel:0142021118" style={{ color: C.navy, fontWeight: 600, textDecoration: "none" }}>01 42 02 11 18</a> — rendez-vous uniquement par téléphone.
+                  Pour en discuter, Nicolas Mildner, <Link to="/osteopathe-paris-7" style={{ color: C.navy, fontWeight: 600, textDecoration: "none", borderBottom: "1px solid rgba(184,149,106,0.3)" }}>ostéopathe D.O. à Paris 7ᵉ</Link>, est joignable au <a href="tel:0142021118" style={{ color: C.navy, fontWeight: 600, textDecoration: "none" }}>01 42 02 11 18</a> — rendez-vous uniquement par téléphone.
                 </p>
                 <p style={{ fontSize: 13, color: C.muted, marginTop: 6, fontStyle: "italic" }}>— Nicolas Mildner, ostéopathe D.O.</p>
               </div>
@@ -232,28 +232,30 @@ export default function Blog({ onBack, initialPost }) {
         {/* Articles grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
           {filtered.map(p => (
-            <article key={p.id} onClick={() => navigate(`/blog/${p.id}`)} style={{
-              background: "#fff", borderRadius: 12, overflow: "hidden",
-              border: "1px solid rgba(184,149,106,0.06)", cursor: "pointer",
-              transition: "all 0.3s",
-            }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(26,43,74,0.05)"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-              <div style={{ height: 140, background: `linear-gradient(135deg, #F4F1EC, #FAF7F2)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: 10, color: C.muted, letterSpacing: 2, textTransform: "uppercase" }}>{p.tag}</span>
-              </div>
-              <div style={{ padding: "20px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-                  <span style={{ background: "rgba(184,149,106,0.1)", color: C.navy, padding: "3px 9px", borderRadius: 8, fontSize: 10.5, fontWeight: 500 }}>{p.tag}</span>
-                  <span style={{ fontSize: 10.5, color: C.muted }}>{p.readTime}</span>
+            <Link key={p.id} to={`/blog/${p.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <article style={{
+                background: "#fff", borderRadius: 12, overflow: "hidden",
+                border: "1px solid rgba(184,149,106,0.06)", cursor: "pointer",
+                transition: "all 0.3s", height: "100%",
+              }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(26,43,74,0.05)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ height: 140, background: `linear-gradient(135deg, #F4F1EC, #FAF7F2)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontSize: 10, color: C.muted, letterSpacing: 2, textTransform: "uppercase" }}>{p.tag}</span>
                 </div>
-                <h3 style={{ fontFamily: F.h, fontSize: 16, color: C.navy, marginBottom: 8, fontWeight: 500, lineHeight: 1.35 }}>{p.title}</h3>
-                <p style={{ fontSize: 12.5, color: C.muted, lineHeight: 1.7 }}>{p.excerpt}</p>
-                <p style={{ fontSize: 11, color: C.muted, marginTop: 10 }}>
-                  {new Date(p.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
-                </p>
-              </div>
-            </article>
+                <div style={{ padding: "20px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+                    <span style={{ background: "rgba(184,149,106,0.1)", color: C.navy, padding: "3px 9px", borderRadius: 8, fontSize: 10.5, fontWeight: 500 }}>{p.tag}</span>
+                    <span style={{ fontSize: 10.5, color: C.muted }}>{p.readTime}</span>
+                  </div>
+                  <h3 style={{ fontFamily: F.h, fontSize: 16, color: C.navy, marginBottom: 8, fontWeight: 500, lineHeight: 1.35 }}>{p.title}</h3>
+                  <p style={{ fontSize: 12.5, color: C.muted, lineHeight: 1.7 }}>{p.excerpt}</p>
+                  <p style={{ fontSize: 11, color: C.muted, marginTop: 10 }}>
+                    {new Date(p.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
+                  </p>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
 
