@@ -40,7 +40,7 @@ function useDocumentMeta(page) {
 
 export default function LocalSpecPage() {
   const location = useLocation();
-  const slug = location.pathname.replace(/^\//, "");
+  const slug = location.pathname.replace(/^\/|\/$/g, "");
   const mob = useM();
   const [scrolled, setScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
@@ -273,12 +273,21 @@ export default function LocalSpecPage() {
             </Link>
             <p style={{fontSize:11,color:"rgba(255,255,255,0.25)",marginTop:8,lineHeight:1.6}}>{ADDR}<br/>Tél. {PHONE} · Mobile {MOBILE}</p>
           </div>
-          <div style={{display:"flex",gap:32}}>
+          <div style={{display:"flex",gap:32,flexWrap:"wrap"}}>
             <div>
               <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Navigation</p>
               <Link to="/" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Accueil</Link>
               <Link to="/osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Ostéopathe Paris 7</Link>
+              <Link to="/urgence-osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Urgence ostéopathe</Link>
               <Link to="/blog" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Blog</Link>
+            </div>
+            <div>
+              <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Spécialisations</p>
+              <Link to="/douleurs-dos-lombalgie-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Lombalgie et mal de dos</Link>
+              <Link to="/cervicalgie-torticolis-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Cervicalgie et torticolis</Link>
+              <Link to="/nourrisson-plagiocephalie-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Nourrissons</Link>
+              <Link to="/femme-enceinte-osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Grossesse</Link>
+              <Link to="/bruxisme-atm-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Bruxisme et ATM</Link>
             </div>
             <div>
               <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Contact</p>

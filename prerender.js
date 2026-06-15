@@ -432,6 +432,15 @@ for (const lp of localPagesData) {
     <p><a href="tel:0142021118">01 42 02 11 18</a> · <a href="tel:0668801442">06 68 80 14 42</a></p>
   </section>
   <footer>
+    <nav aria-label="Spécialisations">
+      <a href="/douleurs-dos-lombalgie-paris-7">Lombalgie et mal de dos</a> ·
+      <a href="/cervicalgie-torticolis-paris-7">Cervicalgie et torticolis</a> ·
+      <a href="/nourrisson-plagiocephalie-paris-7">Nourrissons</a> ·
+      <a href="/femme-enceinte-osteopathe-paris-7">Grossesse</a> ·
+      <a href="/bruxisme-atm-paris-7">Bruxisme et ATM</a> ·
+      <a href="/urgence-osteopathe-paris-7">Urgence ostéopathe</a>
+    </nav>
+    <p><a href="/">Accueil</a> · <a href="/osteopathe-paris-7">Ostéopathe Paris 7</a> · <a href="/blog">Blog</a></p>
     <p>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7ᵉ</p>
     <p>Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" rel="noopener">proxiosteo.fr</a></p>
   </footer>

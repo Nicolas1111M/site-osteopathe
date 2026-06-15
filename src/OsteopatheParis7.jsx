@@ -42,8 +42,10 @@ const relatedPosts = posts.sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(
 
 const motifs = [
   { icon:"🦴", t:"Mal de dos, lombalgie, sciatique", d:"Prise en charge systémique des douleurs vertébrales aiguës et chroniques. Approche fondée sur la recherche (Cochrane, Lancet).", link:"/douleurs-dos-lombalgie-paris-7" },
-  { icon:"🧠", t:"Migraines, vertiges, ATM", d:"Approche crânio-sacrée et neurovégétative. Bruxisme, céphalées cervicogènes, tensions profondes.", link:"/bruxisme-atm-paris-7" },
-  { icon:"🤰", t:"Grossesse et nourrissons", d:"Suivi périnatal complet, plagiocéphalie, coliques, torticolis du nourrisson. CES Ostéopathie Pédiatrique.", link:"/femme-enceinte-osteopathe-paris-7" },
+  { icon:"🔵", t:"Cervicalgie et torticolis", d:"Douleurs cervicales, céphalées cervicogènes, raideur de nuque. Approche crânio-sacrée et fasciale douce.", link:"/cervicalgie-torticolis-paris-7" },
+  { icon:"🧠", t:"Bruxisme, migraines, ATM", d:"Troubles de l'articulation temporo-mandibulaire, bruxisme, céphalées, vertiges. Approche crânio-sacrée et neurovégétative.", link:"/bruxisme-atm-paris-7" },
+  { icon:"🤰", t:"Grossesse et périnatalité", d:"Suivi périnatal complet, douleurs de grossesse, préparation à l'accouchement, post-partum, fertilité.", link:"/femme-enceinte-osteopathe-paris-7" },
+  { icon:"👶", t:"Nourrissons", d:"Plagiocéphalie, coliques, torticolis congénital, reflux. CES Ostéopathie Pédiatrique. Filiation Viola Frymann.", link:"/nourrisson-plagiocephalie-paris-7" },
   { icon:"😰", t:"Stress, burn-out, somatisations", d:"Rééquilibrage du système nerveux autonome. Troubles du sommeil, anxiété, douleurs sans cause apparente." },
   { icon:"🏃", t:"Sport et récupération", d:"Entretien du sportif, prévention des blessures, optimisation biomécanique. Yoga, arts martiaux, Pilates." },
   { icon:"🎵", t:"Musiciens et chanteurs", d:"Instrumentistes, chanteurs lyriques, troubles de la voix. Ancien élève de conservatoire — compréhension directe." },
@@ -340,12 +342,21 @@ export default function OsteopatheParis7() {
             </Link>
             <p style={{fontSize:11,color:"rgba(255,255,255,0.25)",marginTop:8,lineHeight:1.6}}>{ADDR}<br/>Tél. {PHONE} · Mobile {MOBILE}</p>
           </div>
-          <div style={{display:"flex",gap:32}}>
+          <div style={{display:"flex",gap:32,flexWrap:"wrap"}}>
             <div>
               <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Navigation</p>
               <Link to="/" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Accueil</Link>
               <Link to="/osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Ostéopathe Paris 7</Link>
+              <Link to="/urgence-osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Urgence ostéopathe</Link>
               <Link to="/blog" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Blog</Link>
+            </div>
+            <div>
+              <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Spécialisations</p>
+              <Link to="/douleurs-dos-lombalgie-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Lombalgie et mal de dos</Link>
+              <Link to="/cervicalgie-torticolis-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Cervicalgie et torticolis</Link>
+              <Link to="/nourrisson-plagiocephalie-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Nourrissons</Link>
+              <Link to="/femme-enceinte-osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Grossesse</Link>
+              <Link to="/bruxisme-atm-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Bruxisme et ATM</Link>
             </div>
             <div>
               <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Contact</p>
