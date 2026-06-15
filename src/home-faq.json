@@ -1,0 +1,85 @@
+{
+  "aiSummary": "Nicolas Mildner est ostéopathe D.O. à Paris 7ᵉ, installé au 72 avenue de la Bourdonnais. Il exerce depuis 2004 et reçoit les adultes, femmes enceintes, nourrissons, enfants, sportifs, musiciens et patients souffrant de douleurs chroniques. Sa pratique est douce, sans craquement systématique, avec une approche musculofasciale, crânio-sacrée et biodynamique.",
+  "questions": [
+    {
+      "@type": "Question",
+      "name": "Qui est Nicolas Mildner, ostéopathe à Paris 7ᵉ ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nicolas Mildner est ostéopathe D.O. à Paris 7ᵉ. Il exerce depuis 2004 et possède plus de 22 ans d'expérience clinique. Il a également enseigné l'ostéopathie pendant 17 ans à l'ESO Paris. Sa pratique repose sur une approche douce, précise, musculofasciale, crânio-sacrée et biodynamique."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Où se situe le cabinet d'ostéopathie de Nicolas Mildner ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le cabinet de Nicolas Mildner est situé au 72 avenue de la Bourdonnais, dans le 7ᵉ arrondissement de Paris, à proximité du Champ-de-Mars, de l'École Militaire, des Invalides et de la Tour Eiffel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels patients Nicolas Mildner reçoit-il ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nicolas Mildner reçoit les adultes, les femmes enceintes, les nourrissons, les enfants, les adolescents, les sportifs, les musiciens, les patients âgés et les personnes souffrant de douleurs chroniques ou fonctionnelles."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pour quels motifs peut-on consulter un ostéopathe à Paris 7ᵉ ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les consultations peuvent concerner les douleurs de dos, lombalgies, sciatiques, cervicalgies, torticolis, migraines, vertiges, douleurs de mâchoire, bruxisme, troubles digestifs fonctionnels, douleurs chroniques, stress, troubles du sommeil, inconforts de grossesse, suites de naissance ou tensions du nourrisson."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Nicolas Mildner pratique-t-il une ostéopathie douce sans craquement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Nicolas Mildner privilégie une ostéopathie douce, sans manipulation forcée et sans recherche systématique de craquement. Le traitement est adapté à chaque patient, selon son âge, son état de santé, son motif de consultation et sa sensibilité."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on consulter pour une lombalgie, une sciatique ou un mal de dos ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Les douleurs lombaires, sciatiques, lumbagos et douleurs de dos font partie des motifs fréquents de consultation. La séance commence par un interrogatoire et un examen clinique afin d'identifier les signes éventuels nécessitant un avis médical."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on consulter pour des cervicalgies, torticolis, migraines ou vertiges ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Nicolas Mildner reçoit des patients présentant des cervicalgies, torticolis, tensions crâniennes, migraines ou vertiges fonctionnels. Ces motifs nécessitent une évaluation prudente afin d'écarter les situations relevant d'un avis médical rapide."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Nicolas Mildner reçoit-il les femmes enceintes, nourrissons et enfants ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Nicolas Mildner reçoit les femmes enceintes, les nourrissons et les enfants. Chez le nourrisson et l'enfant, la présence d'un parent est obligatoire. L'approche est douce, progressive et adaptée à l'âge du patient."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le tarif d'une consultation d'ostéopathie ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le tarif d'une consultation au cabinet est généralement compris entre 80 et 90 euros. La séance dure environ 45 minutes à 1 heure. Le règlement se fait par chèque ou en espèces."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment prendre rendez-vous avec Nicolas Mildner ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La prise de rendez-vous se fait directement par téléphone ou par SMS, au 01 42 02 11 18 ou au 06 68 80 14 42. Nicolas Mildner ne passe pas par Doctolib, par choix, afin de conserver un contact direct avec les patients."
+      }
+    }
+  ]
+}

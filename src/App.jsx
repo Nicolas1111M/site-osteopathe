@@ -34,6 +34,7 @@ export default function App() {
         <Route path="/femme-enceinte-osteopathe-paris-7" element={<LocalSpecPage />} />
         <Route path="/bruxisme-atm-paris-7" element={<LocalSpecPage />} />
         <Route path="/urgence-osteopathe-paris-7" element={<LocalSpecPage />} />
+        <Route path="/osteopathe-sans-craquement-paris-7" element={<LocalSpecPage />} />
         <Route path="/blog" element={<BlogWrapper />} />
         <Route path="/blog/:slug" element={<BlogWrapper />} />
       </Routes>

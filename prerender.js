@@ -22,6 +22,9 @@ const template = readFileSync(join(DIST, "index.html"), "utf-8");
 // Read posts index
 const postsIndex = JSON.parse(readFileSync(join(__dirname, "src/posts-index.json"), "utf-8"));
 
+// Read homepage FAQ (miroir de la FAQ de Site.jsx — source de vérité pour le pré-rendu)
+const homeFaq = JSON.parse(readFileSync(join(__dirname, "src/home-faq.json"), "utf-8"));
+
 // ── Helpers ──
 
 function escapeHtml(str) {
@@ -74,6 +77,57 @@ function faqJsonLd(faq) {
     }))
   };
   return `<script type="application/ld+json" id="ld-faq">${JSON.stringify(ld)}</script>`;
+}
+
+/** BreadcrumbList JSON-LD — items: [{name, url}] (dernier item sans url = page courante) */
+function breadcrumbJsonLd(items) {
+  if (!items || items.length === 0) return "";
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((it, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": it.name,
+      ...(it.url ? { "item": it.url } : {})
+    }))
+  };
+  return `<script type="application/ld+json" id="ld-breadcrumb">${JSON.stringify(ld)}</script>`;
+}
+
+/** Person JSON-LD — Nicolas Mildner (cohérent avec le bloc founder de index.html) */
+function personJsonLd() {
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Nicolas Mildner",
+    "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.",
+    "url": domain,
+    "telephone": "+33142021118",
+    "description": "Ostéopathe depuis 2004. D.O. n°00379 de la Collégiale Académique de France. Diplômé devant la Faculté de Médecine de Genève. 17 ans d'enseignement à l'ESO Paris (2004-2020). Filiation directe : Viola Frymann, Serge Paoletti, Roger Caporossi, John Wernham, René Briend.",
+    "knowsAbout": ["Ostéopathie", "Crânio-sacré", "Viscéral", "Périnatalité", "Pédiatrie", "Posturologie", "Auriculothérapie", "Fertilité", "Gériatrie", "Ostéopathie structurelle"],
+    "alumniOf": { "@type": "EducationalOrganization", "name": "École Supérieure d'Ostéopathie de Paris" },
+    "worksFor": { "@type": "MedicalBusiness", "name": "Cabinet Nicolas Mildner — Ostéopathe D.O.", "url": domain },
+    "workLocation": {
+      "@type": "Place",
+      "address": { "@type": "PostalAddress", "streetAddress": "72 avenue de la Bourdonnais", "addressLocality": "Paris", "postalCode": "75007", "addressCountry": "FR" }
+    }
+  };
+  return `<script type="application/ld+json" id="ld-person">${JSON.stringify(ld)}</script>`;
+}
+
+/** FAQPage JSON-LD pour la home (items déjà au format mainEntity) */
+function homeFaqJsonLd(items) {
+  if (!items || items.length === 0) return "";
+  const ld = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": items };
+  return `<script type="application/ld+json" id="ld-faq-home">${JSON.stringify(ld)}</script>`;
+}
+
+/** FAQ visible (home) à partir des items mainEntity */
+function homeFaqHtml(items) {
+  if (!items || items.length === 0) return "";
+  const li = items.map(q => `<details><summary>${escapeHtml(q.name)}</summary><p>${escapeHtml(q.acceptedAnswer.text)}</p></details>`).join("\n");
+  return `<section aria-label="Questions fréquentes"><h2>Questions fréquentes — Ostéopathe Paris 7ᵉ</h2>\n${li}\n</section>`;
 }
 
 /** Build sources HTML */
@@ -181,7 +235,7 @@ for (const post of postsIndex) {
     // Inject structured data before </head>
     .replace(
       "</head>",
-      `${blogPostingJsonLd(post, wordCount)}\n${faqJsonLd(articleData.faq)}\n</head>`
+      `${blogPostingJsonLd(post, wordCount)}\n${faqJsonLd(articleData.faq)}\n${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Blog",url:`${domain}/blog`},{name:post.title}])}\n</head>`
     )
     // Inject article HTML into <div id="root">
     .replace(
@@ -225,6 +279,10 @@ let listingPage = template
     `<link rel="canonical" href="${domain}/blog"`
   )
   .replace(
+    "</head>",
+    `${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Blog"}])}\n</head>`
+  )
+  .replace(
     '<div id="root"></div>',
     `<div id="root">${listingHtml}</div>`
   );
@@ -250,6 +308,9 @@ const homepageHtml = `
     <p>Chaque patient est un cas jamais vu. Pas de protocole. Pas de recette. L'ostéopathie n'est pas un produit — c'est une relation.</p>
     <p>Généraliste hyperspécialiste. 18 champs d'expertise. Approche systémique et neurovégétative fondée sur la neurophysiologie. Filiation directe avec les fondateurs de l'ostéopathie mondiale. Patientèle internationale.</p>
   </header>
+  <section aria-label="En résumé">
+    <p>${escapeHtml(homeFaq.aiSummary)}</p>
+  </section>
   <nav aria-label="Sections du site">
     <a href="/osteopathe-paris-7">Ostéopathe Paris 7</a>
     <a href="/blog">Blog</a>
@@ -276,6 +337,7 @@ const homepageHtml = `
     <h2>Le blog du cabinet</h2>
     ${postsIndex.map(p => `<article><h3><a href="/blog/${p.id}">${escapeHtml(p.title)}</a></h3><p>${escapeHtml(p.excerpt)}</p></article>`).join("\n")}
   </section>
+  ${homeFaqHtml(homeFaq.questions)}
   <section aria-label="Contact">
     <h2>Prendre rendez-vous</h2>
     <p>72 avenue de la Bourdonnais, 75007 Paris. Métro École Militaire (8) · La Tour-Maubourg (8).</p>
@@ -294,6 +356,10 @@ const homepageHtml = `
 </div>`;
 
 let homePage = template
+  .replace(
+    "</head>",
+    `${personJsonLd()}\n${homeFaqJsonLd(homeFaq.questions)}\n</head>`
+  )
   .replace(
     '<div id="root"></div>',
     `<div id="root">${homepageHtml}</div>`
@@ -383,6 +449,10 @@ let localPage = template
     `<link rel="canonical" href="${domain}/osteopathe-paris-7"`
   )
   .replace(
+    "</head>",
+    `${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7ᵉ"}])}\n</head>`
+  )
+  .replace(
     '<div id="root"></div>',
     `<div id="root">${localPageHtml}</div>`
   );
@@ -438,6 +508,7 @@ for (const lp of localPagesData) {
       <a href="/nourrisson-plagiocephalie-paris-7">Nourrissons</a> ·
       <a href="/femme-enceinte-osteopathe-paris-7">Grossesse</a> ·
       <a href="/bruxisme-atm-paris-7">Bruxisme et ATM</a> ·
+      <a href="/osteopathe-sans-craquement-paris-7">Sans craquement</a> ·
       <a href="/urgence-osteopathe-paris-7">Urgence ostéopathe</a>
     </nav>
     <p><a href="/">Accueil</a> · <a href="/osteopathe-paris-7">Ostéopathe Paris 7</a> · <a href="/blog">Blog</a></p>
@@ -458,7 +529,7 @@ for (const lp of localPagesData) {
     .replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${escapeHtml(lp.metaTitle)}"`)
     .replace(/<meta property="og:description" content="[^"]*"/, `<meta property="og:description" content="${escapeHtml(lp.metaDescription)}"`)
     .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${domain}/${lp.slug}"`)
-    .replace("</head>", `${faqJsonLdSpec}\n</head>`)
+    .replace("</head>", `${faqJsonLdSpec}\n${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7ᵉ",url:`${domain}/osteopathe-paris-7`},{name:lp.h1.split(/ — | : /)[0]}])}\n</head>`)
     .replace('<div id="root"></div>', `<div id="root">${specHtml}</div>`);
 
   const specDir = join(DIST, lp.slug);

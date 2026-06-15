@@ -12,17 +12,50 @@
       "Chaque patient est un cas unique. Un lumbago peut naître d'une contrainte viscérale, d'un déséquilibre postural, d'un stress chronique. C'est cette analyse globale, nourrie par 22 ans de pratique et 17 ans d'enseignement, qui fait la différence."
     ],
     "expertise": [
-      { "title": "Lombalgie aiguë et chronique", "text": "Prise en charge des lombalgies de toute origine : mécanique, discale, postural, viscérale. Approche fondée sur les recommandations de la HAS et la recherche internationale." },
-      { "title": "Sciatique et cruralgie", "text": "Évaluation neuro-orthopédique précise, diagnostic différentiel systématique, orientation vers le spécialiste adapté quand l'ostéopathie ne suffit pas." },
-      { "title": "Dorsalgie et douleurs intercostales", "text": "Tensions thoraciques, douleurs entre les omoplates, blocages costaux. Approche myofasciale thoraco-abdominale — enseignée pendant 17 ans à l'ESO." },
-      { "title": "Douleur chronique complexe", "text": "Patients en errance thérapeutique, douleurs multi-factorielles résistantes. La Loi du Cas Unique : chaque situation mérite une analyse neuve." }
+      {
+        "title": "Lombalgie aiguë et chronique",
+        "text": "Prise en charge des lombalgies de toute origine : mécanique, discale, postural, viscérale. Approche fondée sur les recommandations de la HAS et la recherche internationale."
+      },
+      {
+        "title": "Sciatique et cruralgie",
+        "text": "Évaluation neuro-orthopédique précise, diagnostic différentiel systématique, orientation vers le spécialiste adapté quand l'ostéopathie ne suffit pas."
+      },
+      {
+        "title": "Dorsalgie et douleurs intercostales",
+        "text": "Tensions thoraciques, douleurs entre les omoplates, blocages costaux. Approche myofasciale thoraco-abdominale — enseignée pendant 17 ans à l'ESO."
+      },
+      {
+        "title": "Douleur chronique complexe",
+        "text": "Patients en errance thérapeutique, douleurs multi-factorielles résistantes. La Loi du Cas Unique : chaque situation mérite une analyse neuve."
+      }
     ],
-    "keywords": ["lombalgie", "mal de dos", "sciatique", "lumbago", "dorsalgie", "douleur chronique", "hernie discale", "cruralgie"],
-    "relatedBlogSlugs": ["lombalgie-mal-de-dos-recherche", "inflammation-chronique-microbiote-douleur"],
+    "keywords": [
+      "lombalgie",
+      "mal de dos",
+      "sciatique",
+      "lumbago",
+      "dorsalgie",
+      "douleur chronique",
+      "hernie discale",
+      "cruralgie"
+    ],
+    "relatedBlogSlugs": [
+      "lombalgie-mal-de-dos-recherche",
+      "inflammation-chronique-microbiote-douleur"
+    ],
     "faq": [
-      { "q": "Combien de séances d'ostéopathie pour un mal de dos ?", "a": "Cela dépend de l'ancienneté et de la complexité de la douleur. Une lombalgie aiguë simple se résout souvent en 1 à 3 séances. Une lombalgie chronique nécessite un suivi plus long, intégrant exercice et éducation à la douleur." },
-      { "q": "L'ostéopathie est-elle efficace pour la sciatique ?", "a": "Les méta-analyses montrent que la thérapie manuelle ostéopathique est efficace pour réduire la douleur et améliorer la fonction dans les lombalgies avec sciatalgie, en complément d'un programme d'exercices adaptés." },
-      { "q": "Mon médecin m'a prescrit des anti-inflammatoires, puis-je quand même consulter ?", "a": "Oui. L'ostéopathie est complémentaire du traitement médical. Nicolas Mildner réalise systématiquement un diagnostic différentiel pour s'assurer que l'ostéopathie est appropriée dans votre cas." }
+      {
+        "q": "Combien de séances d'ostéopathie pour un mal de dos ?",
+        "a": "Cela dépend de l'ancienneté et de la complexité de la douleur. Une lombalgie aiguë simple se résout souvent en 1 à 3 séances. Une lombalgie chronique nécessite un suivi plus long, intégrant exercice et éducation à la douleur."
+      },
+      {
+        "q": "L'ostéopathie est-elle efficace pour la sciatique ?",
+        "a": "Les méta-analyses montrent que la thérapie manuelle ostéopathique est efficace pour réduire la douleur et améliorer la fonction dans les lombalgies avec sciatalgie, en complément d'un programme d'exercices adaptés."
+      },
+      {
+        "q": "Mon médecin m'a prescrit des anti-inflammatoires, puis-je quand même consulter ?",
+        "a": "Oui. L'ostéopathie est complémentaire du traitement médical. Nicolas Mildner réalise systématiquement un diagnostic différentiel pour s'assurer que l'ostéopathie est appropriée dans votre cas."
+      }
     ]
   },
   {
@@ -38,17 +71,49 @@
       "Nicolas Mildner prend en charge les cervicalgies dans le cadre d'une approche systémique : les cervicales ne sont jamais isolées — elles répondent à l'ensemble de la posture, de la mâchoire à la ceinture scapulaire, du système viscéral au système nerveux autonome."
     ],
     "expertise": [
-      { "title": "Cervicalgie aiguë et chronique", "text": "Douleurs de nuque, raideurs, névralgies cervico-brachiales. Approche combinant techniques douces crânio-sacrées, fasciales et thoraciques." },
-      { "title": "Torticolis et blocages aigus", "text": "Prise en charge en urgence possible. Techniques douces exclusivement — plus de cracking depuis plusieurs années." },
-      { "title": "Céphalées cervicogènes", "text": "Maux de tête d'origine cervicale, souvent confondus avec des migraines. Diagnostic différentiel précis et approche crânio-sacrée." },
-      { "title": "Cervicalgies du musicien", "text": "Contraintes spécifiques des instrumentistes (violonistes, pianistes, chanteurs). Ancien élève de conservatoire — compréhension directe des exigences posturales." }
+      {
+        "title": "Cervicalgie aiguë et chronique",
+        "text": "Douleurs de nuque, raideurs, névralgies cervico-brachiales. Approche combinant techniques douces crânio-sacrées, fasciales et thoraciques."
+      },
+      {
+        "title": "Torticolis et blocages aigus",
+        "text": "Prise en charge en urgence possible. Techniques douces exclusivement — plus de cracking depuis plusieurs années."
+      },
+      {
+        "title": "Céphalées cervicogènes",
+        "text": "Maux de tête d'origine cervicale, souvent confondus avec des migraines. Diagnostic différentiel précis et approche crânio-sacrée."
+      },
+      {
+        "title": "Cervicalgies du musicien",
+        "text": "Contraintes spécifiques des instrumentistes (violonistes, pianistes, chanteurs). Ancien élève de conservatoire — compréhension directe des exigences posturales."
+      }
     ],
-    "keywords": ["cervicalgie", "torticolis", "douleur cervicale", "céphalée cervicogène", "raideur nuque", "névralgie cervico-brachiale", "ostéopathe cervicales"],
-    "relatedBlogSlugs": ["cervicalgie-torticolis-recherche", "lombalgie-mal-de-dos-recherche"],
+    "keywords": [
+      "cervicalgie",
+      "torticolis",
+      "douleur cervicale",
+      "céphalée cervicogène",
+      "raideur nuque",
+      "névralgie cervico-brachiale",
+      "ostéopathe cervicales"
+    ],
+    "relatedBlogSlugs": [
+      "cervicalgie-torticolis-recherche",
+      "lombalgie-mal-de-dos-recherche"
+    ],
     "faq": [
-      { "q": "Combien de temps dure un torticolis ?", "a": "Un torticolis aigu se résout généralement en quelques jours. L'ostéopathie peut accélérer significativement la récupération et prévenir les récidives en identifiant les facteurs contributifs." },
-      { "q": "L'ostéopathe va-t-il craquer mon cou ?", "a": "Non. Nicolas Mildner pratique exclusivement des techniques douces — fasciales, crânio-sacrées, tissulaires. Plus de manipulation en thrust cervical depuis plusieurs années." },
-      { "q": "Mes maux de tête peuvent-ils venir des cervicales ?", "a": "Oui. Les céphalées cervicogènes sont fréquentes et souvent confondues avec des migraines. Un examen ostéopathique précis permet de les identifier et de les prendre en charge efficacement." }
+      {
+        "q": "Combien de temps dure un torticolis ?",
+        "a": "Un torticolis aigu se résout généralement en quelques jours. L'ostéopathie peut accélérer significativement la récupération et prévenir les récidives en identifiant les facteurs contributifs."
+      },
+      {
+        "q": "L'ostéopathe va-t-il craquer mon cou ?",
+        "a": "Non. Nicolas Mildner pratique exclusivement des techniques douces — fasciales, crânio-sacrées, tissulaires. Plus de manipulation en thrust cervical depuis plusieurs années."
+      },
+      {
+        "q": "Mes maux de tête peuvent-ils venir des cervicales ?",
+        "a": "Oui. Les céphalées cervicogènes sont fréquentes et souvent confondues avec des migraines. Un examen ostéopathique précis permet de les identifier et de les prendre en charge efficacement."
+      }
     ]
   },
   {
@@ -64,17 +129,48 @@
       "Au cabinet du 72 avenue de la Bourdonnais, chaque consultation de nourrisson commence par une évaluation psychomotrice et de la micro-mobilité clinique complète — avant toute correction. La priorité : évaluer, comprendre, expliquer aux parents, puis agir avec précision et douceur."
     ],
     "expertise": [
-      { "title": "Plagiocéphalie", "text": "Déformation crânienne positionnelle. Évaluation précise de la mobilité des sutures et du positionnement cervical. Techniques crânio-sacrées douces et conseils de positionnement aux parents." },
-      { "title": "Coliques et reflux", "text": "Troubles digestifs fonctionnels du nourrisson. Approche viscérale douce et rééquilibrage du système nerveux autonome. Coordination avec le pédiatre." },
-      { "title": "Torticolis congénital", "text": "Bilan cervical complet, techniques fasciales et tissulaires adaptées au nouveau-né. Diagnostic différentiel systématique." },
-      { "title": "Bilan post-naissance", "text": "Évaluation ostéopathique dès la sortie de la maternité. Réseau de référents en lactation pour une prise en charge globale." }
+      {
+        "title": "Plagiocéphalie",
+        "text": "Déformation crânienne positionnelle. Évaluation précise de la mobilité des sutures et du positionnement cervical. Techniques crânio-sacrées douces et conseils de positionnement aux parents."
+      },
+      {
+        "title": "Coliques et reflux",
+        "text": "Troubles digestifs fonctionnels du nourrisson. Approche viscérale douce et rééquilibrage du système nerveux autonome. Coordination avec le pédiatre."
+      },
+      {
+        "title": "Torticolis congénital",
+        "text": "Bilan cervical complet, techniques fasciales et tissulaires adaptées au nouveau-né. Diagnostic différentiel systématique."
+      },
+      {
+        "title": "Bilan post-naissance",
+        "text": "Évaluation ostéopathique dès la sortie de la maternité. Réseau de référents en lactation pour une prise en charge globale."
+      }
     ],
-    "keywords": ["ostéopathe nourrisson", "plagiocéphalie", "coliques bébé", "torticolis nourrisson", "reflux bébé", "ostéopathe bébé Paris", "ostéopathie pédiatrique"],
-    "relatedBlogSlugs": ["22-ans-exercice-pratique-forgee-avant-la-loi"],
+    "keywords": [
+      "ostéopathe nourrisson",
+      "plagiocéphalie",
+      "coliques bébé",
+      "torticolis nourrisson",
+      "reflux bébé",
+      "ostéopathe bébé Paris",
+      "ostéopathie pédiatrique"
+    ],
+    "relatedBlogSlugs": [
+      "22-ans-exercice-pratique-forgee-avant-la-loi"
+    ],
     "faq": [
-      { "q": "À quel âge amener un nourrisson chez l'ostéopathe ?", "a": "Dès la sortie de la maternité. Plus le bilan est précoce, plus l'évaluation est précise et l'intervention efficace si nécessaire." },
-      { "q": "L'ostéopathie est-elle douloureuse pour un bébé ?", "a": "Non. Les techniques utilisées sont exclusivement douces — fasciales, crânio-sacrées, tissulaires. Le nourrisson est le plus souvent calme pendant la séance." },
-      { "q": "Mon pédiatre m'a orienté vers un ostéopathe pour une plagiocéphalie, que va-t-il se passer ?", "a": "Nicolas Mildner réalisera un bilan complet de la mobilité crânienne et cervicale, évaluera le développement psychomoteur, expliquera ses constatations aux parents et proposera un plan de prise en charge adapté, incluant des conseils de positionnement." }
+      {
+        "q": "À quel âge amener un nourrisson chez l'ostéopathe ?",
+        "a": "Dès la sortie de la maternité. Plus le bilan est précoce, plus l'évaluation est précise et l'intervention efficace si nécessaire."
+      },
+      {
+        "q": "L'ostéopathie est-elle douloureuse pour un bébé ?",
+        "a": "Non. Les techniques utilisées sont exclusivement douces — fasciales, crânio-sacrées, tissulaires. Le nourrisson est le plus souvent calme pendant la séance."
+      },
+      {
+        "q": "Mon pédiatre m'a orienté vers un ostéopathe pour une plagiocéphalie, que va-t-il se passer ?",
+        "a": "Nicolas Mildner réalisera un bilan complet de la mobilité crânienne et cervicale, évaluera le développement psychomoteur, expliquera ses constatations aux parents et proposera un plan de prise en charge adapté, incluant des conseils de positionnement."
+      }
     ]
   },
   {
@@ -90,17 +186,49 @@
       "Le cabinet du 72 avenue de la Bourdonnais propose également un accompagnement en fertilité : parcours de conception naturelle et assistée (PMA, FIV), optimisation du terrain physiologique et neurovégétatif en amont de la grossesse."
     ],
     "expertise": [
-      { "title": "Douleurs de grossesse", "text": "Lombalgies, sciatiques, douleurs de bassin, pubalgies. Techniques douces adaptées à chaque trimestre, respectant la physiologie de la grossesse." },
-      { "title": "Préparation à l'accouchement", "text": "Optimisation de la mobilité du bassin, travail sur le périnée et le diaphragme. Intégration au projet de naissance." },
-      { "title": "Post-partum", "text": "Rééquilibrage postural et viscéral après l'accouchement. Bilan du nourrisson possible dans la même consultation." },
-      { "title": "Fertilité et PMA", "text": "Accompagnement des parcours de conception naturelle et assistée. Optimisation du terrain neurovégétatif en coordination avec l'équipe médicale." }
+      {
+        "title": "Douleurs de grossesse",
+        "text": "Lombalgies, sciatiques, douleurs de bassin, pubalgies. Techniques douces adaptées à chaque trimestre, respectant la physiologie de la grossesse."
+      },
+      {
+        "title": "Préparation à l'accouchement",
+        "text": "Optimisation de la mobilité du bassin, travail sur le périnée et le diaphragme. Intégration au projet de naissance."
+      },
+      {
+        "title": "Post-partum",
+        "text": "Rééquilibrage postural et viscéral après l'accouchement. Bilan du nourrisson possible dans la même consultation."
+      },
+      {
+        "title": "Fertilité et PMA",
+        "text": "Accompagnement des parcours de conception naturelle et assistée. Optimisation du terrain neurovégétatif en coordination avec l'équipe médicale."
+      }
     ],
-    "keywords": ["ostéopathe femme enceinte", "grossesse ostéopathie", "périnatalité", "sciatique grossesse", "ostéopathe fertilité", "PMA ostéopathie", "post-partum ostéopathe"],
-    "relatedBlogSlugs": ["inflammation-chronique-microbiote-douleur", "collagene-complement-efficacite"],
+    "keywords": [
+      "ostéopathe femme enceinte",
+      "grossesse ostéopathie",
+      "périnatalité",
+      "sciatique grossesse",
+      "ostéopathe fertilité",
+      "PMA ostéopathie",
+      "post-partum ostéopathe"
+    ],
+    "relatedBlogSlugs": [
+      "inflammation-chronique-microbiote-douleur",
+      "collagene-complement-efficacite"
+    ],
     "faq": [
-      { "q": "À partir de quel mois de grossesse consulter un ostéopathe ?", "a": "Dès le premier trimestre si nécessaire. L'ostéopathie est sans risque à tous les stades de la grossesse lorsqu'elle est pratiquée par un praticien expérimenté utilisant des techniques douces adaptées." },
-      { "q": "L'ostéopathie peut-elle aider pour la fertilité ?", "a": "L'ostéopathie peut accompagner les parcours de conception en optimisant le terrain physiologique et neurovégétatif — mobilité du bassin, équilibre hormonal, gestion du stress. Nicolas Mildner travaille en coordination avec l'équipe médicale du patient." },
-      { "q": "Peut-on amener son bébé en même temps que la consultation post-partum ?", "a": "Oui. Nicolas Mildner peut réaliser le bilan ostéopathique du nourrisson dans le prolongement de la consultation de la mère, si nécessaire." }
+      {
+        "q": "À partir de quel mois de grossesse consulter un ostéopathe ?",
+        "a": "Dès le premier trimestre si nécessaire. L'ostéopathie est sans risque à tous les stades de la grossesse lorsqu'elle est pratiquée par un praticien expérimenté utilisant des techniques douces adaptées."
+      },
+      {
+        "q": "L'ostéopathie peut-elle aider pour la fertilité ?",
+        "a": "L'ostéopathie peut accompagner les parcours de conception en optimisant le terrain physiologique et neurovégétatif — mobilité du bassin, équilibre hormonal, gestion du stress. Nicolas Mildner travaille en coordination avec l'équipe médicale du patient."
+      },
+      {
+        "q": "Peut-on amener son bébé en même temps que la consultation post-partum ?",
+        "a": "Oui. Nicolas Mildner peut réaliser le bilan ostéopathique du nourrisson dans le prolongement de la consultation de la mère, si nécessaire."
+      }
     ]
   },
   {
@@ -116,17 +244,50 @@
       "La coordination avec le dentiste ou l'orthodontiste est essentielle. Nicolas Mildner accompagne également les traitements orthodontiques chez l'enfant et l'adulte, en optimisant la réponse crânienne et posturale aux modifications occlusales."
     ],
     "expertise": [
-      { "title": "Bruxisme et serrement", "text": "Bruxisme nocturne et diurne, serrement de mâchoire lié au stress. Rééquilibrage neurovégétatif et crânio-sacré pour réduire l'hyperactivité musculaire." },
-      { "title": "Douleurs et blocages de l'ATM", "text": "Claquements, crépitations, limitation d'ouverture buccale. Techniques douces intra et extra-buccales, approche fasciale et crânienne." },
-      { "title": "Céphalées et douleurs irradiées", "text": "Maux de tête d'origine temporo-mandibulaire, douleurs auriculaires, cervicalgies associées. Diagnostic différentiel systématique." },
-      { "title": "Accompagnement orthodontique", "text": "Suivi ostéopathique pendant un traitement orthodontique (enfant ou adulte). Optimisation de la réponse crânienne aux modifications occlusales." }
+      {
+        "title": "Bruxisme et serrement",
+        "text": "Bruxisme nocturne et diurne, serrement de mâchoire lié au stress. Rééquilibrage neurovégétatif et crânio-sacré pour réduire l'hyperactivité musculaire."
+      },
+      {
+        "title": "Douleurs et blocages de l'ATM",
+        "text": "Claquements, crépitations, limitation d'ouverture buccale. Techniques douces intra et extra-buccales, approche fasciale et crânienne."
+      },
+      {
+        "title": "Céphalées et douleurs irradiées",
+        "text": "Maux de tête d'origine temporo-mandibulaire, douleurs auriculaires, cervicalgies associées. Diagnostic différentiel systématique."
+      },
+      {
+        "title": "Accompagnement orthodontique",
+        "text": "Suivi ostéopathique pendant un traitement orthodontique (enfant ou adulte). Optimisation de la réponse crânienne aux modifications occlusales."
+      }
     ],
-    "keywords": ["bruxisme", "ATM", "mâchoire", "articulation temporo-mandibulaire", "douleur mâchoire", "ostéopathe ATM", "craquement mâchoire", "orthodontie ostéopathie"],
-    "relatedBlogSlugs": ["cervicalgie-torticolis-recherche", "inflammation-chronique-microbiote-douleur"],
+    "keywords": [
+      "bruxisme",
+      "ATM",
+      "mâchoire",
+      "articulation temporo-mandibulaire",
+      "douleur mâchoire",
+      "ostéopathe ATM",
+      "craquement mâchoire",
+      "orthodontie ostéopathie"
+    ],
+    "relatedBlogSlugs": [
+      "cervicalgie-torticolis-recherche",
+      "inflammation-chronique-microbiote-douleur"
+    ],
     "faq": [
-      { "q": "L'ostéopathie peut-elle traiter le bruxisme ?", "a": "L'ostéopathie ne supprime pas le bruxisme, mais elle réduit les tensions musculaires et crâniennes qui l'entretiennent, et rééquilibre le système nerveux autonome. L'approche est complémentaire du port de gouttière et de la gestion du stress." },
-      { "q": "Ma mâchoire craque, dois-je consulter ?", "a": "Un craquement articulaire isolé et indolore n'est pas toujours pathologique. En revanche, s'il s'accompagne de douleurs, de blocages ou de maux de tête, un bilan ostéopathique est recommandé pour évaluer l'équilibre crânio-mandibulaire." },
-      { "q": "Travaillez-vous en lien avec les dentistes ?", "a": "Oui. La coordination avec le dentiste ou l'orthodontiste est essentielle dans la prise en charge des troubles de l'ATM. Nicolas Mildner travaille régulièrement en lien avec les professionnels de la sphère bucco-dentaire." }
+      {
+        "q": "L'ostéopathie peut-elle traiter le bruxisme ?",
+        "a": "L'ostéopathie ne supprime pas le bruxisme, mais elle réduit les tensions musculaires et crâniennes qui l'entretiennent, et rééquilibre le système nerveux autonome. L'approche est complémentaire du port de gouttière et de la gestion du stress."
+      },
+      {
+        "q": "Ma mâchoire craque, dois-je consulter ?",
+        "a": "Un craquement articulaire isolé et indolore n'est pas toujours pathologique. En revanche, s'il s'accompagne de douleurs, de blocages ou de maux de tête, un bilan ostéopathique est recommandé pour évaluer l'équilibre crânio-mandibulaire."
+      },
+      {
+        "q": "Travaillez-vous en lien avec les dentistes ?",
+        "a": "Oui. La coordination avec le dentiste ou l'orthodontiste est essentielle dans la prise en charge des troubles de l'ATM. Nicolas Mildner travaille régulièrement en lien avec les professionnels de la sphère bucco-dentaire."
+      }
     ]
   },
   {
@@ -141,9 +302,21 @@
       "text": "Le terme « urgence ostéopathe » est souvent utilisé par les patients lorsqu'une douleur survient brutalement : dos bloqué, lumbago, torticolis, douleur cervicale ou gêne fonctionnelle importante. Une consultation ostéopathique rapide peut alors être envisagée, après vérification de l'absence de signes d'alerte.",
       "redflags": "En cas de douleur thoracique, malaise, difficulté respiratoire, paralysie, troubles urinaires ou digestifs nouveaux, fièvre, traumatisme important ou douleur inhabituelle — contactez un médecin ou les services d'urgence :",
       "numbers": [
-        { "label": "SAMU", "number": "15", "desc": "Urgence médicale" },
-        { "label": "Pompiers", "number": "18", "desc": "Secours" },
-        { "label": "Urgences européennes", "number": "112", "desc": "Numéro universel" }
+        {
+          "label": "SAMU",
+          "number": "15",
+          "desc": "Urgence médicale"
+        },
+        {
+          "label": "Pompiers",
+          "number": "18",
+          "desc": "Secours"
+        },
+        {
+          "label": "Urgences européennes",
+          "number": "112",
+          "desc": "Numéro universel"
+        }
       ]
     },
     "introParagraphs": [
@@ -152,19 +325,122 @@
       "Dès ses premières années d'exercice, Nicolas Mildner a pris en charge des patients en douleur aiguë dans le cadre de remplacements et de consultations d'urgence. Cette expérience précoce des situations cliniques tendues, complétée par des stages hospitaliers (chirurgie, pédiatrie, maternité), a forgé sa pratique du diagnostic différentiel — savoir reconnaître ce qui relève de l'ostéopathie et ce qui n'en relève pas."
     ],
     "expertise": [
-      { "title": "Lumbago et blocage lombaire", "text": "Blocage lombaire brutal, douleur intense à la mobilisation, difficulté à se redresser. L'objectif de la première consultation n'est pas de « tout remettre en place » — c'est d'évaluer la situation, de soulager ce qui peut l'être, et de poser un cadre de récupération réaliste. Techniques douces exclusivement." },
-      { "title": "Torticolis et raideur cervicale", "text": "Raideur cervicale brutale, limitation de rotation, douleur au mouvement. L'approche est douce et progressive — crânio-sacrée et fasciale. Certains torticolis répondent en une séance, d'autres nécessitent un suivi. L'honnêteté sur le pronostic fait partie de la prise en charge." },
-      { "title": "Sciatique aiguë", "text": "Douleur irradiant dans la fesse et la jambe, souvent invalidante. Évaluation neuro-orthopédique précise, diagnostic différentiel systématique, orientation vers le spécialiste si nécessaire." },
-      { "title": "Douleurs après un choc ou une chute", "text": "Douleurs apparues après un traumatisme, une chute, un accident. Bilan complet avant toute intervention — l'ostéopathe n'intervient qu'après avoir vérifié l'absence de lésion nécessitant une prise en charge médicale." },
-      { "title": "Consultations à domicile", "text": "Pour les patients à mobilité réduite ou dans l'impossibilité de se déplacer. Paris 7ᵉ et arrondissements limitrophes. Sur rendez-vous téléphonique." }
+      {
+        "title": "Lumbago et blocage lombaire",
+        "text": "Blocage lombaire brutal, douleur intense à la mobilisation, difficulté à se redresser. L'objectif de la première consultation n'est pas de « tout remettre en place » — c'est d'évaluer la situation, de soulager ce qui peut l'être, et de poser un cadre de récupération réaliste. Techniques douces exclusivement."
+      },
+      {
+        "title": "Torticolis et raideur cervicale",
+        "text": "Raideur cervicale brutale, limitation de rotation, douleur au mouvement. L'approche est douce et progressive — crânio-sacrée et fasciale. Certains torticolis répondent en une séance, d'autres nécessitent un suivi. L'honnêteté sur le pronostic fait partie de la prise en charge."
+      },
+      {
+        "title": "Sciatique aiguë",
+        "text": "Douleur irradiant dans la fesse et la jambe, souvent invalidante. Évaluation neuro-orthopédique précise, diagnostic différentiel systématique, orientation vers le spécialiste si nécessaire."
+      },
+      {
+        "title": "Douleurs après un choc ou une chute",
+        "text": "Douleurs apparues après un traumatisme, une chute, un accident. Bilan complet avant toute intervention — l'ostéopathe n'intervient qu'après avoir vérifié l'absence de lésion nécessitant une prise en charge médicale."
+      },
+      {
+        "title": "Consultations à domicile",
+        "text": "Pour les patients à mobilité réduite ou dans l'impossibilité de se déplacer. Paris 7ᵉ et arrondissements limitrophes. Sur rendez-vous téléphonique."
+      }
     ],
-    "keywords": ["urgence ostéopathe", "ostéopathe urgence Paris", "dos bloqué ostéopathe", "lumbago urgence", "torticolis urgence", "ostéopathe rapide Paris 7", "douleur aiguë ostéopathe", "SOS ostéopathe Paris"],
-    "relatedBlogSlugs": ["lombalgie-mal-de-dos-recherche", "cervicalgie-torticolis-recherche"],
+    "keywords": [
+      "urgence ostéopathe",
+      "ostéopathe urgence Paris",
+      "dos bloqué ostéopathe",
+      "lumbago urgence",
+      "torticolis urgence",
+      "ostéopathe rapide Paris 7",
+      "douleur aiguë ostéopathe",
+      "SOS ostéopathe Paris"
+    ],
+    "relatedBlogSlugs": [
+      "lombalgie-mal-de-dos-recherche",
+      "cervicalgie-torticolis-recherche"
+    ],
     "faq": [
-      { "q": "Peut-on consulter un ostéopathe en urgence ?", "a": "Oui, pour des douleurs fonctionnelles aiguës (dos bloqué, lumbago, torticolis). Nicolas Mildner reçoit sur rendez-vous téléphonique et peut souvent proposer un créneau dans la journée. En revanche, les urgences médicales (douleur thoracique, malaise, paralysie, fièvre) relèvent du SAMU (15) ou du 112." },
-      { "q": "Combien de temps dure la récupération après un lumbago aigu ?", "a": "Un lumbago aigu simple s'améliore généralement en quelques jours à quelques semaines. L'ostéopathie peut contribuer à la récupération et réduire le risque de chronicisation, mais chaque situation est différente — le pronostic dépend de l'ancienneté, du contexte et de la réponse individuelle du patient." },
-      { "q": "L'ostéopathe se déplace-t-il à domicile en cas de dos bloqué ?", "a": "Oui. Nicolas Mildner propose des consultations à domicile pour les patients dans l'impossibilité de se déplacer (Paris 7ᵉ et arrondissements limitrophes). Appelez le 01 42 02 11 18 ou le 06 68 80 14 42 pour organiser une visite." },
-      { "q": "Faut-il une ordonnance pour consulter un ostéopathe en urgence ?", "a": "Non. L'ostéopathie est en accès direct, sans ordonnance. Vous pouvez appeler directement le cabinet pour prendre rendez-vous. Nicolas Mildner réalise systématiquement un diagnostic différentiel pour s'assurer que l'ostéopathie est appropriée." }
+      {
+        "q": "Peut-on consulter un ostéopathe en urgence ?",
+        "a": "Oui, pour des douleurs fonctionnelles aiguës (dos bloqué, lumbago, torticolis). Nicolas Mildner reçoit sur rendez-vous téléphonique et peut souvent proposer un créneau dans la journée. En revanche, les urgences médicales (douleur thoracique, malaise, paralysie, fièvre) relèvent du SAMU (15) ou du 112."
+      },
+      {
+        "q": "Combien de temps dure la récupération après un lumbago aigu ?",
+        "a": "Un lumbago aigu simple s'améliore généralement en quelques jours à quelques semaines. L'ostéopathie peut contribuer à la récupération et réduire le risque de chronicisation, mais chaque situation est différente — le pronostic dépend de l'ancienneté, du contexte et de la réponse individuelle du patient."
+      },
+      {
+        "q": "L'ostéopathe se déplace-t-il à domicile en cas de dos bloqué ?",
+        "a": "Oui. Nicolas Mildner propose des consultations à domicile pour les patients dans l'impossibilité de se déplacer (Paris 7ᵉ et arrondissements limitrophes). Appelez le 01 42 02 11 18 ou le 06 68 80 14 42 pour organiser une visite."
+      },
+      {
+        "q": "Faut-il une ordonnance pour consulter un ostéopathe en urgence ?",
+        "a": "Non. L'ostéopathie est en accès direct, sans ordonnance. Vous pouvez appeler directement le cabinet pour prendre rendez-vous. Nicolas Mildner réalise systématiquement un diagnostic différentiel pour s'assurer que l'ostéopathie est appropriée."
+      }
+    ]
+  },
+  {
+    "slug": "osteopathe-sans-craquement-paris-7",
+    "h1": "Ostéopathe sans craquement à Paris 7ᵉ — Techniques douces exclusivement",
+    "subtitle": "Ostéopathie douce — fasciale, crânio-sacrée, tissulaire et biodynamique — au 72 avenue de la Bourdonnais",
+    "metaTitle": "Ostéopathe sans craquement Paris 7ᵉ — Techniques douces | Nicolas Mildner D.O.",
+    "metaDescription": "Ostéopathe sans craquement à Paris 7ᵉ (75007). Techniques douces exclusivement : fasciales, crânio-sacrées, tissulaires, biodynamiques. Nicolas Mildner, D.O. n°379, 22 ans d'expérience. Tél. 01 42 02 11 18.",
+    "heroTag": "Techniques douces · Paris 7ᵉ",
+    "introParagraphs": [
+      "« Vous n'allez pas me faire craquer ? » C'est l'une des questions les plus fréquentes au cabinet. L'appréhension du craquement — ce que les ostéopathes appellent la manipulation à haute vélocité et basse amplitude (HVLA, ou « thrust ») — est légitime : elle peut être impressionnante, parfois inconfortable, et tout le monde n'y est pas favorable. Une ostéopathie sans craquement consiste à obtenir les mêmes objectifs de mobilité et de régulation sans recourir à ces techniques articulaires brusques.",
+      "Au cabinet du 72 avenue de la Bourdonnais, Nicolas Mildner pratique exclusivement des techniques douces depuis plusieurs années : fasciales, crânio-sacrées, tissulaires et biodynamiques. Ce choix n'est pas une concession au confort du patient : il découle d'une conception de l'ostéopathie comme technique réflexe, où l'on dialogue avec le système nerveux autonome plutôt que de forcer une articulation. La douceur du geste n'enlève rien à la précision de l'analyse.",
+      "Chaque patient est un cas unique. Une approche douce ne signifie pas une approche uniforme : elle s'adapte à la personne, à son histoire, à son tissu. Et elle s'accompagne toujours d'un diagnostic différentiel — savoir reconnaître ce qui relève de l'ostéopathie et ce qui justifie une orientation médicale. La douceur n'est pas une promesse de résultat ; c'est une manière de travailler, honnête sur ce qu'elle peut et ne peut pas faire."
+    ],
+    "expertise": [
+      {
+        "title": "Qu'est-ce qu'une technique douce ?",
+        "text": "Techniques fasciales, crânio-sacrées et tissulaires : un travail lent, à faible pression, sur les tissus, les membranes et les rythmes physiologiques. Aucune manipulation articulaire en thrust, aucun craquement provoqué. Le geste cherche à lever des contraintes et à restaurer la mobilité par la régulation, non par la contrainte."
+      },
+      {
+        "title": "Pour qui ?",
+        "text": "Personnes appréhendant le craquement, patients âgés, femmes enceintes, nourrissons, situations d'ostéoporose, d'hypermobilité ou de suites de traumatisme — contextes où la manipulation articulaire brusque est à éviter ou simplement non souhaitée. La technique douce y trouve toute sa place."
+      },
+      {
+        "title": "Crânio-sacré et biodynamique",
+        "text": "Approche issue de la filiation crânienne (Frymann, Caporossi) et de la branche biodynamique (Becker, Briend). Un travail fondé sur l'anatomie et la neurophysiologie, sans dérive énergétique ni new age — Nicolas Mildner ne pratique ni magnétisme, ni thérapie énergétique."
+      },
+      {
+        "title": "Honnêteté sur l'efficacité",
+        "text": "La recherche sur la thérapie manuelle n'établit pas la supériorité du « craquement » pour la plupart des motifs courants : le choix de la technique s'individualise. Certaines situations répondent vite, d'autres demandent un suivi. Le pronostic est annoncé honnêtement, séance après séance."
+      }
+    ],
+    "keywords": [
+      "ostéopathe sans craquement",
+      "ostéopathie douce",
+      "techniques douces",
+      "ostéopathe sans manipulation",
+      "ostéopathe doux Paris",
+      "crânio-sacré",
+      "fascial",
+      "biodynamique",
+      "peur du craquement ostéopathe"
+    ],
+    "relatedBlogSlugs": [
+      "cervicalgie-torticolis-recherche",
+      "lombalgie-mal-de-dos-recherche"
+    ],
+    "faq": [
+      {
+        "q": "Allez-vous me faire craquer ?",
+        "a": "Non. Nicolas Mildner pratique exclusivement des techniques douces — fasciales, crânio-sacrées, tissulaires et biodynamiques. Aucune manipulation articulaire en thrust, aucun craquement provoqué. Si vous appréhendez ce type de geste, vous pouvez consulter en confiance."
+      },
+      {
+        "q": "Les techniques douces sont-elles aussi efficaces que les manipulations avec craquement ?",
+        "a": "La recherche sur la thérapie manuelle n'établit pas que la manipulation en thrust soit supérieure aux techniques douces pour la plupart des motifs courants. L'efficacité dépend surtout de la justesse de l'analyse et de l'adaptation à chaque patient. Le choix de la technique s'individualise au cas par cas."
+      },
+      {
+        "q": "Pourquoi avez-vous arrêté les manipulations avec craquement ?",
+        "a": "Par cohérence avec une conception de l'ostéopathie comme technique réflexe : dialoguer avec le système nerveux autonome plutôt que forcer une articulation. Les techniques douces permettent d'atteindre les mêmes objectifs de mobilité et de régulation, tout en respectant l'appréhension légitime de nombreux patients."
+      },
+      {
+        "q": "Les techniques douces conviennent-elles aux personnes âgées, aux femmes enceintes et aux nourrissons ?",
+        "a": "Oui, elles y sont particulièrement adaptées. Chez le nourrisson, la femme enceinte, la personne âgée ou en cas d'ostéoporose, la manipulation articulaire brusque est à éviter. L'approche fasciale et crânio-sacrée, douce et progressive, est ici le geste de référence."
+      }
     ]
   }
 ]

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import homeFaqData from "./home-faq.json";
 
 // ═══════════════════════════════════════════════════
 // NICOLAS MILDNER — OSTÉOPATHE D.O. · D.O.E. · D.O.F.
@@ -82,10 +83,11 @@ export default function Site({ onBlog }){
   const[menuOpen,setMenuOpen]=useState(false);
   const[nlEmail,setNlEmail]=useState("");
   const[nlStatus,setNlStatus]=useState("idle");
+  const[openFaq,setOpenFaq]=useState(null);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>50);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{const t=setInterval(()=>setTIdx(p=>(p+1)%testimonials.length),6000);return()=>clearInterval(t);},[]);
   const filtered=cat==="all"?specs:specs.filter(s=>s.cat===cat);
-  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Paris 7ᵉ",h:"/osteopathe-paris-7",isRoute:true},{l:"Blog",h:"#blog"},{l:"Contact",h:"#contact"}];
+  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Paris 7ᵉ",h:"/osteopathe-paris-7",isRoute:true},{l:"Blog",h:"#blog"},{l:"FAQ",h:"#faq"},{l:"Contact",h:"#contact"}];
   const cats=[{k:"all",l:"Tout voir (18)"},{k:"d",l:"Douleurs & Mouvement"},{k:"f",l:"Femme & Enfant"},{k:"s",l:"Spécialisé"}];
 
   const handleSubscribe=async()=>{
@@ -104,7 +106,7 @@ export default function Site({ onBlog }){
     <div style={{fontFamily:F.b,color:C.text,background:C.cream,minHeight:"100vh"}}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Combien coûte une consultation d'ostéopathie à Paris 7 ?","acceptedAnswer":{"@type":"Answer","text":"Au cabinet de Nicolas Mildner (72 avenue de la Bourdonnais, Paris 7ᵉ), la consultation dure 45 minutes à 1 heure et coûte entre 80 et 90 €. Règlement par chèque ou espèces. La plupart des mutuelles remboursent une partie ou la totalité des séances."}},{"@type":"Question","name":"Quelle est la différence entre un ostéopathe D.O. et un ostéopathe classique ?","acceptedAnswer":{"@type":"Answer","text":"Le titre D.O. (Diplômé en Ostéopathie) distingue les praticiens ayant suivi une formation complète. Nicolas Mildner détient en plus le D.O.E. (validé devant la Faculté de Médecine de Genève) et le D.O.F. Il fait partie des premières générations de D.O. en France (n°00379 de la Collégiale Académique) et a enseigné 17 ans à l'École Supérieure d'Ostéopathie de Paris."}},{"@type":"Question","name":"L'ostéopathie peut-elle aider pour la fertilité ?","acceptedAnswer":{"@type":"Answer","text":"L'ostéopathie peut accompagner les parcours de conception naturelle et assistée (PMA, FIV) en optimisant le terrain physiologique et neurovégétatif. Nicolas Mildner prend en charge cette spécialisation dans le cadre d'une approche systémique, en coordination avec l'équipe médicale du patient."}},{"@type":"Question","name":"À partir de quel âge peut-on amener un bébé chez l'ostéopathe ?","acceptedAnswer":{"@type":"Answer","text":"Dès la sortie de la maternité. Nicolas Mildner, titulaire du Certificat d'Études Spécialisées en Ostéopathie Pédiatrique, réalise une évaluation psychomotrice et de la micro-mobilité clinique avant toute correction. Il dispose d'un réseau de référents en lactation pour une prise en charge globale."}},{"@type":"Question","name":"L'ostéopathie est-elle une médecine énergétique ?","acceptedAnswer":{"@type":"Answer","text":"Non. L'ostéopathie telle que pratiquée par Nicolas Mildner est fondée sur l'anatomie, la neurophysiologie et la recherche clinique. Il ne pratique ni l'hypnose, ni les thérapies énergétiques, ni le magnétisme. Son approche est systémique et neurovégétative, avec un diagnostic différentiel systématique."}},{"@type":"Question","name":"L'ostéopathe peut-il traiter un mal de dos chronique ?","acceptedAnswer":{"@type":"Answer","text":"Oui. La recherche (Cochrane, Lancet) montre que la thérapie manuelle ostéopathique est efficace dans la prise en charge de la lombalgie chronique, en complément de l'exercice thérapeutique et de l'éducation à la douleur. Nicolas Mildner intègre ces trois dimensions dans son approche systémique."}}]})}} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":homeFaqData.questions})}} />
 
       {/* ═══ NAV ═══ */}
       <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:scrolled?"rgba(250,247,242,0.97)":"transparent",backdropFilter:scrolled?"blur(16px)":"none",borderBottom:scrolled?"1px solid rgba(184,149,106,0.08)":"none",transition:"all 0.4s",padding:scrolled?"10px 24px":"20px 24px"}}>
@@ -185,6 +187,14 @@ export default function Site({ onBlog }){
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ═══ RÉSUMÉ — réponse IA (source: home-faq.json) ═══ */}
+      <section aria-label="En résumé" style={{background:C.sage,padding:mob?"32px 16px":"44px 24px",borderTop:"1px solid rgba(184,149,106,0.08)"}}>
+        <div style={{maxWidth:820,margin:"0 auto",textAlign:"center"}}>
+          <p style={{fontSize:11,letterSpacing:4,textTransform:"uppercase",color:C.gold,marginBottom:14,fontWeight:500}}>En résumé</p>
+          <p style={{fontSize:mob?15:17,lineHeight:1.85,color:C.text,margin:0}}>{homeFaqData.aiSummary}</p>
         </div>
       </section>
 
@@ -546,6 +556,22 @@ export default function Site({ onBlog }){
         {blogs.length>0&&<div style={{textAlign:"center",marginTop:28}}>
           <Link to="/blog" style={{display:"inline-block",padding:"10px 24px",borderRadius:8,fontSize:13,textDecoration:"none",fontWeight:500,color:C.navy,border:`1.5px solid ${C.navy}`,transition:"all 0.3s"}}>Tous les articles →</Link>
         </div>}
+      </S>
+
+      {/* ═══ FAQ — source: home-faq.json (10 questions GEO) ═══ */}
+      <S id="faq" bg={C.sage}>
+        <T tag="Questions fréquentes" title="Questions fréquentes — Ostéopathe Paris 7ᵉ" sub="Les réponses aux questions les plus courantes sur le cabinet, les motifs de consultation et la prise de rendez-vous."/>
+        <div style={{maxWidth:760,margin:"0 auto"}}>
+          {homeFaqData.questions.map((f,i)=>(
+            <div key={i} style={{background:"#fff",borderRadius:10,border:"1px solid rgba(184,149,106,0.08)",marginBottom:10,overflow:"hidden"}}>
+              <button onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{width:"100%",padding:"16px 20px",cursor:"pointer",fontFamily:F.b,fontSize:mob?14:15,color:C.navy,fontWeight:500,lineHeight:1.4,background:"none",border:"none",textAlign:"left",display:"flex",justifyContent:"space-between",alignItems:"center",gap:12}}>
+                <span>{f.name}</span>
+                <span style={{fontSize:18,color:C.gold,flexShrink:0}}>{openFaq===i?"−":"+"}</span>
+              </button>
+              {openFaq===i&&<p style={{padding:"0 20px 16px",fontSize:14,color:C.muted,lineHeight:1.8,margin:0}}>{f.acceptedAnswer.text}</p>}
+            </div>
+          ))}
+        </div>
       </S>
 
       {/* ═══ CONTACT ═══ */}

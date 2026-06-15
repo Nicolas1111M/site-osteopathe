@@ -16,6 +16,7 @@ const staticPages = [
   { loc: "/femme-enceinte-osteopathe-paris-7", priority: "0.8", changefreq: "monthly" },
   { loc: "/bruxisme-atm-paris-7", priority: "0.8", changefreq: "monthly" },
   { loc: "/urgence-osteopathe-paris-7", priority: "0.9", changefreq: "monthly" },
+  { loc: "/osteopathe-sans-craquement-paris-7", priority: "0.8", changefreq: "monthly" },
   { loc: "/blog", priority: "0.8", changefreq: "weekly" },
 ];
 const blogPages = posts.map(p => ({

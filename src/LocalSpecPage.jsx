@@ -288,6 +288,7 @@ export default function LocalSpecPage() {
               <Link to="/nourrisson-plagiocephalie-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Nourrissons</Link>
               <Link to="/femme-enceinte-osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Grossesse</Link>
               <Link to="/bruxisme-atm-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Bruxisme et ATM</Link>
+              <Link to="/osteopathe-sans-craquement-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Ostéopathe sans craquement</Link>
             </div>
             <div>
               <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Contact</p>
