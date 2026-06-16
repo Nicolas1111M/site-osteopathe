@@ -153,8 +153,8 @@ export default function LocalSpecPage() {
       {/* ═══ EXPERTISES ═══ */}
       <S bg={C.sage}>
         <div style={{textAlign:"center",marginBottom:mob?32:48}}>
-          <p style={{fontSize:11,letterSpacing:5,textTransform:"uppercase",color:C.gold,marginBottom:14,fontWeight:500}}>Prise en charge</p>
-          <h2 style={{fontFamily:F.h,fontSize:mob?22:30,color:C.navy,fontWeight:500}}>Ce que je prends en charge</h2>
+          <p style={{fontSize:11,letterSpacing:5,textTransform:"uppercase",color:C.gold,marginBottom:14,fontWeight:500}}>{page.expertiseLabel||"Prise en charge"}</p>
+          <h2 style={{fontFamily:F.h,fontSize:mob?22:30,color:C.navy,fontWeight:500}}>{page.expertiseTitle||"Ce que je prends en charge"}</h2>
         </div>
         <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"repeat(2,1fr)",gap:20}}>
           {page.expertise.map(e=>(
