@@ -46,6 +46,7 @@ const motifs = [
   { icon:"🧠", t:"Bruxisme, migraines, ATM", d:"Troubles de l'articulation temporo-mandibulaire, bruxisme, céphalées, vertiges. Approche crânio-sacrée et neurovégétative.", link:"/bruxisme-atm-paris-7" },
   { icon:"🤰", t:"Grossesse et périnatalité", d:"Suivi périnatal complet, douleurs de grossesse, préparation à l'accouchement, post-partum, fertilité.", link:"/femme-enceinte-osteopathe-paris-7" },
   { icon:"👶", t:"Nourrissons", d:"Plagiocéphalie, coliques, torticolis congénital, reflux. CES Ostéopathie Pédiatrique. Filiation Viola Frymann.", link:"/nourrisson-plagiocephalie-paris-7" },
+  { icon:"🤲", t:"Techniques douces — sans craquement", d:"Ostéopathie douce exclusivement — un choix clinique informé, pas une limite technique. Ancien enseignant en manipulations vertébrales. Fondé sur l'anatomie et la neurophysiologie.", link:"/osteopathe-sans-craquement-paris-7" },
   { icon:"😰", t:"Stress, burn-out, somatisations", d:"Rééquilibrage du système nerveux autonome. Troubles du sommeil, anxiété, douleurs sans cause apparente." },
   { icon:"🏃", t:"Sport et récupération", d:"Entretien du sportif, prévention des blessures, optimisation biomécanique. Yoga, arts martiaux, Pilates." },
   { icon:"🎵", t:"Musiciens et chanteurs", d:"Instrumentistes, chanteurs lyriques, troubles de la voix. Ancien élève de conservatoire — compréhension directe." },
@@ -357,6 +358,7 @@ export default function OsteopatheParis7() {
               <Link to="/nourrisson-plagiocephalie-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Nourrissons</Link>
               <Link to="/femme-enceinte-osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Grossesse</Link>
               <Link to="/bruxisme-atm-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Bruxisme et ATM</Link>
+              <Link to="/osteopathe-sans-craquement-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Techniques douces</Link>
             </div>
             <div>
               <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Contact</p>
