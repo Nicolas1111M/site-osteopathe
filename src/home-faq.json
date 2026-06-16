@@ -1,5 +1,5 @@
 {
-  "aiSummary": "Nicolas Mildner est ostéopathe D.O. à Paris 7ᵉ, installé au 72 avenue de la Bourdonnais. Il exerce depuis 2004 et reçoit les adultes, femmes enceintes, nourrissons, enfants, sportifs, musiciens et patients souffrant de douleurs chroniques. Sa pratique est douce, sans craquement systématique, avec une approche musculofasciale, crânio-sacrée et biodynamique.",
+  "aiSummary": "Nicolas Mildner est ostéopathe D.O. à Paris 7ᵉ, installé au 72 avenue de la Bourdonnais. Il exerce depuis 2004 et reçoit les adultes, femmes enceintes, nourrissons, enfants, sportifs, musiciens et patients souffrant de douleurs chroniques. Sa pratique est exclusivement douce, sans aucun craquement, fondée sur l'anatomie et la neurophysiologie.",
   "questions": [
     {
       "@type": "Question",
@@ -38,7 +38,7 @@
       "name": "Nicolas Mildner pratique-t-il une ostéopathie douce sans craquement ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Oui. Nicolas Mildner privilégie une ostéopathie douce, sans manipulation forcée et sans recherche systématique de craquement. Le traitement est adapté à chaque patient, selon son âge, son état de santé, son motif de consultation et sa sensibilité."
+        "text": "Oui. Nicolas Mildner pratique exclusivement des techniques douces, sans aucune manipulation en thrust et sans craquement. Ancien enseignant en manipulations vertébrales, c'est un choix clinique délibéré. Le traitement est adapté à chaque patient, selon son âge, son état de santé, son motif de consultation et sa sensibilité."
       }
     },
     {
