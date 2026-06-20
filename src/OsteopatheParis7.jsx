@@ -213,7 +213,7 @@ export default function OsteopatheParis7() {
                 Diplômé D.O. en 2004 par la Collégiale Académique de France (n°379), j'ai validé mon diplôme européen devant la Faculté de Médecine de Genève. J'appartiens à la génération charnière — celle qui a reçu un diplôme dans la période de structuration historique de la profession, avant les décrets de 2007.
               </p>
               <p style={{fontSize:15,lineHeight:1.9,color:"rgba(255,255,255,0.65)",marginBottom:16}}>
-                Enseignant pendant 17 ans à l'École Supérieure d'Ostéopathie de Paris (campus Descartes), j'ai formé de nombreux ostéopathes aujourd'hui en exercice. Ma filiation est directe : assistant de Viola Frymann, élève de Wernham, Paoletti, Caporossi, Briend.
+                Enseignant pendant 17 ans à l'École Supérieure d'Ostéopathie de Paris (campus Descartes), j'ai formé de nombreux ostéopathes aujourd'hui en exercice. Ma filiation est directe : Viola Frymann, Wernham, Paoletti, Caporossi, Briend.
               </p>
               <p style={{fontSize:15,lineHeight:1.9,color:"rgba(255,255,255,0.65)"}}>
                 Mon approche est systémique et neurovégétative — fondée sur la neurophysiologie, jamais sur les thérapies énergétiques. L'ostéopathie telle que je la pratique est une technique réflexe : je dialogue avec votre système nerveux pour restaurer les conditions de votre vitalité.

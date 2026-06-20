@@ -20,7 +20,7 @@ const C = { navy:"#1A2B4A", cream:"#FAF7F2", gold:"#B8956A", sage:"#F4F1EC", war
 const lineage = [
   { name:"Andrew Taylor Still", role:"Fondateur de l'ostéopathie — 1874", era:"Origine" },
   { name:"W.G. Sutherland · J.M. Littlejohn", role:"Pionniers du crânien et de l'ostéopathie européenne", era:"Transmission" },
-  { name:"Viola Frymann · John Wernham", role:"Bâtisseurs de l'ostéopathie internationale — assistant et filiation directe", era:"Maîtres" },
+  { name:"Viola Frymann · John Wernham", role:"Bâtisseurs de l'ostéopathie internationale — filiation directe", era:"Maîtres" },
   { name:"S. Paoletti · R. Caporossi", role:"Pionniers — approche fasciale, philosophie ostéopathique crânienne et neurovégétative", era:"Pionniers" },
   { name:"R. Briend · D. Lehougre · GLEM Lyon · Latour · Foissy", role:"Architectes de l'ostéopathie française — R. Briend, pionnier de la biodynamique, a proposé à N. Mildner d'intégrer son équipe pédagogique de succession — décliné par exigence envers soi-même", era:"Héritage français" },
   { name:"Nicolas Mildner — D.O. n°00379", role:"Collégiale Académique de France · Diplômé 2004 · Enseignant ESO 2004–2020", era:"Aujourd'hui" },
@@ -31,7 +31,7 @@ const specs = [
   { icon:"🌱", t:"Fertilité & Fécondation", d:"Accompagnement des parcours de conception naturelle et assistée (PMA, FIV). Optimisation du terrain physiologique et neurovégétatif.", k:["PMA","FIV","infertilité","conception"], cat:"f" },
   { icon:"🤰", t:"Périnatalité & Projet de naissance", d:"Suivi complet de grossesse, préparation corporelle, projet de naissance, post-partum. Certificat d'études spécialisées en ostéopathie pédiatrique.", k:["grossesse","accouchement","post-partum","naissance"], cat:"f" },
   { icon:"👶", t:"Nourrissons", d:"Évaluation psychomotrice, mobilité et micro-mobilité clinique avant toute correction. Torticolis, plagiocéphalie, coliques, reflux. Réseau de référents en lactation.", k:["bébé","nourrisson","coliques","plagiocéphalie"], cat:"f" },
-  { icon:"🧒", t:"Pédiatrie & Adolescents", d:"Scoliose, troubles posturaux de croissance, troubles neurologiques de l'enfant. Formation directe avec Viola Frymann sur ce sujet.", k:["scoliose","croissance","adolescent","enfant","neurologique"], cat:"f" },
+  { icon:"🧒", t:"Pédiatrie & Adolescents", d:"Scoliose, troubles posturaux de croissance, troubles neurologiques de l'enfant. Formation avec Viola Frymann sur ce sujet.", k:["scoliose","croissance","adolescent","enfant","neurologique"], cat:"f" },
   { icon:"🧠", t:"Crânio-sacré & Biodynamique", d:"Migraines fonctionnelles, vertiges fonctionnels, troubles de l'ATM, tensions profondes. Écoute fine des rythmes du système nerveux central et autonome.", k:["migraines","vertiges","ATM","crânien"], cat:"s" },
   { icon:"🫁", t:"Ostéopathie viscérale", d:"Troubles digestifs, reflux, ballonnements, colopathie fonctionnelle. Enseignant en ostéopathie viscérale pendant 17 ans à l'ESO Paris.", k:["digestion","reflux","ballonnements","intestin"], cat:"s" },
   { icon:"🏃", t:"Sport & Entretien corporel", d:"Entretien du sportif, optimisation, prévention des blessures, récupération. Approche systémique du geste et de la performance.", k:["sportif","tendinite","performance","récupération"], cat:"d" },
@@ -276,7 +276,7 @@ export default function Site({ onBlog }){
 
       {/* ═══ HÉRITAGE ═══ */}
       <S id="heritage" bg={C.cream}>
-        <T tag="Héritage · Filiation directe" title={<>La pure tradition ostéopathique mondiale<br/><em style={{fontStyle:"italic",color:C.gold}}>aujourd'hui révolue</em></>} sub="L'ostéopathie se transmet de maître à élève, par les mains. Cette chaîne remonte à 1874. J'ai eu le privilège de la recevoir directement — comme assistant de Viola Frymann et élève de Wernham, Briend, Paoletti, Caporossi. Une formation que les écoles d'aujourd'hui ne transmettent plus."/>
+        <T tag="Héritage · Filiation directe" title={<>La pure tradition ostéopathique mondiale<br/><em style={{fontStyle:"italic",color:C.gold}}>aujourd'hui révolue</em></>} sub="L'ostéopathie se transmet de maître à élève, par les mains. Cette chaîne remonte à 1874. J'ai eu le privilège de la recevoir directement — auprès de Viola Frymann, Wernham, Briend, Paoletti, Caporossi. Une formation que les écoles d'aujourd'hui ne transmettent plus."/>
         <div style={{maxWidth:700,margin:"0 auto"}}>
           {lineage.map((l,i)=>(
             <div key={i} style={{display:"flex",gap:20,alignItems:"flex-start"}}>
@@ -438,7 +438,7 @@ export default function Site({ onBlog }){
               Diplômé D.O. et D.O.E. en 2004, j'ai validé mon diplôme européen devant la Faculté de Médecine de Genève — un diplôme que très peu d'ostéopathes ont passé. Mon D.O.F. a été obtenu par Validation des Acquis de l'Expérience, alors que j'enseignais déjà aux futurs diplômés à l'ESO, prestigieuse école d'ostéopathie située sur le campus universitaire Descartes.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
-              Ma formation est celle d'un autre temps : assistant de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, élève de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a proposé d'intégrer son équipe pédagogique de succession — j'ai décliné, convaincu qu'il me fallait davantage de maturité clinique), de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé au pouls de Paul Nogier (RAC) depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
+              Ma formation est celle d'un autre temps : de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a proposé d'intégrer son équipe pédagogique de succession — j'ai décliné, convaincu qu'il me fallait davantage de maturité clinique), de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé au pouls de Paul Nogier (RAC) depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
               Durant mes études, j'ai effectué de nombreux stages en milieu hospitalier — chirurgie de la main, pédiatrie, maternité — qui m'ont forgé un regard clinique affûté et une capacité de diagnostic différentiel que la pratique en cabinet seule ne permet pas d'acquérir. J'ai également réalisé de nombreuses séances de dissection à la Faculté de Médecine de l'Université Paris Descartes, rue des Saints-Pères, notamment sur les nerfs crâniens — une connaissance anatomique directe, irremplaçable.
