@@ -175,7 +175,7 @@ export default function Site({ onBlog }){
                 {n:"22+",l:"ans de pratique clinique",sub:"Consultations depuis 2004 · Clinique dès les études"},
                 {n:"17",l:"ans d'enseignement à l'ESO",sub:"5 matières · Commissions recherche et pédagogie"},
                 {n:"18",l:"champs de spécialisation",sub:"Du nourrisson au chanteur lyrique"},
-                {n:"5.0★",l:"note Google",sub:"100 % par le bouche-à-oreille depuis 22 ans"},
+                {n:"5.0★",l:"note Google",sub:"Bouche-à-oreille depuis 2004"},
               ].map((s,i)=>(
                 <div key={i} style={{display:"flex",gap:14,alignItems:"flex-start",marginBottom:i<4?20:0,paddingBottom:i<4?20:0,borderBottom:i<4?"1px solid rgba(184,149,106,0.07)":"none"}}>
                   <div style={{fontFamily:F.h,fontSize:22,fontWeight:600,color:C.navy,minWidth:70,lineHeight:1.1}}>{s.n}</div>
@@ -509,7 +509,7 @@ export default function Site({ onBlog }){
           </div>
           <div style={{textAlign:"center",background:"rgba(184,149,106,0.06)",borderRadius:12,padding:"28px 36px",maxWidth:720,margin:"0 auto"}}>
             <p style={{fontFamily:F.h,fontSize:16,color:"rgba(255,255,255,0.75)",fontStyle:"italic",lineHeight:1.65}}>
-              « En 22 ans, je n'ai jamais fait de publicité. 100 % de mes patients sont venus par le bouche-à-oreille.
+              « En 22 ans, je n'ai jamais fait de publicité. Mes patients sont venus par le bouche-à-oreille.
               Quand des médecins, des chirurgiens et des patients qui prennent l'avion vous choisissent — c'est la meilleure preuve qui existe. »
             </p>
           </div>
@@ -518,7 +518,7 @@ export default function Site({ onBlog }){
 
       {/* ═══ TÉMOIGNAGES ═══ */}
       <S id="temoignages" bg={C.cream}>
-        <T tag="Témoignages" title="Ce que disent nos patients" sub="Note Google : 5.0 / 5 — Exclusivement par le bouche-à-oreille depuis 2004"/>
+        <T tag="Témoignages" title="Ce que disent nos patients" sub="Note Google : 5.0 / 5 — Bouche-à-oreille depuis 2004"/>
         <div style={{maxWidth:600,margin:"0 auto",textAlign:"center",minHeight:170}}>
           {testimonials.map((t,i)=><div key={i} style={{display:i===tIdx?"block":"none",animation:"fadeIn 0.5s ease"}}>
             <p style={{color:C.gold,fontSize:14,letterSpacing:3}}>★★★★★</p>

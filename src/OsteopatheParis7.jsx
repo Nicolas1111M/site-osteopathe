@@ -226,7 +226,7 @@ export default function OsteopatheParis7() {
                   {l:"D.O.E. — Faculté de Médecine de Genève",d:"European Council of Osteopathic Schools"},
                   {l:"17 ans d'enseignement — ESO Paris",d:"5 matières · Commissions recherche et pédagogie"},
                   {l:"18 spécialisations",d:"Du nourrisson au chanteur lyrique"},
-                  {l:"Note Google : 5.0/5",d:"100 % par le bouche-à-oreille depuis 2004"},
+                  {l:"Note Google : 5.0/5",d:"Bouche-à-oreille depuis 2004"},
                   {l:"Pas de Doctolib",d:"Par choix — relation directe avec chaque patient"},
                 ].map((c,i)=>(
                   <div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",marginBottom:i<5?14:0,paddingBottom:i<5?14:0,borderBottom:i<5?"1px solid rgba(184,149,106,0.06)":"none"}}>
