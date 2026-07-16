@@ -68,7 +68,7 @@ export default function Blog({ onBack, initialPost }) {
     "headline": post.title,
     "description": post.excerpt,
     "datePublished": post.date,
-    "author": { "@type": "Person", "name": "Nicolas Mildner", "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.", "url": "https://nicolas-mildner-osteopathe.fr" },
+    "author": { "@type": "Person", "name": "Nicolas Mildner", "image": "https://www.nicolas-mildner-osteopathe.fr/img/nicolas-mildner-osteopathe.jpg", "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.", "url": "https://nicolas-mildner-osteopathe.fr" },
     "publisher": { "@type": "Organization", "name": "Cabinet Nicolas Mildner — Ostéopathe D.O.", "url": "https://nicolas-mildner-osteopathe.fr" },
     "mainEntityOfPage": { "@type": "WebPage", "@id": `https://www.nicolas-mildner-osteopathe.fr/blog/${post.id}` },
     "keywords": Array.isArray(post.keywords) ? post.keywords.join(", ") : (post.keywords || ""),

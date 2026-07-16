@@ -69,6 +69,7 @@ export default function OsteopatheParis7() {
         "name":"Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ",
         "description":"Cabinet d'ostéopathie à Paris 7ᵉ (75007). Nicolas Mildner, D.O. n°379, 22 ans d'expérience clinique, 17 ans d'enseignement. 18 spécialisations. Approche systémique et neurovégétative.",
         "url":"https://www.nicolas-mildner-osteopathe.fr/osteopathe-paris-7",
+        "image":"https://www.nicolas-mildner-osteopathe.fr/img/nicolas-mildner-osteopathe.jpg",
         "telephone":"+33142021118",
         "address":{"@type":"PostalAddress","streetAddress":"72 avenue de la Bourdonnais","addressLocality":"Paris","postalCode":"75007","addressRegion":"Île-de-France","addressCountry":"FR"},
         "geo":{"@type":"GeoCoordinates","latitude":48.8563,"longitude":2.3025},
@@ -81,7 +82,7 @@ export default function OsteopatheParis7() {
           {"@type":"AdministrativeArea","name":"Paris 7ᵉ arrondissement"},
           {"@type":"AdministrativeArea","name":"75007"}
         ],
-        "founder":{"@type":"Person","name":"Nicolas Mildner","jobTitle":"Ostéopathe D.O., D.O.E., D.O.F.","alumniOf":"École Supérieure d'Ostéopathie de Paris"}
+        "founder":{"@type":"Person","name":"Nicolas Mildner","image":"https://www.nicolas-mildner-osteopathe.fr/img/nicolas-mildner-osteopathe.jpg","jobTitle":"Ostéopathe D.O., D.O.E., D.O.F.","alumniOf":"École Supérieure d'Ostéopathie de Paris"}
       })}} />
 
       {/* ═══ NAV ═══ */}
