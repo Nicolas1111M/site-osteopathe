@@ -101,12 +101,13 @@ export default function LocalSpecPage() {
             <span style={{fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:C.navy,fontWeight:500}}>{page.heroTag}</span>
           </div>
           <h1 style={{fontFamily:F.h,fontSize:mob?26:40,fontWeight:500,color:C.navy,lineHeight:1.2,marginBottom:12}}>{page.h1}</h1>
-          <p style={{fontSize:mob?14:17,lineHeight:1.8,color:"#555",marginBottom:20,maxWidth:700}}>{page.subtitle}</p>
-          <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:28}}>
-            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="52" height="52" style={{width:52,height:52,borderRadius:"50%",objectFit:"cover",border:`2px solid ${C.gold}`,flexShrink:0}}/>
+          <p style={{fontSize:mob?14:17,lineHeight:1.8,color:"#555",marginBottom:24,maxWidth:700}}>{page.subtitle}</p>
+          <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:28,background:"rgba(255,255,255,0.65)",backdropFilter:"blur(8px)",borderRadius:14,padding:mob?"16px 16px":"18px 24px",border:"1px solid rgba(184,149,106,0.1)",maxWidth:mob?undefined:480}}>
+            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="80" height="80" style={{width:80,height:80,borderRadius:"50%",objectFit:"cover",border:`2.5px solid ${C.gold}`,flexShrink:0}}/>
             <div>
-              <p style={{fontFamily:F.h,fontSize:16,color:C.navy,fontWeight:500}}>Nicolas Mildner</p>
-              <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase"}}>Ostéopathe D.O. · D.O.E. · D.O.F.</p>
+              <p style={{fontFamily:F.h,fontSize:mob?16:18,color:C.navy,fontWeight:500}}>Nicolas Mildner</p>
+              <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase",marginTop:2}}>Ostéopathe D.O. · D.O.E. · D.O.F.</p>
+              <p style={{fontSize:12,color:C.muted,marginTop:4}}>22 ans d'expérience · Paris 7ᵉ</p>
             </div>
           </div>
           <div style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:12}}>
