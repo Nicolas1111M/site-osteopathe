@@ -101,7 +101,14 @@ export default function LocalSpecPage() {
             <span style={{fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:C.navy,fontWeight:500}}>{page.heroTag}</span>
           </div>
           <h1 style={{fontFamily:F.h,fontSize:mob?26:40,fontWeight:500,color:C.navy,lineHeight:1.2,marginBottom:12}}>{page.h1}</h1>
-          <p style={{fontSize:mob?14:17,lineHeight:1.8,color:"#555",marginBottom:28,maxWidth:700}}>{page.subtitle}</p>
+          <p style={{fontSize:mob?14:17,lineHeight:1.8,color:"#555",marginBottom:20,maxWidth:700}}>{page.subtitle}</p>
+          <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:28}}>
+            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="52" height="52" style={{width:52,height:52,borderRadius:"50%",objectFit:"cover",border:`2px solid ${C.gold}`,flexShrink:0}}/>
+            <div>
+              <p style={{fontFamily:F.h,fontSize:16,color:C.navy,fontWeight:500}}>Nicolas Mildner</p>
+              <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase"}}>Ostéopathe D.O. · D.O.E. · D.O.F.</p>
+            </div>
+          </div>
           <div style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:12}}>
             <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Prendre rendez-vous</Btn>
             <Btn href={`tel:${MOBILE.replace(/\s/g,"")}`} v="outline">{MOBILE} — Appel ou SMS</Btn>
@@ -174,7 +181,7 @@ export default function LocalSpecPage() {
       {/* ═══ PRATICIEN ENCART ═══ */}
       <section style={{background:C.navy,padding:mob?"36px 16px":"56px 24px"}}>
         <div style={{maxWidth:800,margin:"0 auto",display:"grid",gridTemplateColumns:mob?"1fr":"auto 1fr",gap:24,alignItems:"center"}}>
-          <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="72" height="72" style={{width:72,height:72,borderRadius:"50%",objectFit:"cover",border:"2px solid rgba(184,149,106,0.3)",flexShrink:0,margin:mob?"0 auto":"0"}}/>
+          <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(184,149,106,0.15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,color:C.gold,fontFamily:F.h,fontWeight:400,flexShrink:0,margin:mob?"0 auto":"0",border:"1.5px solid rgba(184,149,106,0.2)"}}>NM</div>
           <div style={{textAlign:mob?"center":"left"}}>
             <p style={{fontFamily:F.h,fontSize:18,color:"#fff",fontWeight:500}}>Nicolas Mildner</p>
             <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase",marginTop:2}}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>

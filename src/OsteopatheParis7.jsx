@@ -118,6 +118,13 @@ export default function OsteopatheParis7() {
             22 ans de pratique clinique, 17 ans d'enseignement, 18 spécialisations.
             Cabinet à deux pas de l'École Militaire, du Champ-de-Mars et des Invalides.
           </p>
+          <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:28}}>
+            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="52" height="52" style={{width:52,height:52,borderRadius:"50%",objectFit:"cover",border:`2px solid ${C.gold}`,flexShrink:0}}/>
+            <div>
+              <p style={{fontFamily:F.h,fontSize:16,color:C.navy,fontWeight:500}}>Nicolas Mildner</p>
+              <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase"}}>Ostéopathe D.O. · D.O.E. · D.O.F.</p>
+            </div>
+          </div>
           <div style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:16}}>
             <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Prendre rendez-vous</Btn>
             <Btn href={`tel:${MOBILE.replace(/\s/g,"")}`} v="outline">{MOBILE} — Appel ou SMS</Btn>

@@ -377,6 +377,7 @@ const localPageHtml = `
 <div>
   <header>
     <h1>Ostéopathe Paris 7ᵉ — Nicolas Mildner D.O. — 72 avenue de la Bourdonnais, 75007</h1>
+    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7ᵉ, 72 avenue de la Bourdonnais" width="600" height="399" />
     <p>Nicolas Mildner, ostéopathe D.O. n°379, exerce au cœur du 7ᵉ arrondissement depuis 2004. 22 ans de pratique clinique, 17 ans d'enseignement, 18 spécialisations. Cabinet à deux pas de l'École Militaire, du Champ-de-Mars et des Invalides.</p>
     <p>Téléphone : <a href="tel:0142021118">01 42 02 11 18</a> · Mobile : <a href="tel:0668801442">06 68 80 14 42</a></p>
     <p>Pas de Doctolib — par choix. Rendez-vous par téléphone ou SMS uniquement.</p>
@@ -476,6 +477,7 @@ for (const lp of localPagesData) {
   <header>
     <h1>${escapeHtml(lp.h1)}</h1>
     <p>${escapeHtml(lp.subtitle)}</p>
+    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="600" height="399" />
     <p>Téléphone : <a href="tel:0142021118">01 42 02 11 18</a> · Mobile : <a href="tel:0668801442">06 68 80 14 42</a></p>
   </header>
   <nav aria-label="Navigation"><a href="/">Accueil</a> · <a href="/osteopathe-paris-7">Ostéopathe Paris 7</a> · <a href="/blog">Blog</a></nav>
