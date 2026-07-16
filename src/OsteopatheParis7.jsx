@@ -207,6 +207,9 @@ export default function OsteopatheParis7() {
             <p style={{color:"rgba(255,255,255,0.5)",marginTop:14,fontSize:mob?13:15,maxWidth:580,margin:"14px auto 0",lineHeight:1.75}}>
               22 ans de pratique clinique au service de vos patients du 7ᵉ arrondissement.
             </p>
+            <div style={{marginTop:24}}>
+              <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7ᵉ" width={mob?180:240} height={mob?120:160} style={{borderRadius:12,objectFit:"cover",border:"2px solid rgba(184,149,106,0.25)",boxShadow:"0 8px 32px rgba(0,0,0,0.2)"}}/>
+            </div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:28}}>
             <div>

@@ -100,7 +100,10 @@ export default function Blog({ onBack, initialPost }) {
 
           <p style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: C.gold, marginBottom: 12 }}>{post.tag} · {post.readTime}</p>
           <h1 style={{ fontFamily: F.h, fontSize: 36, color: C.navy, lineHeight: 1.3, marginBottom: 16 }}>{post.title}</h1>
-          <p style={{ fontSize: 13, color: C.muted, marginBottom: 32 }}>Publié le {new Date(post.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Nicolas Mildner, Ostéopathe D.O.</p>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 32 }}>
+            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner" width="36" height="36" style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover", border: "1.5px solid rgba(184,149,106,0.25)" }}/>
+            <p style={{ fontSize: 13, color: C.muted }}>Publié le {new Date(post.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Nicolas Mildner, Ostéopathe D.O.</p>
+          </div>
 
           {loading && <p style={{ color: C.muted, fontSize: 14 }}>Chargement…</p>}
 
@@ -178,11 +181,10 @@ export default function Blog({ onBack, initialPost }) {
             borderRadius: 12, display: "flex", gap: 20, alignItems: "center",
             border: "1px solid rgba(184,149,106,0.08)",
           }}>
-            <div style={{
-              width: 56, height: 56, borderRadius: "50%", background: C.navy,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 22, color: "#fff", fontFamily: F.h, fontWeight: 300, flexShrink: 0,
-            }}>NM</div>
+            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="56" height="56" style={{
+              width: 56, height: 56, borderRadius: "50%", objectFit: "cover",
+              border: "2px solid rgba(184,149,106,0.3)", flexShrink: 0,
+            }}/>
             <div>
               <p style={{ fontFamily: F.h, fontSize: 16, color: C.navy, fontWeight: 500 }}>Nicolas Mildner</p>
               <p style={{ fontSize: 11, color: C.gold, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 2 }}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>

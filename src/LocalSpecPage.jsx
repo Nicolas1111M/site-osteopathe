@@ -174,7 +174,7 @@ export default function LocalSpecPage() {
       {/* ═══ PRATICIEN ENCART ═══ */}
       <section style={{background:C.navy,padding:mob?"36px 16px":"56px 24px"}}>
         <div style={{maxWidth:800,margin:"0 auto",display:"grid",gridTemplateColumns:mob?"1fr":"auto 1fr",gap:24,alignItems:"center"}}>
-          <div style={{width:72,height:72,borderRadius:"50%",background:"rgba(184,149,106,0.15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,color:"#fff",fontFamily:F.h,fontWeight:300,flexShrink:0,margin:mob?"0 auto":"0"}}>NM</div>
+          <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="72" height="72" style={{width:72,height:72,borderRadius:"50%",objectFit:"cover",border:"2px solid rgba(184,149,106,0.3)",flexShrink:0,margin:mob?"0 auto":"0"}}/>
           <div style={{textAlign:mob?"center":"left"}}>
             <p style={{fontFamily:F.h,fontSize:18,color:"#fff",fontWeight:500}}>Nicolas Mildner</p>
             <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase",marginTop:2}}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>
