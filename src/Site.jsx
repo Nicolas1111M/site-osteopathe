@@ -83,6 +83,7 @@ export default function Site({ onBlog }){
   const[menuOpen,setMenuOpen]=useState(false);
   const[nlEmail,setNlEmail]=useState("");
   const[nlStatus,setNlStatus]=useState("idle");
+  const[nlError,setNlError]=useState("");
   const[openFaq,setOpenFaq]=useState(null);
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>50);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{const t=setInterval(()=>setTIdx(p=>(p+1)%testimonials.length),6000);return()=>clearInterval(t);},[]);
@@ -91,15 +92,16 @@ export default function Site({ onBlog }){
   const cats=[{k:"all",l:"Tout voir (18)"},{k:"d",l:"Douleurs & Mouvement"},{k:"f",l:"Femme & Enfant"},{k:"s",l:"Spécialisé"}];
 
   const handleSubscribe=async()=>{
-    if(!nlEmail||!nlEmail.includes("@"))return;
-    setNlStatus("loading");
+    if(!nlEmail||!nlEmail.includes("@")){setNlError("Adresse email invalide");setNlStatus("error");setTimeout(()=>{setNlStatus("idle");setNlError("");},5000);return;}
+    setNlStatus("loading");setNlError("");
     try{
       const r=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:nlEmail})});
+      const ct=r.headers.get("content-type")||"";
+      if(!ct.includes("application/json")){setNlError("Erreur serveur (réponse inattendue)");setNlStatus("error");setTimeout(()=>{setNlStatus("idle");setNlError("");},6000);return;}
       const d=await r.json();
-      if(d.success){setNlStatus(d.already?"already":"success");setNlEmail("");}
-      else{setNlStatus("error");}
-    }catch(e){setNlStatus("error");}
-    setTimeout(()=>setNlStatus("idle"),5000);
+      if(d.success){setNlStatus(d.already?"already":"success");setNlEmail("");setTimeout(()=>setNlStatus("idle"),8000);}
+      else{setNlError(d.error||"Erreur lors de l'inscription");setNlStatus("error");setTimeout(()=>{setNlStatus("idle");setNlError("");},6000);}
+    }catch(e){setNlError("Erreur réseau — réessayez");setNlStatus("error");setTimeout(()=>{setNlStatus("idle");setNlError("");},6000);}
   };
 
   return(
@@ -168,8 +170,13 @@ export default function Site({ onBlog }){
               </p>
             </div>
 
-            {/* Stats card */}
-            <div style={{background:"rgba(255,255,255,0.7)",backdropFilter:"blur(12px)",borderRadius:16,padding:"32px 28px",border:"1px solid rgba(184,149,106,0.1)"}}>
+            {/* Portrait + Stats card */}
+            <div>
+              <div style={{textAlign:"center",marginBottom:20}}>
+                <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. à Paris 7ᵉ — Cabinet Bourdonnais" width={mob?200:280} height={mob?133:186} style={{borderRadius:12,objectFit:"cover",border:`2px solid ${C.gold}`,boxShadow:"0 8px 32px rgba(26,43,74,0.12)"}} loading="eager"/>
+                <p style={{fontSize:11,color:C.muted,marginTop:8,fontStyle:"italic"}}>Nicolas Mildner — au cabinet, Paris 7ᵉ</p>
+              </div>
+              <div style={{background:"rgba(255,255,255,0.7)",backdropFilter:"blur(12px)",borderRadius:16,padding:"32px 28px",border:"1px solid rgba(184,149,106,0.1)"}}>
               {[
                 {n:"D.O. n°00379",l:"Collégiale Académique de France",sub:"Parmi les premières générations de D.O. structurés"},
                 {n:"22+",l:"ans de pratique clinique",sub:"Consultations depuis 2004 · Clinique dès les études"},
@@ -185,6 +192,7 @@ export default function Site({ onBlog }){
                   </div>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </div>
@@ -631,10 +639,13 @@ export default function Site({ onBlog }){
           ):nlStatus==="already"?(
             <p style={{color:C.gold,fontSize:15,fontWeight:500}}>Vous êtes déjà inscrit — merci de votre fidélité.</p>
           ):(
+            <>
             <div style={{display:"flex",flexDirection:mob?"column":"row",gap:10,maxWidth:380,margin:"0 auto"}}>
               <input type="email" placeholder="votre@email.com" value={nlEmail} onChange={e=>setNlEmail(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")handleSubscribe();}} style={{flex:1,padding:"12px 16px",borderRadius:8,border:"1px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.05)",color:"#fff",fontSize:14,outline:"none",fontFamily:F.b}}/>
               <button onClick={handleSubscribe} disabled={nlStatus==="loading"} style={{background:nlStatus==="error"?"#c0392b":C.gold,color:"#fff",border:"none",padding:"12px 20px",borderRadius:8,fontSize:13,fontWeight:500,cursor:nlStatus==="loading"?"wait":"pointer",fontFamily:F.b,opacity:nlStatus==="loading"?0.7:1,transition:"all 0.3s"}}>{nlStatus==="loading"?"Inscription...":nlStatus==="error"?"Réessayer":"S'inscrire"}</button>
             </div>
+            {nlError&&<p style={{color:"#e74c3c",fontSize:12,marginTop:10}}>{nlError}</p>}
+            </>
           )}
         </div>
       </section>

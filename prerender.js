@@ -101,6 +101,7 @@ function personJsonLd() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Nicolas Mildner",
+    "image": `${domain}/img/nicolas-mildner-osteopathe.jpg`,
     "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.",
     "url": domain,
     "telephone": "+33142021118",
@@ -150,6 +151,7 @@ function blogPostingJsonLd(post, wordCount) {
     "author": {
       "@type": "Person",
       "name": "Nicolas Mildner",
+      "image": `${domain}/img/nicolas-mildner-osteopathe.jpg`,
       "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.",
       "url": "https://nicolas-mildner-osteopathe.fr"
     },
@@ -303,6 +305,7 @@ console.log(`   /blog/`);
 const homepageHtml = `
 <div>
   <header>
+    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. à Paris 7ᵉ — Cabinet Bourdonnais, 72 avenue de la Bourdonnais" width="600" height="399" />
     <h1>Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ</h1>
     <p>Ostéopathe D.O. · D.O.E. · D.O.F. — La Loi du Cas Unique</p>
     <p>Chaque patient est un cas jamais vu. Pas de protocole. Pas de recette. L'ostéopathie n'est pas un produit — c'est une relation.</p>
@@ -402,6 +405,7 @@ const localPageHtml = `
   </section>
   <section aria-label="Votre praticien">
     <h2>Nicolas Mildner, ostéopathe D.O.</h2>
+    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7ᵉ" width="600" height="399" />
     <p>Diplômé D.O. en 2004 par la Collégiale Académique de France (n°379). D.O.E. validé devant la Faculté de Médecine de Genève. 17 ans d'enseignement à l'ESO Paris. Filiation directe : Viola Frymann, Wernham, Paoletti, Caporossi, Briend. Approche systémique et neurovégétative.</p>
     <a href="/#parcours">Découvrir mon parcours complet</a>
   </section>
