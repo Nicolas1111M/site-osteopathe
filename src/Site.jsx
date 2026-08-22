@@ -108,7 +108,7 @@ export default function Site({ onBlog }){
     <div style={{fontFamily:F.b,color:C.text,background:C.cream,minHeight:"100vh"}}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":homeFaqData.questions})}} />
+      {/* FAQPage : injectée une seule fois dans le <head> par prerender.js (id ld-faq-home). */}
 
       {/* ═══ NAV ═══ */}
       <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:scrolled?"rgba(250,247,242,0.97)":"transparent",backdropFilter:scrolled?"blur(16px)":"none",borderBottom:scrolled?"1px solid rgba(184,149,106,0.08)":"none",transition:"all 0.4s",padding:scrolled?"10px 24px":"20px 24px"}}>

@@ -95,28 +95,6 @@ function breadcrumbJsonLd(items) {
   return `<script type="application/ld+json" id="ld-breadcrumb">${JSON.stringify(ld)}</script>`;
 }
 
-/** Person JSON-LD — Nicolas Mildner (cohérent avec le bloc founder de index.html) */
-function personJsonLd() {
-  const ld = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Nicolas Mildner",
-    "image": `${domain}/img/nicolas-mildner-osteopathe.jpg`,
-    "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.",
-    "url": domain,
-    "telephone": "+33142021118",
-    "description": "Ostéopathe depuis 2004. D.O. n°00379 de la Collégiale Académique de France. Diplômé devant la Faculté de Médecine de Genève. 17 ans d'enseignement à l'ESO Paris (2004-2020). Filiation directe : Viola Frymann, Serge Paoletti, Roger Caporossi, John Wernham, René Briend.",
-    "knowsAbout": ["Ostéopathie", "Crânio-sacré", "Viscéral", "Périnatalité", "Pédiatrie", "Posturologie", "Auriculothérapie", "Fertilité", "Gériatrie", "Ostéopathie structurelle"],
-    "alumniOf": { "@type": "EducationalOrganization", "name": "École Supérieure d'Ostéopathie de Paris" },
-    "worksFor": { "@type": "MedicalBusiness", "name": "Cabinet Nicolas Mildner — Ostéopathe D.O.", "url": domain },
-    "workLocation": {
-      "@type": "Place",
-      "address": { "@type": "PostalAddress", "streetAddress": "72 avenue de la Bourdonnais", "addressLocality": "Paris", "postalCode": "75007", "addressCountry": "FR" }
-    }
-  };
-  return `<script type="application/ld+json" id="ld-person">${JSON.stringify(ld)}</script>`;
-}
-
 /** FAQPage JSON-LD pour la home (items déjà au format mainEntity) */
 function homeFaqJsonLd(items) {
   if (!items || items.length === 0) return "";
@@ -195,36 +173,6 @@ function rewriteHead(html, { title, description, canonical, image }) {
   return h;
 }
 
-/** M4 — MedicalBusiness rattaché par @id au bloc canonique de la home. */
-function cabinetJsonLd() {
-  return `<script type="application/ld+json" id="ld-cabinet-ref">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "MedicalBusiness",
-    "@id": `${domain}/#cabinet`,
-    "name": "Nicolas Mildner — Ostéopathe D.O. Paris 7",
-    "url": `${domain}/`,
-    "telephone": "+33142021118",
-    "image": `${domain}/img/nicolas-mildner-osteopathe.jpg`,
-    "priceRange": "80-90\u20AC",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "72 avenue de la Bourdonnais",
-      "addressLocality": "Paris",
-      "addressRegion": "\u00CEle-de-France",
-      "postalCode": "75007",
-      "addressCountry": "FR"
-    },
-    "geo": { "@type": "GeoCoordinates", "latitude": 48.8563, "longitude": 2.3025 },
-    "areaServed": { "@type": "PostalAddress", "postalCode": "75007", "addressLocality": "Paris", "addressCountry": "FR" },
-    "sameAs": [
-      "https://www.google.com/maps/place/?q=place_id:ChIJ8SKn3CBw5kcRAxZkc56Vsuw",
-      "https://www.pagesjaunes.fr/pros/09408636",
-      "https://fr.mappy.com/poi/5ee54f5b5899b149d9c57f18"
-    ]
-  })}</script>`;
-}
-
-
 /** GEO — fiche de faits atomiques, réutilisée par la home et la page locale. */
 function factSheet() {
   const rows = [
@@ -294,10 +242,12 @@ for (const post of postsIndex) {
   // Inject into template
   // m2 — suffixe de marque court, et supprimé si le titre d'article sature déjà l'affichage (~60 car.)
   const baseTitle = post.metaTitle || post.title;
-  const pageTitle = baseTitle.length > 58 ? baseTitle : `${baseTitle} | Ostéopathe Paris 7`;
+  const SUFFIX = " | Ostéopathe Paris 7";
+  const pageTitle = (baseTitle.length + SUFFIX.length) <= 65 ? baseTitle + SUFFIX : baseTitle;
+  const pageDesc = post.metaDescription || post.excerpt;
   let html = rewriteHead(template, {
       title: pageTitle,
-      description: post.excerpt,
+      description: pageDesc,
       canonical: `${domain}/blog/${post.id}`,
     })
     // Inject structured data before </head>
@@ -424,7 +374,7 @@ const homepageHtml = `
 let homePage = template
   .replace(
     "</head>",
-    `${personJsonLd()}\n${homeFaqJsonLd(homeFaq.questions)}\n</head>`
+    `${homeFaqJsonLd(homeFaq.questions)}\n</head>`
   )
   .replace(
     '<div id="root"></div>',
@@ -503,7 +453,7 @@ let localPage = rewriteHead(template, {
   })
   .replace(
     "</head>",
-    `${cabinetJsonLd()}\n${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7"}])}\n</head>`
+    `${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7"}])}\n</head>`
   )
   .replace(
     '<div id="root"></div>',
@@ -582,7 +532,7 @@ for (const lp of localPagesData) {
       description: lp.metaDescription,
       canonical: `${domain}/${lp.slug}`,
     })
-    .replace("</head>", `${cabinetJsonLd()}\n${faqJsonLdSpec}\n${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7",url:`${domain}/osteopathe-paris-7`},{name:lp.h1.split(/ — | : /)[0]}])}\n</head>`)
+    .replace("</head>", `${faqJsonLdSpec}\n${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7",url:`${domain}/osteopathe-paris-7`},{name:lp.h1.split(/ — | : /)[0]}])}\n</head>`)
     .replace('<div id="root"></div>', `<div id="root">${specHtml}</div>`);
 
   const specDir = join(DIST, lp.slug);

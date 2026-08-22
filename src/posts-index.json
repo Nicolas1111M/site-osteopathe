@@ -18,7 +18,8 @@
       "prise en charge précoce nourrisson",
       "ostéopathie pédiatrique Paris"
     ],
-    "metaTitle": "Plagiocéphalie et torticolis du nourrisson : ce que dit la recherche"
+    "metaTitle": "Plagiocéphalie et torticolis du nourrisson : la recherche",
+    "metaDescription": "Plagiocéphalie et torticolis du nourrisson : ce que disent les études sur l'ostéopathie pédiatrique. Conseils aux parents, par un ostéopathe à Paris 7."
   },
   {
     "id": "inflammation-chronique-microbiote-douleur",
@@ -36,7 +37,9 @@
       "alimentation anti-inflammatoire",
       "système nerveux autonome",
       "ostéopathie douleur"
-    ]
+    ],
+    "metaDescription": "Fatigue, douleurs diffuses, digestion difficile : le rôle de l'inflammation de bas grade et du microbiote. Revue des données récentes.",
+    "metaTitle": "Inflammation chronique, microbiote et douleur : les données"
   },
   {
     "id": "collagene-complement-efficacite",
@@ -54,7 +57,8 @@
       "collagène tendons",
       "supplémentation collagène",
       "collagène efficacité"
-    ]
+    ],
+    "metaDescription": "Peau, arthrose, tendons : les compléments de collagène tiennent-ils leurs promesses ? Revue des méta-analyses et essais cliniques récents."
   },
   {
     "id": "cervicalgie-torticolis-recherche",
@@ -72,7 +76,8 @@
       "thérapie manuelle cervicale",
       "manipulation thoracique",
       "ostéopathie cou"
-    ]
+    ],
+    "metaDescription": "Cervicalgie, torticolis, céphalées cervicogènes : ce que dit la recherche sur la thérapie manuelle. Revue des méta-analyses récentes."
   },
   {
     "id": "lombalgie-mal-de-dos-recherche",
@@ -91,7 +96,9 @@
       "douleur lombaire",
       "ostéopathie lombalgie",
       "éducation à la douleur"
-    ]
+    ],
+    "metaDescription": "Exercice, thérapie manuelle, éducation à la douleur : état des lieux du traitement de la lombalgie, fondé sur les méta-analyses récentes.",
+    "metaTitle": "Lombalgie et mal de dos : ce que dit la recherche récente"
   },
   {
     "id": "22-ans-exercice-pratique-forgee-avant-la-loi",
@@ -109,6 +116,7 @@
       "Collégiale Académique",
       "ESO Paris",
       "filiation ostéopathique"
-    ]
+    ],
+    "metaDescription": "En 1998, l'ostéopathie française n'avait aucun cadre légal. Retour sur 22 ans de pratique, des poursuites judiciaires à la reconnaissance."
   }
 ]

@@ -62,28 +62,8 @@ export default function OsteopatheParis7() {
     <div style={{fontFamily:F.b,color:C.text,background:C.cream,minHeight:"100vh"}}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-      {/* ── LocalBusiness JSON-LD ── */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({
-        "@context":"https://schema.org",
-        "@type":"MedicalBusiness",
-        "name":"Nicolas Mildner — Ostéopathe D.O. Paris 7e",
-        "description":"Cabinet d'ostéopathie à Paris 7e (75007). Nicolas Mildner, D.O. n°379, 22 ans d'expérience clinique, 17 ans d'enseignement. 18 spécialisations. Approche systémique et neurovégétative.",
-        "url":"https://www.nicolas-mildner-osteopathe.fr/osteopathe-paris-7",
-        "image":"https://www.nicolas-mildner-osteopathe.fr/img/nicolas-mildner-osteopathe.jpg",
-        "telephone":"+33142021118",
-        "address":{"@type":"PostalAddress","streetAddress":"72 avenue de la Bourdonnais","addressLocality":"Paris","postalCode":"75007","addressRegion":"Île-de-France","addressCountry":"FR"},
-        "geo":{"@type":"GeoCoordinates","latitude":48.8563,"longitude":2.3025},
-        "contactPoint":{"@type":"ContactPoint","telephone":"+33668801442","contactType":"reservations"},
-        "openingHours":["Mo 09:00-21:00","Tu 09:00-21:00","We 12:00-21:00","Th 09:00-21:00","Fr 09:00-21:00"],
-        "priceRange":"80-90€",
-        "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"20","bestRating":"5"},
-        "areaServed":[
-          {"@type":"City","name":"Paris"},
-          {"@type":"AdministrativeArea","name":"Paris 7e arrondissement"},
-          {"@type":"AdministrativeArea","name":"75007"}
-        ],
-        "founder":{"@type":"Person","name":"Nicolas Mildner","image":"https://www.nicolas-mildner-osteopathe.fr/img/nicolas-mildner-osteopathe.jpg","jobTitle":"Ostéopathe D.O., D.O.E., D.O.F.","alumniOf":"École Supérieure d'Ostéopathie de Paris"}
-      })}} />
+      {/* MedicalBusiness : bloc canonique unique dans le <head> (index.html, @id #cabinet).
+          Le doublon React qui vivait ici portait un aggregateRating auto-déclaré — supprimé. */}
 
       {/* ═══ NAV ═══ */}
       <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:scrolled?"rgba(250,247,242,0.97)":"rgba(250,247,242,0.97)",backdropFilter:"blur(16px)",borderBottom:"1px solid rgba(184,149,106,0.08)",transition:"all 0.4s",padding:"10px 24px"}}>

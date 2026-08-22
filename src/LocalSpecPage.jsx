@@ -66,17 +66,7 @@ export default function LocalSpecPage() {
     <div style={{fontFamily:F.b,color:C.text,background:C.cream,minHeight:"100vh"}}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-      {/* JSON-LD FAQPage */}
-      {page.faq && page.faq.length > 0 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({
-          "@context":"https://schema.org",
-          "@type":"FAQPage",
-          "mainEntity": page.faq.map(f => ({
-            "@type":"Question","name":f.q,
-            "acceptedAnswer":{"@type":"Answer","text":f.a}
-          }))
-        })}} />
-      )}
+      {/* FAQPage : injectée une seule fois dans le <head> par prerender.js. */}
 
       {/* ═══ NAV ═══ */}
       <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:"rgba(250,247,242,0.97)",backdropFilter:"blur(16px)",borderBottom:"1px solid rgba(184,149,106,0.08)",padding:"10px 24px"}}>
