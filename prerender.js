@@ -128,7 +128,7 @@ function homeFaqJsonLd(items) {
 function homeFaqHtml(items) {
   if (!items || items.length === 0) return "";
   const li = items.map(q => `<details><summary>${escapeHtml(q.name)}</summary><p>${escapeHtml(q.acceptedAnswer.text)}</p></details>`).join("\n");
-  return `<section aria-label="Questions fréquentes"><h2>Questions fréquentes — Ostéopathe Paris 7ᵉ</h2>\n${li}\n</section>`;
+  return `<section aria-label="Questions fréquentes"><h2>Questions fréquentes — Ostéopathe Paris 7e</h2>\n${li}\n</section>`;
 }
 
 /** Build sources HTML */
@@ -153,12 +153,12 @@ function blogPostingJsonLd(post, wordCount) {
       "name": "Nicolas Mildner",
       "image": `${domain}/img/nicolas-mildner-osteopathe.jpg`,
       "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.",
-      "url": "https://nicolas-mildner-osteopathe.fr"
+      "url": domain
     },
     "publisher": {
       "@type": "Organization",
       "name": "Cabinet Nicolas Mildner — Ostéopathe D.O.",
-      "url": "https://nicolas-mildner-osteopathe.fr"
+      "url": domain
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
@@ -168,6 +168,88 @@ function blogPostingJsonLd(post, wordCount) {
     "wordCount": wordCount
   };
   return `<script type="application/ld+json" id="ld-blogposting">${JSON.stringify(ld)}</script>`;
+}
+
+
+/** M5 — Réécrit les balises head propres à chaque page (og:url, og:image, twitter). */
+function rewriteHead(html, { title, description, canonical, image }) {
+  let h = html;
+  if (title) {
+    h = h.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`)
+         .replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${escapeHtml(title)}"`)
+         .replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${escapeHtml(title)}"`);
+  }
+  if (description) {
+    h = h.replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${escapeHtml(description)}"`)
+         .replace(/<meta property="og:description" content="[^"]*"/, `<meta property="og:description" content="${escapeHtml(description)}"`)
+         .replace(/<meta name="twitter:description" content="[^"]*"/, `<meta name="twitter:description" content="${escapeHtml(description)}"`);
+  }
+  if (canonical) {
+    h = h.replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${canonical}"`)
+         .replace(/<meta property="og:url" content="[^"]*"/, `<meta property="og:url" content="${canonical}"`);
+  }
+  if (image) {
+    h = h.replace(/<meta property="og:image" content="[^"]*"/, `<meta property="og:image" content="${image}"`)
+         .replace(/<meta name="twitter:image" content="[^"]*"/, `<meta name="twitter:image" content="${image}"`);
+  }
+  return h;
+}
+
+/** M4 — MedicalBusiness rattaché par @id au bloc canonique de la home. */
+function cabinetJsonLd() {
+  return `<script type="application/ld+json" id="ld-cabinet-ref">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "@id": `${domain}/#cabinet`,
+    "name": "Nicolas Mildner — Ostéopathe D.O. Paris 7",
+    "url": `${domain}/`,
+    "telephone": "+33142021118",
+    "image": `${domain}/img/nicolas-mildner-osteopathe.jpg`,
+    "priceRange": "80-90\u20AC",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "72 avenue de la Bourdonnais",
+      "addressLocality": "Paris",
+      "addressRegion": "\u00CEle-de-France",
+      "postalCode": "75007",
+      "addressCountry": "FR"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 48.8563, "longitude": 2.3025 },
+    "areaServed": { "@type": "PostalAddress", "postalCode": "75007", "addressLocality": "Paris", "addressCountry": "FR" },
+    "sameAs": [
+      "https://www.google.com/maps/place/?q=place_id:ChIJ8SKn3CBw5kcRAxZkc56Vsuw",
+      "https://www.pagesjaunes.fr/pros/09408636",
+      "https://fr.mappy.com/poi/5ee54f5b5899b149d9c57f18"
+    ]
+  })}</script>`;
+}
+
+
+/** GEO — fiche de faits atomiques, réutilisée par la home et la page locale. */
+function factSheet() {
+  const rows = [
+    ["Praticien", "Nicolas Mildner, ostéopathe D.O., D.O.E., D.O.F."],
+    ["Adresse", "72 avenue de la Bourdonnais, 75007 Paris"],
+    ["Arrondissement", "Paris 7e — quartier Gros-Caillou"],
+    ["Accès", "Métro École Militaire (ligne 8) et La Tour-Maubourg (ligne 8)"],
+    ["Téléphone", "01 42 02 11 18"],
+    ["Mobile (appel ou SMS)", "06 68 80 14 42"],
+    ["Prise de rendez-vous", "Par téléphone ou SMS uniquement. Pas de réservation en ligne, pas de Doctolib."],
+    ["Horaires", "Lundi, mardi, jeudi, vendredi 9h–21h. Mercredi 12h–21h."],
+    ["Tarif", "80 à 90 € la consultation"],
+    ["Durée", "45 minutes à 1 heure"],
+    ["Paiement", "Chèque ou espèces"],
+    ["Exercice depuis", "2004 — 22 ans de pratique clinique"],
+    ["Enseignement", "17 ans à l'École Supérieure d'Ostéopathie de Paris (2004–2020)"],
+    ["Diplôme", "D.O. n°00379, Collégiale Académique de France"],
+    ["Particularité", "Pratique exclusivement douce, sans aucun craquement"]
+  ];
+  return `<section aria-label="Fiche pratique du cabinet">
+  <h2>Cabinet d'ostéopathie à Paris 7 (75007) — fiche pratique</h2>
+  <dl>
+${rows.map(([k, v]) => `    <dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join("\n")}
+  </dl>
+</section>`;
 }
 
 // ── Generate each article page ──
@@ -197,12 +279,12 @@ for (const post of postsIndex) {
     ${contentToHtml(articleData.content)}
   </div>
   <div>
-    <p>Pour en discuter, Nicolas Mildner, ostéopathe D.O. à Paris 7ᵉ, est joignable au <a href="tel:0142021118">01 42 02 11 18</a> — rendez-vous uniquement par téléphone.</p>
+    <p>Pour en discuter, Nicolas Mildner, ostéopathe D.O. à Paris 7e, est joignable au <a href="tel:0142021118">01 42 02 11 18</a> — rendez-vous uniquement par téléphone.</p>
   </div>
   ${faqHtml(articleData.faq)}
   ${sourcesHtml(articleData.sources)}
   <footer>
-    <p><strong>Nicolas Mildner</strong> — Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>
+    <p><strong>Nicolas Mildner</strong> — Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7e</p>
     <p>22 ans de pratique clinique. Filiation Frymann · Paoletti · Caporossi · Wernham · Briend.</p>
     <p>72 avenue de la Bourdonnais, 75007 Paris</p>
     <p><a href="tel:0142021118">01 42 02 11 18</a> · <a href="tel:0668801442">06 68 80 14 42</a></p>
@@ -210,30 +292,14 @@ for (const post of postsIndex) {
 </article>`;
 
   // Inject into template
-  const pageTitle = `${post.title} — Nicolas Mildner, Ostéopathe D.O. Paris 7ᵉ`;
-  let html = template
-    // Replace <title>
-    .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(pageTitle)}</title>`)
-    // Replace meta description
-    .replace(
-      /<meta name="description" content="[^"]*"/,
-      `<meta name="description" content="${escapeHtml(post.excerpt)}"`
-    )
-    // Replace og:title
-    .replace(
-      /<meta property="og:title" content="[^"]*"/,
-      `<meta property="og:title" content="${escapeHtml(pageTitle)}"`
-    )
-    // Replace og:description
-    .replace(
-      /<meta property="og:description" content="[^"]*"/,
-      `<meta property="og:description" content="${escapeHtml(post.excerpt)}"`
-    )
-    // Replace canonical
-    .replace(
-      /<link rel="canonical" href="[^"]*"/,
-      `<link rel="canonical" href="${domain}/blog/${post.id}"`
-    )
+  // m2 — suffixe de marque court, et supprimé si le titre d'article sature déjà l'affichage (~60 car.)
+  const baseTitle = post.metaTitle || post.title;
+  const pageTitle = baseTitle.length > 58 ? baseTitle : `${baseTitle} | Ostéopathe Paris 7`;
+  let html = rewriteHead(template, {
+      title: pageTitle,
+      description: post.excerpt,
+      canonical: `${domain}/blog/${post.id}`,
+    })
     // Inject structured data before </head>
     .replace(
       "</head>",
@@ -257,7 +323,7 @@ for (const post of postsIndex) {
 const listingHtml = `
 <div>
   <header>
-    <h1>Le blog du cabinet — Nicolas Mildner, Ostéopathe D.O. Paris 7ᵉ</h1>
+    <h1>Le blog du cabinet — Nicolas Mildner, Ostéopathe D.O. Paris 7e</h1>
     <p>Articles fondés sur la recherche PubMed. Vulgarisés, sourcés, rigoureux.</p>
   </header>
   <nav aria-label="Articles du blog">
@@ -270,16 +336,11 @@ const listingHtml = `
   </nav>
 </div>`;
 
-let listingPage = template
-  .replace(/<title>[^<]*<\/title>/, `<title>Blog — Nicolas Mildner, Ostéopathe D.O. Paris 7ᵉ</title>`)
-  .replace(
-    /<meta name="description" content="[^"]*"/,
-    `<meta name="description" content="Articles fondés sur la recherche PubMed. Vulgarisés, sourcés, rigoureux. Par Nicolas Mildner, ostéopathe D.O. à Paris 7ᵉ."`
-  )
-  .replace(
-    /<link rel="canonical" href="[^"]*"/,
-    `<link rel="canonical" href="${domain}/blog"`
-  )
+let listingPage = rewriteHead(template, {
+    title: "Blog — Nicolas Mildner, Ostéopathe D.O. Paris 7 (75007)",
+    description: "Articles fondés sur la recherche PubMed. Vulgarisés, sourcés, rigoureux. Par Nicolas Mildner, ostéopathe D.O. à Paris 7, 75007.",
+    canonical: `${domain}/blog`,
+  })
   .replace(
     "</head>",
     `${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Blog"}])}\n</head>`
@@ -305,8 +366,9 @@ console.log(`   /blog/`);
 const homepageHtml = `
 <div>
   <header>
-    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. à Paris 7ᵉ — Cabinet Bourdonnais, 72 avenue de la Bourdonnais" width="600" height="399" />
-    <h1>Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ</h1>
+    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. à Paris 7e — Cabinet Bourdonnais, 72 avenue de la Bourdonnais" width="600" height="399" />
+    <h1>Nicolas Mildner — Ostéopathe D.O. à Paris 7 — 75007</h1>
+    <p>72 avenue de la Bourdonnais, 75007 Paris. Métro École Militaire (ligne 8). Quartier Gros-Caillou, 7e arrondissement.</p>
     <p>Ostéopathe D.O. · D.O.E. · D.O.F. — La Loi du Cas Unique</p>
     <p>Chaque patient est un cas jamais vu. Pas de protocole. Pas de recette. L'ostéopathie n'est pas un produit — c'est une relation.</p>
     <p>Généraliste hyperspécialiste. 18 champs d'expertise. Approche systémique et neurovégétative fondée sur la neurophysiologie. Filiation directe avec les fondateurs de l'ostéopathie mondiale. Patientèle internationale.</p>
@@ -314,6 +376,7 @@ const homepageHtml = `
   <section aria-label="En résumé">
     <p>${escapeHtml(homeFaq.aiSummary)}</p>
   </section>
+  ${factSheet()}
   <nav aria-label="Sections du site">
     <a href="/osteopathe-paris-7">Ostéopathe Paris 7</a>
     <a href="/blog">Blog</a>
@@ -351,10 +414,10 @@ const homepageHtml = `
     <p>Pas de Doctolib — par choix. Rendez-vous par téléphone ou SMS.</p>
   </section>
   <footer>
-    <p>Nicolas Mildner — Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>
+    <p>Nicolas Mildner — Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7e</p>
     <p><a href="/osteopathe-paris-7">Ostéopathe Paris 7</a> · <a href="/blog">Blog</a></p>
     <p>Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" rel="noopener">proxiosteo.fr</a></p>
-    <p>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7ᵉ — La Loi du Cas Unique</p>
+    <p>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7e — La Loi du Cas Unique</p>
   </footer>
 </div>`;
 
@@ -376,21 +439,19 @@ console.log(`   / (homepage pre-rendered)`);
 const localPageHtml = `
 <div>
   <header>
-    <h1>Ostéopathe Paris 7ᵉ — Nicolas Mildner D.O. — 72 avenue de la Bourdonnais, 75007</h1>
-    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7ᵉ, 72 avenue de la Bourdonnais" width="600" height="399" />
-    <p>Nicolas Mildner, ostéopathe D.O. n°379, exerce au cœur du 7ᵉ arrondissement depuis 2004. 22 ans de pratique clinique, 17 ans d'enseignement, 18 spécialisations. Cabinet à deux pas de l'École Militaire, du Champ-de-Mars et des Invalides.</p>
+    <h1>Ostéopathe Paris 7 — 75007 — Nicolas Mildner D.O., 72 avenue de la Bourdonnais</h1>
+    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7e, 72 avenue de la Bourdonnais" width="600" height="399" />
+    <p>Nicolas Mildner, ostéopathe D.O. n°379, exerce au cœur du 7e arrondissement depuis 2004. 22 ans de pratique clinique, 17 ans d'enseignement, 18 spécialisations. Cabinet à deux pas de l'École Militaire, du Champ-de-Mars et des Invalides.</p>
     <p>Téléphone : <a href="tel:0142021118">01 42 02 11 18</a> · Mobile : <a href="tel:0668801442">06 68 80 14 42</a></p>
     <p>Pas de Doctolib — par choix. Rendez-vous par téléphone ou SMS uniquement.</p>
   </header>
   <nav aria-label="Navigation"><a href="/">Accueil</a> · <a href="/blog">Blog</a></nav>
-  <section aria-label="Informations pratiques">
-    <h2>Informations pratiques</h2>
-    <p>Adresse : 72 avenue de la Bourdonnais, 75007 Paris. Métro École Militaire (ligne 8). La Tour-Maubourg (ligne 8). Quartier Gros-Caillou.</p>
-    <p>Horaires : Lundi, Mardi, Jeudi, Vendredi 9h–21h. Mercredi 12h–21h.</p>
-    <p>Consultation : 80–90 € · 45 min à 1 h. Chèque ou espèces. Remboursement mutuelle selon contrat.</p>
+  ${factSheet()}
+  <section aria-label="Remboursement">
+    <p>Remboursement par la mutuelle selon contrat. L’ostéopathie n’est pas prise en charge par l’Assurance Maladie.</p>
   </section>
   <section aria-label="Motifs de consultation">
-    <h2>Pourquoi consulter un ostéopathe à Paris 7ᵉ ?</h2>
+    <h2>Pourquoi consulter un ostéopathe à Paris 7e ?</h2>
     <p><a href="/douleurs-dos-lombalgie-paris-7">Mal de dos, lombalgie, sciatique</a> — Prise en charge systémique des douleurs vertébrales aiguës et chroniques.</p>
     <p><a href="/bruxisme-atm-paris-7">Migraines, vertiges, ATM</a> — Approche crânio-sacrée et neurovégétative. Bruxisme, céphalées cervicogènes.</p>
     <p><a href="/femme-enceinte-osteopathe-paris-7">Grossesse</a> et <a href="/nourrisson-plagiocephalie-paris-7">nourrissons</a> — Suivi périnatal complet, plagiocéphalie, coliques. CES Ostéopathie Pédiatrique.</p>
@@ -406,56 +467,43 @@ const localPageHtml = `
   </section>
   <section aria-label="Votre praticien">
     <h2>Nicolas Mildner, ostéopathe D.O.</h2>
-    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7ᵉ" width="600" height="399" />
+    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7e" width="600" height="399" />
     <p>Diplômé D.O. en 2004 par la Collégiale Académique de France (n°379). D.O.E. validé devant la Faculté de Médecine de Genève. 17 ans d'enseignement à l'ESO Paris. Filiation directe : Viola Frymann, Wernham, Paoletti, Caporossi, Briend. Approche systémique et neurovégétative.</p>
     <a href="/#parcours">Découvrir mon parcours complet</a>
   </section>
   <section aria-label="Quartier">
-    <h2>Un cabinet au cœur du 7ᵉ arrondissement</h2>
+    <h2>Un cabinet au cœur du 7e arrondissement</h2>
     <p>Le cabinet est situé au 72 avenue de la Bourdonnais, dans le quartier du Gros-Caillou, à quelques minutes à pied de l'École Militaire, du Champ-de-Mars et de la Tour Eiffel.</p>
     <p>Facilement accessible en métro (ligne 8, stations École Militaire et La Tour-Maubourg).</p>
-    <p>Consultations à domicile possibles pour les patients à mobilité réduite (Paris 7ᵉ et arrondissements limitrophes).</p>
+    <p>Consultations à domicile possibles pour les patients à mobilité réduite (Paris 7e et arrondissements limitrophes).</p>
   </section>
   <section aria-label="Articles">
-    <h2>Articles de votre ostéopathe à Paris 7ᵉ</h2>
+    <h2>Articles de votre ostéopathe à Paris 7e</h2>
     ${postsIndex.map(p => `<article><h3><a href="/blog/${p.id}">${escapeHtml(p.title)}</a></h3><p>${escapeHtml(p.excerpt)}</p></article>`).join("\n")}
     <a href="/blog">Tous les articles du blog</a>
   </section>
   <section aria-label="Rendez-vous">
-    <h2>Prendre rendez-vous avec votre ostéopathe à Paris 7ᵉ</h2>
+    <h2>Prendre rendez-vous avec votre ostéopathe à Paris 7e</h2>
     <p>Appelez directement ou envoyez un SMS. Pas de Doctolib — par choix. L'ostéopathie est une relation, pas une prestation.</p>
     <p><a href="tel:0142021118">01 42 02 11 18</a> · <a href="tel:0668801442">06 68 80 14 42</a></p>
   </section>
   <footer>
-    <p>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7ᵉ — La Loi du Cas Unique</p>
+    <p>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7e — La Loi du Cas Unique</p>
     <p>Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" rel="noopener">proxiosteo.fr</a></p>
   </footer>
 </div>`;
 
-const localPageTitle = "Ostéopathe Paris 7ᵉ — Nicolas Mildner D.O. | 72 av. de la Bourdonnais, 75007";
-const localPageDesc = "Ostéopathe à Paris 7ᵉ (75007). Nicolas Mildner, D.O. n°379, 22 ans d'expérience. Cabinet au 72 avenue de la Bourdonnais, métro École Militaire. 18 spécialisations. Tél. 01 42 02 11 18.";
+const localPageTitle = "Ostéopathe Paris 7 (75007) — Nicolas Mildner D.O. | Bourdonnais";
+const localPageDesc = "Ostéopathe à Paris 7, 75007 : Nicolas Mildner D.O. n°379, 22 ans d'expérience. 72 avenue de la Bourdonnais, métro École Militaire. Tél. 01 42 02 11 18.";
 
-let localPage = template
-  .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(localPageTitle)}</title>`)
-  .replace(
-    /<meta name="description" content="[^"]*"/,
-    `<meta name="description" content="${escapeHtml(localPageDesc)}"`
-  )
-  .replace(
-    /<meta property="og:title" content="[^"]*"/,
-    `<meta property="og:title" content="${escapeHtml(localPageTitle)}"`
-  )
-  .replace(
-    /<meta property="og:description" content="[^"]*"/,
-    `<meta property="og:description" content="${escapeHtml(localPageDesc)}"`
-  )
-  .replace(
-    /<link rel="canonical" href="[^"]*"/,
-    `<link rel="canonical" href="${domain}/osteopathe-paris-7"`
-  )
+let localPage = rewriteHead(template, {
+    title: localPageTitle,
+    description: localPageDesc,
+    canonical: `${domain}/osteopathe-paris-7`,
+  })
   .replace(
     "</head>",
-    `${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7ᵉ"}])}\n</head>`
+    `${cabinetJsonLd()}\n${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7"}])}\n</head>`
   )
   .replace(
     '<div id="root"></div>',
@@ -477,7 +525,7 @@ for (const lp of localPagesData) {
   <header>
     <h1>${escapeHtml(lp.h1)}</h1>
     <p>${escapeHtml(lp.subtitle)}</p>
-    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="600" height="399" />
+    <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7e" width="600" height="399" />
     <p>Téléphone : <a href="tel:0142021118">01 42 02 11 18</a> · Mobile : <a href="tel:0668801442">06 68 80 14 42</a></p>
   </header>
   <nav aria-label="Navigation"><a href="/">Accueil</a> · <a href="/osteopathe-paris-7">Ostéopathe Paris 7</a> · <a href="/blog">Blog</a></nav>
@@ -493,7 +541,7 @@ for (const lp of localPagesData) {
   <section aria-label="Prise en charge">
     <h2>Ce que je prends en charge</h2>
     ${lp.expertise.map(e => `<h3>${escapeHtml(e.title)}</h3><p>${escapeHtml(e.text)}</p>`).join("\n")}
-    <a href="/osteopathe-paris-7">Voir toutes les spécialisations — Ostéopathe Paris 7ᵉ</a>
+    <a href="/osteopathe-paris-7">Voir toutes les spécialisations — Ostéopathe Paris 7e</a>
   </section>
   <section aria-label="Praticien">
     <h2>Nicolas Mildner, ostéopathe D.O.</h2>
@@ -504,7 +552,7 @@ for (const lp of localPagesData) {
   ${lp.relatedBlogSlugs.length > 0 ? `<section aria-label="Articles liés"><h2>Articles liés</h2>${lp.relatedBlogSlugs.map(s => { const rp = postsIndex.find(p => p.id === s); return rp ? `<article><h3><a href="/blog/${rp.id}">${escapeHtml(rp.title)}</a></h3><p>${escapeHtml(rp.excerpt)}</p></article>` : ""; }).join("\n")}</section>` : ""}
   <section aria-label="Rendez-vous">
     <h2>Prendre rendez-vous</h2>
-    <p>Nicolas Mildner, ostéopathe D.O. à Paris 7ᵉ — 72 avenue de la Bourdonnais, 75007 Paris.</p>
+    <p>Nicolas Mildner, ostéopathe D.O. à Paris 7e — 72 avenue de la Bourdonnais, 75007 Paris.</p>
     <p><a href="tel:0142021118">01 42 02 11 18</a> · <a href="tel:0668801442">06 68 80 14 42</a></p>
   </section>
   <footer>
@@ -518,7 +566,7 @@ for (const lp of localPagesData) {
       <a href="/urgence-osteopathe-paris-7">Urgence ostéopathe</a>
     </nav>
     <p><a href="/">Accueil</a> · <a href="/osteopathe-paris-7">Ostéopathe Paris 7</a> · <a href="/blog">Blog</a></p>
-    <p>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7ᵉ</p>
+    <p>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7e</p>
     <p>Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" rel="noopener">proxiosteo.fr</a></p>
   </footer>
 </div>`;
@@ -529,13 +577,12 @@ for (const lp of localPagesData) {
     "mainEntity": lp.faq.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
   })}</script>` : "";
 
-  let specPage = template
-    .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(lp.metaTitle)}</title>`)
-    .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${escapeHtml(lp.metaDescription)}"`)
-    .replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${escapeHtml(lp.metaTitle)}"`)
-    .replace(/<meta property="og:description" content="[^"]*"/, `<meta property="og:description" content="${escapeHtml(lp.metaDescription)}"`)
-    .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${domain}/${lp.slug}"`)
-    .replace("</head>", `${faqJsonLdSpec}\n${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7ᵉ",url:`${domain}/osteopathe-paris-7`},{name:lp.h1.split(/ — | : /)[0]}])}\n</head>`)
+  let specPage = rewriteHead(template, {
+      title: lp.metaTitle,
+      description: lp.metaDescription,
+      canonical: `${domain}/${lp.slug}`,
+    })
+    .replace("</head>", `${cabinetJsonLd()}\n${faqJsonLdSpec}\n${breadcrumbJsonLd([{name:"Accueil",url:`${domain}/`},{name:"Ostéopathe Paris 7",url:`${domain}/osteopathe-paris-7`},{name:lp.h1.split(/ — | : /)[0]}])}\n</head>`)
     .replace('<div id="root"></div>', `<div id="root">${specHtml}</div>`);
 
   const specDir = join(DIST, lp.slug);

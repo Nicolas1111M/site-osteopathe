@@ -87,7 +87,7 @@ export default function LocalSpecPage() {
           </Link>
           <div style={{display:"flex",gap:mob?10:22,alignItems:"center"}}>
             <Link to="/" style={{textDecoration:"none",color:C.navy,fontSize:mob?11:12.5}}>Accueil</Link>
-            <Link to="/osteopathe-paris-7" style={{textDecoration:"none",color:C.navy,fontSize:mob?11:12.5}}>Paris 7ᵉ</Link>
+            <Link to="/osteopathe-paris-7" style={{textDecoration:"none",color:C.navy,fontSize:mob?11:12.5}}>Paris 7e</Link>
             <Link to="/blog" style={{textDecoration:"none",color:C.navy,fontSize:mob?11:12.5}}>Blog</Link>
             <Btn href={`tel:${PHONE.replace(/\s/g,"")}`} style={{padding:"9px 18px",fontSize:12.5}}>Appeler</Btn>
           </div>
@@ -103,11 +103,11 @@ export default function LocalSpecPage() {
           <h1 style={{fontFamily:F.h,fontSize:mob?26:40,fontWeight:500,color:C.navy,lineHeight:1.2,marginBottom:12}}>{page.h1}</h1>
           <p style={{fontSize:mob?14:17,lineHeight:1.8,color:"#555",marginBottom:24,maxWidth:700}}>{page.subtitle}</p>
           <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:28,background:"rgba(255,255,255,0.65)",backdropFilter:"blur(8px)",borderRadius:14,padding:mob?"16px 16px":"18px 24px",border:"1px solid rgba(184,149,106,0.1)",maxWidth:mob?undefined:480}}>
-            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="80" height="80" style={{width:80,height:80,borderRadius:"50%",objectFit:"cover",border:`2.5px solid ${C.gold}`,flexShrink:0}}/>
+            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7e" width="80" height="80" style={{width:80,height:80,borderRadius:"50%",objectFit:"cover",border:`2.5px solid ${C.gold}`,flexShrink:0}}/>
             <div>
               <p style={{fontFamily:F.h,fontSize:mob?16:18,color:C.navy,fontWeight:500}}>Nicolas Mildner</p>
               <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase",marginTop:2}}>Ostéopathe D.O. · D.O.E. · D.O.F.</p>
-              <p style={{fontSize:12,color:C.muted,marginTop:4}}>22 ans d'expérience · Paris 7ᵉ</p>
+              <p style={{fontSize:12,color:C.muted,marginTop:4}}>22 ans d'expérience · Paris 7e</p>
             </div>
           </div>
           <div style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:12}}>
@@ -174,7 +174,7 @@ export default function LocalSpecPage() {
         </div>
         <div style={{textAlign:"center",marginTop:28}}>
           <Link to="/osteopathe-paris-7" style={{color:C.gold,fontSize:13,textDecoration:"none",borderBottom:`1px solid ${C.gold}`,paddingBottom:2}}>
-            Voir toutes les spécialisations — Ostéopathe Paris 7ᵉ →
+            Voir toutes les spécialisations — Ostéopathe Paris 7e →
           </Link>
         </div>
       </S>
@@ -185,7 +185,7 @@ export default function LocalSpecPage() {
           <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(184,149,106,0.15)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,color:C.gold,fontFamily:F.h,fontWeight:400,flexShrink:0,margin:mob?"0 auto":"0",border:"1.5px solid rgba(184,149,106,0.2)"}}>NM</div>
           <div style={{textAlign:mob?"center":"left"}}>
             <p style={{fontFamily:F.h,fontSize:18,color:"#fff",fontWeight:500}}>Nicolas Mildner</p>
-            <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase",marginTop:2}}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>
+            <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase",marginTop:2}}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7e</p>
             <p style={{fontSize:13,color:"rgba(255,255,255,0.5)",marginTop:8,lineHeight:1.7}}>
               22 ans de pratique clinique. D.O. n°379, Collégiale Académique de France. Filiation directe : Frymann · Paoletti · Caporossi · Wernham · Briend. 17 ans d'enseignement à l'ESO Paris.
             </p>
@@ -260,7 +260,7 @@ export default function LocalSpecPage() {
             Prendre rendez-vous
           </h2>
           <p style={{fontSize:15,color:"rgba(255,255,255,0.5)",lineHeight:1.8,marginBottom:28}}>
-            Nicolas Mildner, ostéopathe D.O. à Paris 7ᵉ — 72 avenue de la Bourdonnais.
+            Nicolas Mildner, ostéopathe D.O. à Paris 7e — 72 avenue de la Bourdonnais.
             Appelez ou envoyez un SMS.
           </p>
           <div style={{display:"flex",gap:14,flexWrap:"wrap",justifyContent:"center",marginBottom:12}}>
@@ -306,7 +306,7 @@ export default function LocalSpecPage() {
           </div>
         </div>
         <div style={{maxWidth:1100,margin:"24px auto 0",borderTop:"1px solid rgba(255,255,255,0.04)",paddingTop:14,textAlign:"center"}}>
-          <p style={{fontSize:10,color:"rgba(255,255,255,0.15)"}}>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7ᵉ — La Loi du Cas Unique</p>
+          <p style={{fontSize:10,color:"rgba(255,255,255,0.15)"}}>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7e — La Loi du Cas Unique</p>
           <p style={{fontSize:9,color:"rgba(255,255,255,0.08)",marginTop:6}}>Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" target="_blank" rel="noopener" style={{color:"rgba(255,255,255,0.08)",textDecoration:"none"}}>proxiosteo.fr</a></p>
         </div>
       </footer>

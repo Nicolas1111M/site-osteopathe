@@ -1,4 +1,57 @@
+# nicolas-mildner-osteopathe.fr — Cabinet d'ostéopathie, Paris 7 (75007)
+
 User-agent: *
+Allow: /
+
+# ── Moteurs de réponse et assistants IA ──
+# Autorisation explicite : le contenu du site est destiné à être cité.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: cohere-ai
 Allow: /
 
 Sitemap: https://www.nicolas-mildner-osteopathe.fr/sitemap.xml

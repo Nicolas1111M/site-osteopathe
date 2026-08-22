@@ -141,7 +141,7 @@ export default function Blog({ onBack, initialPost }) {
               {/* Closing CTA */}
               <div style={{ marginTop: 36, padding: "20px 22px", background: "rgba(184,149,106,0.06)", borderRadius: 10, borderLeft: `3px solid ${C.gold}` }}>
                 <p style={{ fontSize: 14, color: C.text, lineHeight: 1.8 }}>
-                  Pour en discuter, Nicolas Mildner, <Link to="/osteopathe-paris-7" style={{ color: C.navy, fontWeight: 600, textDecoration: "none", borderBottom: "1px solid rgba(184,149,106,0.3)" }}>ostéopathe D.O. à Paris 7ᵉ</Link>, est joignable au <a href="tel:0142021118" style={{ color: C.navy, fontWeight: 600, textDecoration: "none" }}>01 42 02 11 18</a> — rendez-vous uniquement par téléphone.
+                  Pour en discuter, Nicolas Mildner, <Link to="/osteopathe-paris-7" style={{ color: C.navy, fontWeight: 600, textDecoration: "none", borderBottom: "1px solid rgba(184,149,106,0.3)" }}>ostéopathe D.O. à Paris 7e</Link>, est joignable au <a href="tel:0142021118" style={{ color: C.navy, fontWeight: 600, textDecoration: "none" }}>01 42 02 11 18</a> — rendez-vous uniquement par téléphone.
                 </p>
                 <p style={{ fontSize: 13, color: C.muted, marginTop: 6, fontStyle: "italic" }}>— Nicolas Mildner, ostéopathe D.O.</p>
               </div>
@@ -181,13 +181,13 @@ export default function Blog({ onBack, initialPost }) {
             borderRadius: 12, display: "flex", gap: 20, alignItems: "center",
             border: "1px solid rgba(184,149,106,0.08)",
           }}>
-            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="56" height="56" style={{
+            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7e" width="56" height="56" style={{
               width: 56, height: 56, borderRadius: "50%", objectFit: "cover",
               border: "2px solid rgba(184,149,106,0.3)", flexShrink: 0,
             }}/>
             <div>
               <p style={{ fontFamily: F.h, fontSize: 16, color: C.navy, fontWeight: 500 }}>Nicolas Mildner</p>
-              <p style={{ fontSize: 11, color: C.gold, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 2 }}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7ᵉ</p>
+              <p style={{ fontSize: 11, color: C.gold, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 2 }}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7e</p>
               <p style={{ fontSize: 12, color: C.muted, marginTop: 6, lineHeight: 1.6 }}>22 ans de pratique clinique. Filiation Frymann · Paoletti · Caporossi · Wernham · Briend. Approche systémique et neurovégétative.</p>
               <p style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>72 avenue de la Bourdonnais, 75007 Paris</p>
               <p style={{ fontSize: 13, color: C.navy, fontWeight: 500, marginTop: 6 }}>

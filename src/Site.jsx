@@ -44,7 +44,7 @@ const specs = [
   { icon:"😰", t:"Stress, Burn-out & Somatisations", d:"Anxiété, troubles du sommeil, épuisement, douleurs sans cause apparente. Rééquilibrage du terrain neurovégétatif.", k:["stress","burn-out","insomnie","anxiété","somatisation"], cat:"s" },
   { icon:"👴", t:"Seniors & Gériatrie", d:"Maintien de l'autonomie, prévention des chutes, gestion de l'arthrose, accompagnement du vieillissement.", k:["arthrose","mobilité","chutes","gériatrie"], cat:"s" },
   { icon:"🧩", t:"Problèmes complexes", d:"Patients en errance thérapeutique, cas résistants, douleurs chroniques multi-factorielles. La Loi du Cas Unique : chaque situation mérite une analyse neuve.", k:["douleur chronique","errance","complexe","résistant"], cat:"d" },
-  { icon:"🏠", t:"Urgences & Domicile", d:"Décompensations post-traumatiques, crises aiguës. Consultations à domicile pour patients à mobilité réduite. Paris 7ᵉ et limitrophes.", k:["urgence","domicile","trauma","décompensation"], cat:"d" },
+  { icon:"🏠", t:"Urgences & Domicile", d:"Décompensations post-traumatiques, crises aiguës. Consultations à domicile pour patients à mobilité réduite. Paris 7e et limitrophes.", k:["urgence","domicile","trauma","décompensation"], cat:"d" },
 ];
 
 const testimonials = [
@@ -88,7 +88,7 @@ export default function Site({ onBlog }){
   useEffect(()=>{const fn=()=>setScrolled(window.scrollY>50);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   useEffect(()=>{const t=setInterval(()=>setTIdx(p=>(p+1)%testimonials.length),6000);return()=>clearInterval(t);},[]);
   const filtered=cat==="all"?specs:specs.filter(s=>s.cat===cat);
-  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Paris 7ᵉ",h:"/osteopathe-paris-7",isRoute:true},{l:"Blog",h:"#blog"},{l:"FAQ",h:"#faq"},{l:"Contact",h:"#contact"}];
+  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Paris 7e",h:"/osteopathe-paris-7",isRoute:true},{l:"Blog",h:"#blog"},{l:"FAQ",h:"#faq"},{l:"Contact",h:"#contact"}];
   const cats=[{k:"all",l:"Tout voir (18)"},{k:"d",l:"Douleurs & Mouvement"},{k:"f",l:"Femme & Enfant"},{k:"s",l:"Spécialisé"}];
 
   const handleSubscribe=async()=>{
@@ -146,8 +146,14 @@ export default function Site({ onBlog }){
                   Génération charnière · D.O. n°00379
                 </span>
               </div>
-              <h1 style={{fontFamily:F.h,fontSize:mob?34:50,fontWeight:500,color:C.navy,lineHeight:1.15,marginBottom:6}}>Nicolas Mildner</h1>
-              <p style={{fontFamily:F.h,fontSize:22,fontWeight:400,fontStyle:"italic",color:C.gold,marginBottom:28}}>Ostéopathe D.O. · D.O.E. · D.O.F.</p>
+              <h1 style={{fontFamily:F.h,fontSize:mob?34:50,fontWeight:500,color:C.navy,lineHeight:1.15,marginBottom:8}}>
+                Nicolas Mildner
+                <span style={{display:"block",fontSize:mob?19:27,fontWeight:400,lineHeight:1.25,marginTop:6}}>Ostéopathe D.O. à Paris 7 — 75007</span>
+              </h1>
+              <p style={{fontFamily:F.h,fontSize:mob?18:22,fontWeight:400,fontStyle:"italic",color:C.gold,marginBottom:10}}>D.O. · D.O.E. · D.O.F. — Cabinet Bourdonnais</p>
+              <p style={{fontSize:14,color:C.muted,marginBottom:28,lineHeight:1.6}}>
+                {ADDR} · Métro École Militaire (ligne 8) · Quartier Gros-Caillou, 7e arrondissement.
+              </p>
               <div style={{borderLeft:`3px solid ${C.gold}`,paddingLeft:20,marginBottom:32}}>
                 <p style={{fontFamily:F.h,fontSize:21,color:C.navy,fontStyle:"italic",lineHeight:1.5,marginBottom:6}}>« La Loi du Cas Unique »</p>
                 <p style={{fontSize:14,color:C.muted,lineHeight:1.7}}>
@@ -173,8 +179,8 @@ export default function Site({ onBlog }){
             {/* Portrait + Stats card */}
             <div>
               <div style={{textAlign:"center",marginBottom:20}}>
-                <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. à Paris 7ᵉ — Cabinet Bourdonnais" width={mob?200:280} height={mob?133:186} style={{borderRadius:12,objectFit:"cover",border:`2px solid ${C.gold}`,boxShadow:"0 8px 32px rgba(26,43,74,0.12)"}} loading="eager"/>
-                <p style={{fontSize:11,color:C.muted,marginTop:8,fontStyle:"italic"}}>Nicolas Mildner — au cabinet, Paris 7ᵉ</p>
+                <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. à Paris 7e — Cabinet Bourdonnais" width={mob?200:280} height={mob?133:186} style={{borderRadius:12,objectFit:"cover",border:`2px solid ${C.gold}`,boxShadow:"0 8px 32px rgba(26,43,74,0.12)"}} loading="eager"/>
+                <p style={{fontSize:11,color:C.muted,marginTop:8,fontStyle:"italic"}}>Nicolas Mildner — au cabinet, Paris 7e</p>
               </div>
               <div style={{background:"rgba(255,255,255,0.7)",backdropFilter:"blur(12px)",borderRadius:16,padding:"32px 28px",border:"1px solid rgba(184,149,106,0.1)"}}>
               {[
@@ -478,7 +484,7 @@ export default function Site({ onBlog }){
                 {l:"D.O. · D.O.E. · D.O.F.",d:"Triple diplôme — Faculté de Médecine de Genève"},
                 {l:"D.O. n°00379 — Collégiale Académique",d:"Génération charnière, avant les décrets de 2007"},
                 {l:"CES Ostéopathie Pédiatrique",d:"Certificat d'études spécialisées — 2011"},
-                {l:"Stages hospitaliers & dissections",d:"Chirurgie, pédiatrie, maternité · Fac. Médecine Paris Descartes"},
+                {l:"Stages hospitaliers & dissections",d:"Chirurgie, pédiatrie, maternité · Paris Descartes"},
                 {l:"Standards de la profession",d:"Participant aux travaux d'élaboration du référentiel métier et à la sélection des premiers Masters 2"},
                 {l:"Enseignant ESO · 5 matières · 17 ans",d:"Commissions recherche, pédagogie, évaluation"},
                 {l:"Filiation directe",d:"Frymann · Paoletti · Caporossi · Wernham · Briend"},
@@ -568,7 +574,7 @@ export default function Site({ onBlog }){
 
       {/* ═══ FAQ — source: home-faq.json (10 questions GEO) ═══ */}
       <S id="faq" bg={C.sage}>
-        <T tag="Questions fréquentes" title="Questions fréquentes — Ostéopathe Paris 7ᵉ" sub="Les réponses aux questions les plus courantes sur le cabinet, les motifs de consultation et la prise de rendez-vous."/>
+        <T tag="Questions fréquentes" title="Questions fréquentes — Ostéopathe Paris 7e" sub="Les réponses aux questions les plus courantes sur le cabinet, les motifs de consultation et la prise de rendez-vous."/>
         <div style={{maxWidth:760,margin:"0 auto"}}>
           {homeFaqData.questions.map((f,i)=>(
             <div key={i} style={{background:"#fff",borderRadius:10,border:"1px solid rgba(184,149,106,0.08)",marginBottom:10,overflow:"hidden"}}>
@@ -623,7 +629,7 @@ export default function Site({ onBlog }){
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.3!2d2.3003!3d48.8563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6702025a72291%3A0xecb595739e641603!2s72%20Av.%20de%20la%20Bourdonnais%2C%2075007%20Paris!5e0!3m2!1sfr!2sfr!4v1717700000000"
               width="100%" height="100%" style={{border:0,minHeight:mob?300:420}}
               allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-              title="Cabinet Nicolas Mildner — 72 avenue de la Bourdonnais, Paris 7ᵉ"
+              title="Cabinet Nicolas Mildner — 72 avenue de la Bourdonnais, Paris 7e"
             />
           </div>
         </div>
@@ -689,7 +695,7 @@ export default function Site({ onBlog }){
           </div>
         </div>
         <div style={{maxWidth:1100,margin:"24px auto 0",borderTop:"1px solid rgba(255,255,255,0.04)",paddingTop:14,textAlign:"center"}}>
-          <p style={{fontSize:10,color:"rgba(255,255,255,0.15)"}}>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7ᵉ — La Loi du Cas Unique</p>
+          <p style={{fontSize:10,color:"rgba(255,255,255,0.15)"}}>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7e — La Loi du Cas Unique</p>
           <p style={{fontSize:9,color:"rgba(255,255,255,0.08)",marginTop:6}}>Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" target="_blank" rel="noopener" style={{color:"rgba(255,255,255,0.08)",textDecoration:"none"}}>proxiosteo.fr</a></p>
         </div>
       </footer>

@@ -23,10 +23,10 @@ function Btn({href,children,v:vr="primary",style:s={},onClick,...rest}){const[h,
 /* ── SEO meta ── */
 function useDocumentMeta() {
   useEffect(() => {
-    document.title = "Ostéopathe Paris 7ᵉ — Nicolas Mildner D.O. | 72 av. de la Bourdonnais, 75007";
+    document.title = "Ostéopathe Paris 7e — Nicolas Mildner D.O. | 72 av. de la Bourdonnais, 75007";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content",
-      "Ostéopathe à Paris 7ᵉ (75007). Nicolas Mildner, D.O. n°379, 22 ans d'expérience. Cabinet au 72 avenue de la Bourdonnais, métro École Militaire. 18 spécialisations. Tél. 01 42 02 11 18."
+      "Ostéopathe à Paris 7e (75007). Nicolas Mildner, D.O. n°379, 22 ans d'expérience. Cabinet au 72 avenue de la Bourdonnais, métro École Militaire. 18 spécialisations. Tél. 01 42 02 11 18."
     );
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.setAttribute("href", "https://www.nicolas-mildner-osteopathe.fr/osteopathe-paris-7");
@@ -66,8 +66,8 @@ export default function OsteopatheParis7() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({
         "@context":"https://schema.org",
         "@type":"MedicalBusiness",
-        "name":"Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ",
-        "description":"Cabinet d'ostéopathie à Paris 7ᵉ (75007). Nicolas Mildner, D.O. n°379, 22 ans d'expérience clinique, 17 ans d'enseignement. 18 spécialisations. Approche systémique et neurovégétative.",
+        "name":"Nicolas Mildner — Ostéopathe D.O. Paris 7e",
+        "description":"Cabinet d'ostéopathie à Paris 7e (75007). Nicolas Mildner, D.O. n°379, 22 ans d'expérience clinique, 17 ans d'enseignement. 18 spécialisations. Approche systémique et neurovégétative.",
         "url":"https://www.nicolas-mildner-osteopathe.fr/osteopathe-paris-7",
         "image":"https://www.nicolas-mildner-osteopathe.fr/img/nicolas-mildner-osteopathe.jpg",
         "telephone":"+33142021118",
@@ -79,7 +79,7 @@ export default function OsteopatheParis7() {
         "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"20","bestRating":"5"},
         "areaServed":[
           {"@type":"City","name":"Paris"},
-          {"@type":"AdministrativeArea","name":"Paris 7ᵉ arrondissement"},
+          {"@type":"AdministrativeArea","name":"Paris 7e arrondissement"},
           {"@type":"AdministrativeArea","name":"75007"}
         ],
         "founder":{"@type":"Person","name":"Nicolas Mildner","image":"https://www.nicolas-mildner-osteopathe.fr/img/nicolas-mildner-osteopathe.jpg","jobTitle":"Ostéopathe D.O., D.O.E., D.O.F.","alumniOf":"École Supérieure d'Ostéopathie de Paris"}
@@ -106,24 +106,24 @@ export default function OsteopatheParis7() {
         <div style={{maxWidth:900,margin:"0 auto",position:"relative",zIndex:1}}>
           <div style={{display:"inline-block",background:"rgba(26,43,74,0.06)",borderRadius:20,padding:"6px 16px",marginBottom:20}}>
             <span style={{fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:C.navy,fontWeight:500}}>
-              Ostéopathe Paris 7ᵉ · 75007
+              Ostéopathe Paris 7e · 75007
             </span>
           </div>
           <h1 style={{fontFamily:F.h,fontSize:mob?28:44,fontWeight:500,color:C.navy,lineHeight:1.2,marginBottom:12}}>
-            Votre ostéopathe à Paris&nbsp;7<sup>e</sup>
+            Ostéopathe Paris 7 — 75007
             <br/><span style={{color:C.gold,fontSize:mob?22:34}}>72 avenue de la Bourdonnais</span>
           </h1>
           <p style={{fontSize:mob?15:18,lineHeight:1.85,color:"#555",marginBottom:28,maxWidth:700}}>
-            Nicolas Mildner, ostéopathe D.O. n°379, exerce au cœur du 7ᵉ arrondissement depuis 2004.
+            Nicolas Mildner, ostéopathe D.O. n°379, exerce au cœur du 7e arrondissement depuis 2004.
             22 ans de pratique clinique, 17 ans d'enseignement, 18 spécialisations.
             Cabinet à deux pas de l'École Militaire, du Champ-de-Mars et des Invalides.
           </p>
           <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:28,background:"rgba(255,255,255,0.65)",backdropFilter:"blur(8px)",borderRadius:14,padding:mob?"16px 16px":"18px 24px",border:"1px solid rgba(184,149,106,0.1)",maxWidth:mob?undefined:480}}>
-            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7ᵉ" width="80" height="80" style={{width:80,height:80,borderRadius:"50%",objectFit:"cover",border:`2.5px solid ${C.gold}`,flexShrink:0}}/>
+            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7e" width="80" height="80" style={{width:80,height:80,borderRadius:"50%",objectFit:"cover",border:`2.5px solid ${C.gold}`,flexShrink:0}}/>
             <div>
               <p style={{fontFamily:F.h,fontSize:mob?16:18,color:C.navy,fontWeight:500}}>Nicolas Mildner</p>
               <p style={{fontSize:11,color:C.gold,letterSpacing:1.5,textTransform:"uppercase",marginTop:2}}>Ostéopathe D.O. · D.O.E. · D.O.F.</p>
-              <p style={{fontSize:12,color:C.muted,marginTop:4}}>22 ans d'expérience · Paris 7ᵉ</p>
+              <p style={{fontSize:12,color:C.muted,marginTop:4}}>22 ans d'expérience · Paris 7e</p>
             </div>
           </div>
           <div style={{display:"flex",gap:14,flexWrap:"wrap",marginBottom:16}}>
@@ -213,10 +213,10 @@ export default function OsteopatheParis7() {
             <p style={{fontSize:11,letterSpacing:5,textTransform:"uppercase",color:C.gold,marginBottom:14,fontWeight:500}}>Votre praticien</p>
             <h2 style={{fontFamily:F.h,fontSize:mob?24:34,color:"#fff",fontWeight:500,lineHeight:1.3}}>Nicolas Mildner, ostéopathe D.O.</h2>
             <p style={{color:"rgba(255,255,255,0.5)",marginTop:14,fontSize:mob?13:15,maxWidth:580,margin:"14px auto 0",lineHeight:1.75}}>
-              22 ans de pratique clinique au service de vos patients du 7ᵉ arrondissement.
+              22 ans de pratique clinique au service de vos patients du 7e arrondissement.
             </p>
             <div style={{marginTop:24}}>
-              <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7ᵉ" width={mob?180:240} height={mob?120:160} style={{borderRadius:12,objectFit:"cover",border:"2px solid rgba(184,149,106,0.25)",boxShadow:"0 8px 32px rgba(0,0,0,0.2)"}}/>
+              <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. au cabinet de Paris 7e" width={mob?180:240} height={mob?120:160} style={{borderRadius:12,objectFit:"cover",border:"2px solid rgba(184,149,106,0.25)",boxShadow:"0 8px 32px rgba(0,0,0,0.2)"}}/>
             </div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:28}}>
@@ -274,10 +274,10 @@ export default function OsteopatheParis7() {
               Le cabinet est situé au 72 avenue de la Bourdonnais, dans le quartier du Gros-Caillou, à quelques minutes à pied de l'École Militaire, du Champ-de-Mars et de la Tour Eiffel.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
-              Facilement accessible en métro (ligne 8, stations École Militaire et La Tour-Maubourg), le cabinet accueille les habitants du 7ᵉ arrondissement ainsi que les patients venant de tout Paris, de province et de l'étranger.
+              Facilement accessible en métro (ligne 8, stations École Militaire et La Tour-Maubourg), le cabinet accueille les habitants du 7e arrondissement ainsi que les patients venant de tout Paris, de province et de l'étranger.
             </p>
             <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:24}}>
-              Consultations à domicile possibles pour les patients à mobilité réduite (Paris 7ᵉ et arrondissements limitrophes).
+              Consultations à domicile possibles pour les patients à mobilité réduite (Paris 7e et arrondissements limitrophes).
             </p>
             <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
               {["Gros-Caillou","École Militaire","Champ-de-Mars","Invalides","La Tour-Maubourg","Tour Eiffel","Rue Cler","Avenue Bosquet"].map(q=>(
@@ -290,7 +290,7 @@ export default function OsteopatheParis7() {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.3!2d2.3003!3d48.8563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6702025a72291%3A0xecb595739e641603!2s72%20Av.%20de%20la%20Bourdonnais%2C%2075007%20Paris!5e0!3m2!1sfr!2sfr!4v1717700000000"
               width="100%" height="100%" style={{border:0,minHeight:mob?280:380}}
               allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-              title="Cabinet Nicolas Mildner — Ostéopathe Paris 7ᵉ — 72 avenue de la Bourdonnais"
+              title="Cabinet Nicolas Mildner — Ostéopathe Paris 7e — 72 avenue de la Bourdonnais"
             />
           </div>
         </div>
@@ -381,7 +381,7 @@ export default function OsteopatheParis7() {
           </div>
         </div>
         <div style={{maxWidth:1100,margin:"24px auto 0",borderTop:"1px solid rgba(255,255,255,0.04)",paddingTop:14,textAlign:"center"}}>
-          <p style={{fontSize:10,color:"rgba(255,255,255,0.15)"}}>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7ᵉ — La Loi du Cas Unique</p>
+          <p style={{fontSize:10,color:"rgba(255,255,255,0.15)"}}>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7e — La Loi du Cas Unique</p>
           <p style={{fontSize:9,color:"rgba(255,255,255,0.08)",marginTop:6}}>
             Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" target="_blank" rel="noopener" style={{color:"rgba(255,255,255,0.08)",textDecoration:"none"}}>proxiosteo.fr</a>
           </p>
