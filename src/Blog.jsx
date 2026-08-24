@@ -101,7 +101,7 @@ export default function Blog({ onBack, initialPost }) {
           <p style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: C.gold, marginBottom: 12 }}>{post.tag} · {post.readTime}</p>
           <h1 style={{ fontFamily: F.h, fontSize: 36, color: C.navy, lineHeight: 1.3, marginBottom: 16 }}>{post.title}</h1>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 32 }}>
-            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner" width="36" height="36" style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover", border: "1.5px solid rgba(184,149,106,0.25)" }}/>
+            <img src="/img/nicolas-mildner-avatar.jpg" alt="Nicolas Mildner, ostéopathe D.O. Paris 7" width="36" height="36" loading="lazy" decoding="async" style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover", border: "1.5px solid rgba(184,149,106,0.25)" }}/>
             <p style={{ fontSize: 13, color: C.muted }}>Publié le {new Date(post.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Nicolas Mildner, Ostéopathe D.O.</p>
           </div>
 
@@ -181,7 +181,7 @@ export default function Blog({ onBack, initialPost }) {
             borderRadius: 12, display: "flex", gap: 20, alignItems: "center",
             border: "1px solid rgba(184,149,106,0.08)",
           }}>
-            <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. Paris 7e" width="56" height="56" style={{
+            <img src="/img/nicolas-mildner-avatar.jpg" alt="Nicolas Mildner — ostéopathe D.O. à Paris 7 (75007)" width="56" height="56" loading="lazy" decoding="async" style={{
               width: 56, height: 56, borderRadius: "50%", objectFit: "cover",
               border: "2px solid rgba(184,149,106,0.3)", flexShrink: 0,
             }}/>

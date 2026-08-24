@@ -179,7 +179,7 @@ export default function Site({ onBlog }){
             {/* Portrait + Stats card */}
             <div>
               <div style={{textAlign:"center",marginBottom:20}}>
-                <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner — Ostéopathe D.O. à Paris 7e — Cabinet Bourdonnais" width={mob?200:280} height={mob?133:186} style={{borderRadius:12,objectFit:"cover",border:`2px solid ${C.gold}`,boxShadow:"0 8px 32px rgba(26,43,74,0.12)"}} loading="eager"/>
+                <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner, ostéopathe D.O. à Paris 7 (75007) — Cabinet Bourdonnais, 72 avenue de la Bourdonnais" width={mob?200:280} height={mob?133:186} decoding="async" fetchPriority="high" style={{borderRadius:12,objectFit:"cover",border:`2px solid ${C.gold}`,boxShadow:"0 8px 32px rgba(26,43,74,0.12)"}} loading="eager"/>
                 <p style={{fontSize:11,color:C.muted,marginTop:8,fontStyle:"italic"}}>Nicolas Mildner — au cabinet, Paris 7e</p>
               </div>
               <div style={{background:"rgba(255,255,255,0.7)",backdropFilter:"blur(12px)",borderRadius:16,padding:"32px 28px",border:"1px solid rgba(184,149,106,0.1)"}}>
