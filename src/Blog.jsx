@@ -1,270 +1,272 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Breadcrumbs, CallActions, IconBack, IconPlus } from "./Layout.jsx";
+import { Newsletter } from "./Site.jsx";
+import NotFound from "./NotFound.jsx";
+import { SsrData } from "./ssr-data.js";
+import { PHONE, PHONE_TEL, MOBILE, MOBILE_TEL, formatDate, sortByDateDesc } from "./site-config.js";
 import postsIndex from "./posts-index.json";
 
-const F = { h:"'Playfair Display','Georgia',serif", b:"'DM Sans','Helvetica Neue',sans-serif" };
-const C = { navy:"#1A2B4A", cream:"#FAF7F2", gold:"#B8956A", sage:"#F4F1EC", text:"#3A3A3A", muted:"#7A7A7A" };
-
-/* ── SEO: update document meta per article ── */
-function useDocumentMeta(title, description) {
-  useEffect(() => {
-    if (title) document.title = title;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc && description) metaDesc.setAttribute("content", description);
-    return () => {
-      document.title = "Nicolas Mildner — Ostéopathe D.O. Paris 7\u1d49 | La Loi du Cas Unique";
-      if (metaDesc) metaDesc.setAttribute("content", "Nicolas Mildner, ostéopathe D.O./D.O.E./D.O.F. à Paris 7\u1d49. 22 ans d\u2019expérience, 18 spécialisations. Approche systémique et neurovégétative. Tél. 01 42 02 11 18 · 06 68 80 14 42.");
-    };
-  }, [title, description]);
+/* Découpe le texte d'un article en titres et paragraphes
+ * (même règle que les versions précédentes du site). */
+function parseContent(content) {
+  const lines = content.split("\n");
+  const blocks = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    const prevEmpty = i === 0 || lines[i - 1].trim() === "";
+    const nextEmpty = i === lines.length - 1 || lines[i + 1]?.trim() === "";
+    const isHeading = prevEmpty && nextEmpty && line.length < 120 && !line.endsWith(".");
+    blocks.push({ type: isHeading ? "h2" : "p", text: line, key: i });
+  }
+  return blocks;
 }
 
-/* ── JSON-LD managed via <head> — prevents duplication with prerender.js ── */
-function useJsonLd(id, data) {
-  useEffect(() => {
-    if (!data) return;
-    const json = JSON.stringify(data);
-    let el = document.getElementById(id);
-    if (el) {
-      // prerender.js already injected this — update content
-      el.textContent = json;
-    } else {
-      el = document.createElement("script");
-      el.id = id;
-      el.type = "application/ld+json";
-      el.textContent = json;
-      document.head.appendChild(el);
-    }
-    return () => { const old = document.getElementById(id); if (old) old.remove(); };
-  }, [id, data]);
+function ArticleBody({ data }) {
+  const blocks = parseContent(data.content);
+  const nodes = blocks.map((b) => (b.type === "h2" ? <h2 key={b.key}>{b.text}</h2> : <p key={b.key}>{b.text}</p>));
+  if (data.redflags) {
+    nodes.splice(
+      1,
+      0,
+      <aside className="redflags" key="redflags" aria-label={data.redflags.title}>
+        <p className="redflags__title">{data.redflags.title}</p>
+        <p>{data.redflags.text}</p>
+      </aside>
+    );
+  }
+  return <div className="article__body">{nodes}</div>;
 }
 
-export default function Blog({ onBack, initialPost }) {
-  const navigate = useNavigate();
-  const [filterTag, setFilterTag] = useState("all");
-  const [articleData, setArticleData] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const post = initialPost ? postsIndex.find(p => p.id === initialPost) : null;
-
-  /* ── Lazy-load article content ── */
-  useEffect(() => {
-    if (!post) { setArticleData(null); return; }
-    setLoading(true);
-    fetch(`/blog/${post.id}.json`)
-      .then(r => r.json())
-      .then(data => { setArticleData(data); setLoading(false); })
-      .catch(() => setLoading(false));
-  }, [post?.id]);
-
-  useDocumentMeta(
-    post ? `${post.title} — Nicolas Mildner, Ostéopathe D.O. Paris 7\u1d49` : "Blog — Nicolas Mildner, Ostéopathe D.O. Paris 7\u1d49",
-    post ? post.excerpt : "Articles fondés sur la recherche PubMed. Vulgarisés, sourcés, rigoureux. Par Nicolas Mildner, ostéopathe D.O. à Paris 7\u1d49."
+function Article({ post }) {
+  const ssr = useContext(SsrData);
+  const [article, setArticle] = useState(() =>
+    ssr && ssr.article && ssr.article.id === post.id ? ssr.article : null
   );
+  const [failed, setFailed] = useState(false);
 
-  /* ── JSON-LD (managed in <head>, avoids duplication with prerender.js) ── */
-  useJsonLd("ld-blogposting", post ? {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "description": post.excerpt,
-    "datePublished": post.date,
-    "author": { "@type": "Person", "name": "Nicolas Mildner", "image": "https://www.nicolas-mildner-osteopathe.fr/img/nicolas-mildner-osteopathe.jpg", "jobTitle": "Ostéopathe D.O., D.O.E., D.O.F.", "url": "https://nicolas-mildner-osteopathe.fr" },
-    "publisher": { "@type": "Organization", "name": "Cabinet Nicolas Mildner — Ostéopathe D.O.", "url": "https://nicolas-mildner-osteopathe.fr" },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://www.nicolas-mildner-osteopathe.fr/blog/${post.id}` },
-    "keywords": Array.isArray(post.keywords) ? post.keywords.join(", ") : (post.keywords || ""),
-    "wordCount": articleData?.content ? articleData.content.split(/\s+/).length : undefined
-  } : null);
+  useEffect(() => {
+    if (article && article.id === post.id) return undefined;
+    let cancelled = false;
+    setFailed(false);
+    fetch(`/blog/${post.id}.json`)
+      .then((r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.json();
+      })
+      .then((data) => {
+        if (!cancelled) setArticle({ id: post.id, data });
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [post.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useJsonLd("ld-faq", (post && articleData?.faq?.length) ? {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": articleData.faq.map(item => ({
-      "@type": "Question", "name": item.q,
-      "acceptedAnswer": { "@type": "Answer", "text": item.a }
-    }))
-  } : null);
+  const data = article && article.id === post.id ? article.data : null;
+  const others = sortByDateDesc(postsIndex)
+    .filter((p) => p.id !== post.id)
+    .slice(0, 2);
 
-  const tags = ["all", ...new Set(postsIndex.map(p => p.tag))];
-  const filtered = filterTag === "all" ? postsIndex : postsIndex.filter(p => p.tag === filterTag);
-
-  /* ── Article view ── */
-  if (post) {
-    return (
-      <div style={{ fontFamily: F.b, background: C.cream, minHeight: "100vh", padding: "40px 24px" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-        <div style={{ maxWidth: 740, margin: "0 auto" }}>
-          <button onClick={() => navigate("/blog")} style={{
-            background: "none", border: "none", color: C.gold, fontSize: 14,
-            cursor: "pointer", fontFamily: F.b, marginBottom: 32, padding: 0,
-          }}>← Retour aux articles</button>
-
-          <p style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: C.gold, marginBottom: 12 }}>{post.tag} · {post.readTime}</p>
-          <h1 style={{ fontFamily: F.h, fontSize: 36, color: C.navy, lineHeight: 1.3, marginBottom: 16 }}>{post.title}</h1>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 32 }}>
-            <img src="/img/nicolas-mildner-avatar.jpg" alt="Nicolas Mildner, ostéopathe D.O. Paris 7" width="36" height="36" loading="lazy" decoding="async" style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover", border: "1.5px solid rgba(184,149,106,0.25)" }}/>
-            <p style={{ fontSize: 13, color: C.muted }}>Publié le {new Date(post.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })} · Nicolas Mildner, Ostéopathe D.O.</p>
-          </div>
-
-          {loading && <p style={{ color: C.muted, fontSize: 14 }}>Chargement…</p>}
-
-          {articleData && (
-            <>
-              <div style={{ fontSize: 16, lineHeight: 1.9, color: C.text }}>
-                {(() => {
-                  const lines = articleData.content.split("\n");
-                  const elements = [];
-                  for (let i = 0; i < lines.length; i++) {
-                    const line = lines[i].trim();
-                    if (!line) continue;
-                    const prevEmpty = i === 0 || lines[i-1].trim() === "";
-                    const nextEmpty = i === lines.length-1 || lines[i+1]?.trim() === "";
-                    const isHeading = prevEmpty && nextEmpty && line.length < 120 && !line.endsWith(".");
-                    if (isHeading) {
-                      elements.push(<h2 key={i} style={{ fontFamily: F.h, fontSize: 22, color: C.navy, fontWeight: 500, margin: "36px 0 16px", lineHeight: 1.35 }}>{line}</h2>);
-                    } else {
-                      elements.push(<p key={i} style={{ marginBottom: 16 }}>{line}</p>);
-                    }
-                  }
-                  /* Red-flags block — inserted after intro paragraph */
-                  if (articleData.redflags) {
-                    elements.splice(1, 0,
-                      <div key="redflags" style={{ background: "#FCEDEC", borderLeft: "4px solid #C0392B", padding: "16px 20px", borderRadius: 8, margin: "20px 0" }}>
-                        <p style={{ fontFamily: F.h, fontSize: 16, color: "#C0392B", fontWeight: 600, marginBottom: 6 }}>{articleData.redflags.title}</p>
-                        <p style={{ fontSize: 14.5, color: "#7a2018", lineHeight: 1.7, margin: 0 }}>{articleData.redflags.text}</p>
-                      </div>
-                    );
-                  }
-                  return elements;
-                })()}
-              </div>
-
-              {/* Closing CTA */}
-              <div style={{ marginTop: 36, padding: "20px 22px", background: "rgba(184,149,106,0.06)", borderRadius: 10, borderLeft: `3px solid ${C.gold}` }}>
-                <p style={{ fontSize: 14, color: C.text, lineHeight: 1.8 }}>
-                  Pour en discuter, Nicolas Mildner, <Link to="/osteopathe-paris-7" style={{ color: C.navy, fontWeight: 600, textDecoration: "none", borderBottom: "1px solid rgba(184,149,106,0.3)" }}>ostéopathe D.O. à Paris 7e</Link>, est joignable au <a href="tel:0142021118" style={{ color: C.navy, fontWeight: 600, textDecoration: "none" }}>01 42 02 11 18</a> — rendez-vous uniquement par téléphone.
-                </p>
-                <p style={{ fontSize: 13, color: C.muted, marginTop: 6, fontStyle: "italic" }}>— Nicolas Mildner, ostéopathe D.O.</p>
-              </div>
-
-              {/* FAQ */}
-              {articleData.faq && articleData.faq.length > 0 && (
-                <div style={{ marginTop: 48 }}>
-                  <h2 style={{ fontFamily: F.h, fontSize: 22, color: C.navy, fontWeight: 500, marginBottom: 20 }}>Questions fréquentes</h2>
-                  {articleData.faq.map((item, i) => (
-                    <details key={i} style={{ marginBottom: 10, background: C.sage, borderRadius: 10, border: "1px solid rgba(184,149,106,0.08)", overflow: "hidden" }}>
-                      <summary style={{ padding: "16px 20px", cursor: "pointer", fontFamily: F.b, fontSize: 15, color: C.navy, fontWeight: 500, lineHeight: 1.4 }}>{item.q}</summary>
-                      <p style={{ padding: "0 20px 16px", fontSize: 14, color: C.muted, lineHeight: 1.8, margin: 0 }}>{item.a}</p>
-                    </details>
-                  ))}
-                </div>
-              )}
-
-              {/* Sources */}
-              {articleData.sources && articleData.sources.length > 0 && (
-                <div style={{ marginTop: 40, padding: "24px 22px", background: C.sage, borderRadius: 12, border: "1px solid rgba(184,149,106,0.06)" }}>
-                  <h3 style={{ fontFamily: F.h, fontSize: 17, color: C.navy, fontWeight: 500, marginBottom: 14 }}>Sources</h3>
-                  <ol style={{ margin: 0, paddingLeft: 18 }}>
-                    {articleData.sources.map((s, i) => (
-                      <li key={i} style={{ fontSize: 12.5, color: C.muted, lineHeight: 1.7, marginBottom: 6 }}>
-                        <a href={s.url} target="_blank" rel="noopener" style={{ color: C.navy, textDecoration: "none", borderBottom: "1px solid rgba(184,149,106,0.2)" }}>{s.text}</a>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Author signature */}
-          <div style={{
-            marginTop: 48, padding: "24px 28px", background: C.sage,
-            borderRadius: 12, display: "flex", gap: 20, alignItems: "center",
-            border: "1px solid rgba(184,149,106,0.08)",
-          }}>
-            <img src="/img/nicolas-mildner-avatar.jpg" alt="Nicolas Mildner — ostéopathe D.O. à Paris 7 (75007)" width="56" height="56" loading="lazy" decoding="async" style={{
-              width: 56, height: 56, borderRadius: "50%", objectFit: "cover",
-              border: "2px solid rgba(184,149,106,0.3)", flexShrink: 0,
-            }}/>
-            <div>
-              <p style={{ fontFamily: F.h, fontSize: 16, color: C.navy, fontWeight: 500 }}>Nicolas Mildner</p>
-              <p style={{ fontSize: 11, color: C.gold, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 2 }}>Ostéopathe D.O. · D.O.E. · D.O.F. — Paris 7e</p>
-              <p style={{ fontSize: 12, color: C.muted, marginTop: 6, lineHeight: 1.6 }}>22 ans de pratique clinique. Filiation Frymann · Paoletti · Caporossi · Wernham · Briend. Approche systémique et neurovégétative.</p>
-              <p style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>72 avenue de la Bourdonnais, 75007 Paris</p>
-              <p style={{ fontSize: 13, color: C.navy, fontWeight: 500, marginTop: 6 }}>
-                <a href="tel:0142021118" style={{ color: C.navy, textDecoration: "none" }}>01 42 02 11 18</a> · <a href="tel:0668801442" style={{ color: C.navy, textDecoration: "none" }}>06 68 80 14 42</a>
+  return (
+    <main id="contenu">
+      <article className="article">
+        <header className="article__head">
+          <div className="wrap wrap--text">
+            <Breadcrumbs items={[{ label: "Accueil", to: "/" }, { label: "Blog", to: "/blog" }, { label: post.title }]} />
+            <p className="t-kicker">
+              {post.tag} · {post.readTime}
+            </p>
+            <h1 className="t-title article__title">{post.title}</h1>
+            <div className="byline">
+              <img src="/img/nicolas-mildner-avatar.jpg" alt="Nicolas Mildner, ostéopathe D.O. Paris 7" width="400" height="400" decoding="async" />
+              <p>
+                Publié le {formatDate(post.date)}
+                <span>Nicolas Mildner, Ostéopathe D.O.</span>
               </p>
             </div>
           </div>
-        </div>
-      </div>
-    );
-  }
+        </header>
 
-  /* ── Blog listing ── */
-  return (
-    <div style={{ fontFamily: F.b, background: C.cream, minHeight: "100vh", padding: "40px 24px" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-      <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        <button onClick={onBack} style={{
-          background: "none", border: "none", color: C.gold, fontSize: 14,
-          cursor: "pointer", fontFamily: F.b, marginBottom: 32, padding: 0,
-        }}>← Retour au site</button>
+        <div className="wrap wrap--text">
+          {data ? (
+            <>
+              <ArticleBody data={data} />
+              <p className="article__contact">
+                Pour en discuter, Nicolas Mildner,{" "}
+                <Link className="link" to="/osteopathe-paris-7">
+                  ostéopathe D.O. à Paris 7e
+                </Link>
+                , est joignable au{" "}
+                <a className="link" href={PHONE_TEL}>
+                  {PHONE}
+                </a>{" "}
+                ; rendez-vous uniquement par téléphone ou SMS.
+              </p>
 
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontSize: 11, letterSpacing: 5, textTransform: "uppercase", color: C.gold, marginBottom: 14, fontWeight: 500 }}>Recherche & Conseils</p>
-          <h1 style={{ fontFamily: F.h, fontSize: 38, color: C.navy, fontWeight: 500 }}>Le blog du cabinet</h1>
-          <p style={{ color: C.muted, marginTop: 12, fontSize: 15, maxWidth: 500, margin: "12px auto 0", lineHeight: 1.7 }}>
-            Articles fondés sur la recherche PubMed. Vulgarisés, sourcés, rigoureux.
-          </p>
-        </div>
-
-        {/* Tag filter */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 36, flexWrap: "wrap" }}>
-          {tags.map(t => (
-            <button key={t} onClick={() => setFilterTag(t)} style={{
-              padding: "6px 16px", borderRadius: 16,
-              border: `1px solid ${filterTag === t ? C.gold : "rgba(184,149,106,0.2)"}`,
-              background: filterTag === t ? C.gold : "transparent",
-              color: filterTag === t ? "#fff" : C.navy,
-              fontSize: 12, fontWeight: 500, cursor: "pointer", fontFamily: F.b,
-            }}>{t === "all" ? "Tous" : t}</button>
-          ))}
-        </div>
-
-        {/* Articles grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
-          {filtered.map(p => (
-            <Link key={p.id} to={`/blog/${p.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-              <article style={{
-                background: "#fff", borderRadius: 12, overflow: "hidden",
-                border: "1px solid rgba(184,149,106,0.06)", cursor: "pointer",
-                transition: "all 0.3s", height: "100%",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(26,43,74,0.05)"; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-                <div style={{ height: 140, background: `linear-gradient(135deg, #F4F1EC, #FAF7F2)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: 10, color: C.muted, letterSpacing: 2, textTransform: "uppercase" }}>{p.tag}</span>
-                </div>
-                <div style={{ padding: "20px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-                    <span style={{ background: "rgba(184,149,106,0.1)", color: C.navy, padding: "3px 9px", borderRadius: 8, fontSize: 10.5, fontWeight: 500 }}>{p.tag}</span>
-                    <span style={{ fontSize: 10.5, color: C.muted }}>{p.readTime}</span>
+              {data.faq && data.faq.length > 0 && (
+                <section className="article__section" aria-labelledby="article-faq">
+                  <h2 id="article-faq">Questions fréquentes</h2>
+                  <div className="faq">
+                    {data.faq.map((item) => (
+                      <details key={item.q}>
+                        <summary>
+                          {item.q}
+                          <IconPlus />
+                        </summary>
+                        <p>{item.a}</p>
+                      </details>
+                    ))}
                   </div>
-                  <h3 style={{ fontFamily: F.h, fontSize: 16, color: C.navy, marginBottom: 8, fontWeight: 500, lineHeight: 1.35 }}>{p.title}</h3>
-                  <p style={{ fontSize: 12.5, color: C.muted, lineHeight: 1.7 }}>{p.excerpt}</p>
-                  <p style={{ fontSize: 11, color: C.muted, marginTop: 10 }}>
-                    {new Date(p.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
-                  </p>
-                </div>
-              </article>
-            </Link>
-          ))}
-        </div>
+                </section>
+              )}
 
-        {filtered.length === 0 && (
-          <p style={{ textAlign: "center", color: C.muted, fontSize: 14, marginTop: 40 }}>Aucun article dans cette catégorie pour le moment.</p>
-        )}
-      </div>
-    </div>
+              {data.sources && data.sources.length > 0 && (
+                <section className="article__section sources" aria-labelledby="article-sources">
+                  <h2 id="article-sources">Sources</h2>
+                  <ol>
+                    {data.sources.map((s) => (
+                      <li key={s.url + s.text}>
+                        <a href={s.url} target="_blank" rel="noopener">
+                          {s.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+              )}
+            </>
+          ) : failed ? (
+            <p className="article__status" role="status">
+              L'article n'a pas pu être chargé. Vérifiez votre connexion, puis rechargez la page.
+            </p>
+          ) : (
+            <p className="article__status" role="status">
+              Chargement de l'article…
+            </p>
+          )}
+
+          <footer className="author">
+            <img src="/img/nicolas-mildner-avatar.jpg" alt="Nicolas Mildner — ostéopathe D.O. à Paris 7 (75007)" width="400" height="400" loading="lazy" decoding="async" />
+            <div>
+              <p className="author__name">Nicolas Mildner</p>
+              <p className="author__role">Ostéopathe D.O., D.O.E., D.O.F. — Paris 7e</p>
+              <p>
+                22 ans de pratique clinique. Filiation Frymann, Paoletti, Caporossi, Wernham, Briend. Approche systémique
+                et neurovégétative.
+              </p>
+              <p>
+                72 avenue de la Bourdonnais, 75007 Paris ·{" "}
+                <a className="link" href={PHONE_TEL}>
+                  {PHONE}
+                </a>{" "}
+                ·{" "}
+                <a className="link" href={MOBILE_TEL}>
+                  {MOBILE}
+                </a>
+              </p>
+            </div>
+          </footer>
+        </div>
+      </article>
+
+      <section className="chapter chapter--linen more-reads" aria-labelledby="more-title">
+        <div className="wrap">
+          <div className="more-reads__head">
+            <h2 id="more-title" className="t-title t-title--compact">
+              À lire aussi
+            </h2>
+            <Link className="link back-link" to="/blog">
+              <IconBack /> Tous les articles
+            </Link>
+          </div>
+          <div className="reads reads--two">
+            {others.map((p) => (
+              <Link className="read" key={p.id} to={`/blog/${p.id}`}>
+                <span className="read__meta">
+                  <span className="read__cat">{p.tag}</span>
+                  <span>{p.readTime}</span>
+                </span>
+                <h3>{p.title}</h3>
+                <p>{p.excerpt}</p>
+                <span className="read__date">{formatDate(p.date)}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="chapter cta" aria-labelledby="rdv-title" data-contact>
+        <div className="wrap">
+          <h2 id="rdv-title" className="t-title t-title--compact">
+            Consulter au cabinet
+          </h2>
+          <p className="t-lede cta__lede">72 avenue de la Bourdonnais, Paris 7e. Rendez-vous par téléphone ou SMS.</p>
+          <CallActions />
+        </div>
+      </section>
+    </main>
   );
+}
+
+function Listing() {
+  const [tag, setTag] = useState("all");
+  const sorted = sortByDateDesc(postsIndex);
+  const tags = ["all", ...new Set(sorted.map((p) => p.tag))];
+  const list = tag === "all" ? sorted : sorted.filter((p) => p.tag === tag);
+
+  return (
+    <main id="contenu">
+      <section className="page-hero" aria-labelledby="page-title">
+        <div className="wrap">
+          <Breadcrumbs items={[{ label: "Accueil", to: "/" }, { label: "Blog" }]} />
+          <h1 id="page-title" className="t-title page-hero__title">
+            Le blog du cabinet
+            <span className="sr-only"> — </span>
+            <span className="page-hero__sub">Nicolas Mildner, Ostéopathe D.O. Paris 7e</span>
+          </h1>
+          <p className="t-lede">Articles fondés sur la recherche PubMed. Vulgarisés, sourcés, rigoureux.</p>
+        </div>
+      </section>
+      <section className="chapter blog-list" aria-label="Articles">
+        <div className="wrap">
+          <div className="filters" role="group" aria-label="Filtrer par thème">
+            {tags.map((t) => (
+              <button key={t} type="button" className="filter" aria-pressed={tag === t} onClick={() => setTag(t)}>
+                {t === "all" ? "Tous les articles" : t}
+              </button>
+            ))}
+          </div>
+          <ol className="posts">
+            {list.map((p) => (
+              <li key={p.id}>
+                <Link className="post" to={`/blog/${p.id}`}>
+                  <span className="post__meta">
+                    <span className="read__cat">{p.tag}</span>
+                    <span>{formatDate(p.date)}</span>
+                    <span>{p.readTime}</span>
+                  </span>
+                  <span className="post__body">
+                    <h2>{p.title}</h2>
+                    <p>{p.excerpt}</p>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+          {list.length === 0 && <p className="t-small">Aucun article dans ce thème pour le moment.</p>}
+        </div>
+      </section>
+      <Newsletter />
+    </main>
+  );
+}
+
+export default function Blog({ initialPost }) {
+  if (!initialPost) return <Listing />;
+  const post = postsIndex.find((p) => p.id === initialPost);
+  if (!post) return <NotFound />;
+  return <Article post={post} key={post.id} />;
 }
