@@ -1,785 +1,706 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { CallActions, IconArrow, IconPlus, IconPhone, IconMessage } from "./Layout.jsx";
-import { PHONE, PHONE_TEL, MOBILE, MOBILE_SMS, FACTS, MAP_EMBED, MAPS_URL, REVIEW_URL, formatDate, sortByDateDesc } from "./site-config.js";
-import { PRINCIPLES, STEPS, TECHNIQUES, FIELD_GROUPS, CREDENTIALS, TESTIMONIALS, HERO_MARKERS } from "./homeContent.js";
-import homeFaq from "./home-faq.json";
+import homeFaqData from "./home-faq.json";
+
+// ═══════════════════════════════════════════════════
+// NICOLAS MILDNER — OSTÉOPATHE D.O. · D.O.E. · D.O.F.
+// La Loi du Cas Unique — Version définitive V5
+// ═══════════════════════════════════════════════════
+
+const PHONE = "01 42 02 11 18";
+const MOBILE = "06 68 80 14 42";
+const ADDR = "72 avenue de la Bourdonnais, 75007 Paris";
+const REVIEW = "https://search.google.com/local/writereview?placeid=ChIJ8SKn3CBw5kcRAxZkc56Vsuw";
+
+const F = { h:"'Playfair Display','Georgia',serif", b:"'DM Sans','Helvetica Neue',sans-serif" };
+const C = { navy:"#1A2B4A", cream:"#FAF7F2", gold:"#B8956A", sage:"#F4F1EC", warm:"#EDE8E0", text:"#3A3A3A", muted:"#7A7A7A", dark:"#111926" };
+
+// ── DATA ──
+
+const lineage = [
+  { name:"Andrew Taylor Still", role:"Fondateur de l'ostéopathie — 1874", era:"Origine" },
+  { name:"W.G. Sutherland · J.M. Littlejohn", role:"Pionniers du crânien et de l'ostéopathie européenne", era:"Transmission" },
+  { name:"Viola Frymann · John Wernham", role:"Bâtisseurs de l'ostéopathie internationale — filiation directe", era:"Maîtres" },
+  { name:"S. Paoletti · R. Caporossi", role:"Pionniers — approche fasciale, philosophie ostéopathique crânienne et neurovégétative", era:"Pionniers" },
+  { name:"R. Briend · D. Lehougre · GLEM Lyon · Latour · Foissy", role:"Architectes de l'ostéopathie française — R. Briend, pionnier de la biodynamique, a proposé à N. Mildner d'intégrer son équipe pédagogique de succession — décliné par exigence envers soi-même", era:"Héritage français" },
+  { name:"Nicolas Mildner — D.O. n°00379", role:"Collégiale Académique de France · Diplômé 2004 · Enseignant ESO 2004–2020", era:"Aujourd'hui" },
+];
+
+const specs = [
+  { icon:"🦴", t:"Douleurs & Gestion de la douleur", d:"Dorsalgies, cervicalgies, lombalgies, sciatiques, névralgies. Approche systémique et neurovégétative de la douleur aiguë et chronique.", k:["mal de dos","sciatique","cervicales","lumbago","douleur chronique"], cat:"d" },
+  { icon:"🌱", t:"Fertilité & Fécondation", d:"Accompagnement des parcours de conception naturelle et assistée (PMA, FIV). Optimisation du terrain physiologique et neurovégétatif.", k:["PMA","FIV","infertilité","conception"], cat:"f" },
+  { icon:"🤰", t:"Périnatalité & Projet de naissance", d:"Suivi complet de grossesse, préparation corporelle, projet de naissance, post-partum. Certificat d'études spécialisées en ostéopathie pédiatrique.", k:["grossesse","accouchement","post-partum","naissance"], cat:"f" },
+  { icon:"👶", t:"Nourrissons", d:"Évaluation psychomotrice, mobilité et micro-mobilité clinique avant toute correction. Torticolis, plagiocéphalie, coliques, reflux. Réseau de référents en lactation.", k:["bébé","nourrisson","coliques","plagiocéphalie"], cat:"f" },
+  { icon:"🧒", t:"Pédiatrie & Adolescents", d:"Scoliose, troubles posturaux de croissance, troubles neurologiques de l'enfant. Formation avec Viola Frymann sur ce sujet.", k:["scoliose","croissance","adolescent","enfant","neurologique"], cat:"f" },
+  { icon:"🧠", t:"Crânio-sacré & Biodynamique", d:"Migraines fonctionnelles, vertiges fonctionnels, troubles de l'ATM, tensions profondes. Écoute fine des rythmes du système nerveux central et autonome.", k:["migraines","vertiges","ATM","crânien"], cat:"s" },
+  { icon:"🫁", t:"Ostéopathie viscérale", d:"Troubles digestifs, reflux, ballonnements, colopathie fonctionnelle. Enseignant en ostéopathie viscérale pendant 17 ans à l'ESO Paris.", k:["digestion","reflux","ballonnements","intestin"], cat:"s" },
+  { icon:"🏃", t:"Sport & Entretien corporel", d:"Entretien du sportif, optimisation, prévention des blessures, récupération. Approche systémique du geste et de la performance.", k:["sportif","tendinite","performance","récupération"], cat:"d" },
+  { icon:"🥋", t:"Arts martiaux, Yoga & Pilates", d:"Prise en charge des professeurs et élèves pratiquant les arts martiaux, le yoga et le pilates. Biomécanique spécifique du geste, prévention et récupération. Depuis 2004.", k:["aikido","yoga","pilates","arts martiaux","judo","karaté"], cat:"d" },
+  { icon:"🎵", t:"Musiciens & Chant lyrique", d:"Instrumentistes, chanteurs lyriques, troubles de la voix. Ancien élève de conservatoire à Paris — compréhension directe des exigences corporelles du musicien professionnel.", k:["musicien","chanteur","voix","instrumentiste","lyrique"], cat:"s" },
+  { icon:"🦷", t:"Orthodontie & Enfants", d:"Accompagnement ostéopathique des traitements orthodontiques chez l'enfant et l'adolescent. Interactions crâniennes, posturales et occlusales.", k:["orthodontie","appareil dentaire","mâchoire","occlusion","enfant"], cat:"f" },
+  { icon:"🔬", t:"Bilans complémentaires", d:"Accompagnement dans le cadre de bilans d'allergies alimentaires (tests Zamaria), tests ImuPro (intolérances), bilans des neurotransmetteurs. Sensibilisé à l'homéopathie et aux avancées sur le microbiote.", k:["allergie","ImuPro","Zamaria","microbiote","neurotransmetteurs","intolérance"], cat:"s" },
+  { icon:"🏥", t:"Post-opératoire", d:"Récupération après chirurgie orthopédique, abdominale, gynécologique. Adhérences, cicatrices, restauration de la mobilité.", k:["chirurgie","cicatrice","adhérences","post-op"], cat:"s" },
+  { icon:"🧍", t:"Posturologie", d:"Analyse et rééquilibrage postural global. Troubles de la statique, interactions podales, occlusales et oculaires. Coordination avec l'équipe de praticiens spécialisés.", k:["posture","statique","déséquilibre","podal"], cat:"d" },
+  { icon:"😰", t:"Stress, Burn-out & Somatisations", d:"Anxiété, troubles du sommeil, épuisement, douleurs sans cause apparente. Rééquilibrage du terrain neurovégétatif.", k:["stress","burn-out","insomnie","anxiété","somatisation"], cat:"s" },
+  { icon:"👴", t:"Seniors & Gériatrie", d:"Maintien de l'autonomie, prévention des chutes, gestion de l'arthrose, accompagnement du vieillissement.", k:["arthrose","mobilité","chutes","gériatrie"], cat:"s" },
+  { icon:"🧩", t:"Problèmes complexes", d:"Patients en errance thérapeutique, cas résistants, douleurs chroniques multi-factorielles. La Loi du Cas Unique : chaque situation mérite une analyse neuve.", k:["douleur chronique","errance","complexe","résistant"], cat:"d" },
+  { icon:"🏠", t:"Urgences & Domicile", d:"Décompensations post-traumatiques, crises aiguës. Consultations à domicile pour patients à mobilité réduite. Paris 7e et limitrophes.", k:["urgence","domicile","trauma","décompensation"], cat:"d" },
+];
+
+const testimonials = [
+  { t:"Consulté depuis des années, un excellent ostéopathe qui analyse, diagnostique, explique et soulage sur le long terme.", a:"Patient fidèle depuis 15 ans" },
+  { t:"De loin le meilleur, j'en suis très fidèle. Il prend le temps de diagnostiquer avant de pratiquer.", a:"Patient régulier" },
+  { t:"Approche très pédagogique. Prend le temps de soigner même si cela décale le planning. Hautement recommandé.", a:"Patient orienté par son médecin" },
+  { t:"Il a su très bien expliquer même aux petits. Mon fils va beaucoup mieux depuis.", a:"Parent reconnaissant" },
+  { t:"Je n'ai jamais senti cela. Personne ne m'avait jamais expliqué ce qui se passait dans mon corps de cette façon.", a:"Nouvelle patiente" },
+];
+
 import posts from "./posts-index.json";
 
-/* ═══ Ouverture ═══ */
-function Hero() {
-  return (
-    <section className="hero" aria-labelledby="hero-title">
-      <div className="wrap hero__grid">
-        <div className="hero__text">
-          <p className="t-kicker hero__kicker">Cabinet Bourdonnais, Paris 7e, depuis 2004</p>
-          <h1 id="hero-title">
-            <span className="hero__name t-display">Nicolas Mildner</span>
-            <span className="sr-only"> — </span>
-            <span className="hero__role">Ostéopathe D.O. à Paris 7 — 75007</span>
-          </h1>
-          <p className="t-lede hero__lede">
-            Une ostéopathie exclusivement douce, sans aucun craquement, fondée sur l'anatomie et la neurophysiologie.
-            Adultes, femmes enceintes, nourrissons, enfants, sportifs, musiciens.
-          </p>
-          <CallActions hero />
-          <p className="t-small hero__note">
-            Rendez-vous par téléphone ou SMS uniquement, pas de réservation en ligne : c'est un choix.
-            <br />
-            72 avenue de la Bourdonnais, 75007 Paris · Métro École Militaire (ligne 8)
-          </p>
-        </div>
-        <div className="hero__aside">
-          <figure className="hero__figure">
-            <picture>
-              <source media="(max-width: 860px)" srcSet="/img/nicolas-mildner-cabinet.webp" width="800" height="532" />
-              <img
-                className="hero__photo"
-                src="/img/nicolas-mildner-portrait.webp"
-                alt="Nicolas Mildner, ostéopathe D.O. à Paris 7 (75007) — Cabinet Bourdonnais, 72 avenue de la Bourdonnais"
-                width="638"
-                height="798"
-                fetchpriority="high"
-                decoding="async"
-              />
-            </picture>
-          </figure>
-          <dl className="hero__markers" aria-label="Repères">
-            {HERO_MARKERS.map((m) => (
-              <div key={m.value}>
-                <dt>{m.value}</dt>
-                <dd>{m.label}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-    </section>
-  );
-}
+const blogs = posts.sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
 
-/* ═══ En résumé : réponse directe pour les patients comme pour les moteurs ═══ */
-function Summary() {
-  return (
-    <section className="facts" aria-labelledby="facts-title">
-      <div className="wrap facts__grid">
-        <div>
-          <h2 id="facts-title" className="facts__title">En résumé</h2>
-          <p className="facts__summary">{homeFaq.aiSummary}</p>
-        </div>
-        <dl className="facts__list">
-          <div>
-            <dt>Consultation</dt>
-            <dd>
-              80 à 90 €<span>45 minutes à 1 heure · chèque ou espèces</span>
-            </dd>
-          </div>
-          <div>
-            <dt>Horaires</dt>
-            <dd>
-              Lundi, mardi, jeudi, vendredi 9h–21h<span>Mercredi 12h–21h</span>
-            </dd>
-          </div>
-          <div>
-            <dt>Accès</dt>
-            <dd>
-              Métro École Militaire<span>ou La Tour-Maubourg, ligne 8 · quartier Gros-Caillou</span>
-            </dd>
-          </div>
-          <div>
-            <dt>Rendez-vous</dt>
-            <dd>
-              Par téléphone ou SMS<span>Pas de réservation en ligne, pas de Doctolib</span>
-            </dd>
-          </div>
-        </dl>
-      </div>
-    </section>
-  );
-}
+const techniques = [
+  "Fasciale","Tissulaire","Crânio-sacrée","Biodynamique","Viscérale",
+  "Posturale","Myofasciale thoraco-abdominale","Auriculothérapie réflexe",
+  "Pouls de Paul Nogier (RAC/VAS)","Intégrative","Étiothérapie",
+  "Désengrammation",
+];
 
-/* ═══ Manifeste ═══ */
-function Manifesto() {
-  return (
-    <section className="chapter manifesto" aria-labelledby="manifesto-title">
-      <div className="wrap">
-        <div data-build>
-          <h2 id="manifesto-title" className="t-statement">
-            Chaque patient est un cas jamais vu.
-          </h2>
-          <div className="manifesto__body">
-            <p className="manifesto__label">La Loi du Cas Unique</p>
-            <div className="manifesto__text">
-              <p>
-                Pas de protocole. Pas de recette. L'ostéopathie n'est pas un produit, c'est une relation. Chaque
-                consultation part de vous : votre histoire, votre terrain, votre manière de réagir.
-              </p>
-              <p>
-                C'est ce qui fait de moi un généraliste hyperspécialiste : dix-huit champs d'expertise, une approche
-                systémique et neurovégétative fondée sur la neurophysiologie, jamais énergétique, et une filiation
-                directe avec les fondateurs de l'ostéopathie. Des patients venus de Paris, de province, d'Europe et des
-                États-Unis, et des médecins comme des chirurgiens qui me font confiance.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+// ── UTILS ──
+function useR(){const r=useRef(null);const[v,setV]=useState(false);useEffect(()=>{const e=r.current;if(!e)return;const o=new IntersectionObserver(([x])=>{if(x.isIntersecting){setV(true);o.disconnect();}},{threshold:0.07});o.observe(e);return()=>o.disconnect();},[]);return[r,v];}
+function useM(){const[m,setM]=useState(typeof window!=="undefined"&&window.innerWidth<768);useEffect(()=>{const h=()=>setM(window.innerWidth<768);window.addEventListener("resize",h);return()=>window.removeEventListener("resize",h);},[]);return m;}
+function S({children,bg,id}){const[r,v]=useR();const m=typeof window!=="undefined"&&window.innerWidth<768;return<section ref={r} id={id} style={{background:bg||"transparent",padding:m?"48px 16px":"84px 24px",opacity:v?1:0,transform:v?"translateY(0)":"translateY(20px)",transition:"opacity 0.75s,transform 0.75s"}}><div style={{maxWidth:1100,margin:"0 auto"}}>{children}</div></section>;}
+function T({tag,title,sub,light}){const m=typeof window!=="undefined"&&window.innerWidth<768;return<div style={{textAlign:"center",marginBottom:m?32:48}}>{tag&&<p style={{fontSize:11,letterSpacing:5,textTransform:"uppercase",color:C.gold,marginBottom:14,fontWeight:500}}>{tag}</p>}<h2 style={{fontFamily:F.h,fontSize:m?24:34,color:light?"#fff":C.navy,fontWeight:500,lineHeight:1.3}}>{title}</h2>{sub&&<p style={{color:light?"rgba(255,255,255,0.5)":C.muted,marginTop:14,fontSize:m?13:15,maxWidth:580,margin:"14px auto 0",lineHeight:1.75}}>{sub}</p>}</div>;}
+function Btn({href,children,v:vr="primary",style:s={},onClick,...rest}){const[h,setH]=useState(false);const b=vr==="primary"?{background:h?C.gold:C.navy,color:"#fff",border:"none",boxShadow:h?"0 6px 20px rgba(184,149,106,0.2)":"0 3px 12px rgba(26,43,74,0.1)"}:{background:"transparent",color:h?C.gold:C.navy,border:`1.5px solid ${h?C.gold:C.navy}`};return<a href={href} target={href?.startsWith("http")?"_blank":undefined} rel="noopener" onClick={onClick} onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)} style={{display:"inline-block",padding:"14px 30px",borderRadius:8,fontSize:14,textDecoration:"none",fontWeight:500,transition:"all 0.3s",transform:h?"translateY(-2px)":"none",...b,...s}} {...rest}>{children}</a>;}
 
-/* ═══ Approche ═══ */
-function Approach() {
-  return (
-    <section className="chapter" id="approche" aria-labelledby="approche-title">
-      <div className="wrap split">
-        <div className="split__aside">
-          <div className="chapter__head" data-build>
-            <p className="t-kicker">Mon approche</p>
-            <h2 id="approche-title" className="t-title">
-              Systémique, neurovégétative, vivante.
-            </h2>
-            <p className="t-lede">
-              L'ostéopathie est avant tout une technique réflexe. Je ne « remets pas en place » : je dialogue avec votre
-              système nerveux pour restaurer les conditions de votre vitalité.
-            </p>
-          </div>
-        </div>
-        <div className="rows">
-          {PRINCIPLES.map((p) => (
-            <article className="row" key={p.title}>
-              <h3 className="t-subtitle">{p.title}</h3>
-              <p>{p.text}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+// ── MAIN ──
+export default function Site({ onBlog }){
+  const mob=useM();
+  const[scrolled,setScrolled]=useState(false);
+  const[tIdx,setTIdx]=useState(0);
+  const[cat,setCat]=useState("all");
+  const[openCard,setOpenCard]=useState(null);
+  const[menuOpen,setMenuOpen]=useState(false);
+  const[nlEmail,setNlEmail]=useState("");
+  const[nlStatus,setNlStatus]=useState("idle");
+  const[nlError,setNlError]=useState("");
+  const[openFaq,setOpenFaq]=useState(null);
+  useEffect(()=>{const fn=()=>setScrolled(window.scrollY>50);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
+  useEffect(()=>{const t=setInterval(()=>setTIdx(p=>(p+1)%testimonials.length),6000);return()=>clearInterval(t);},[]);
+  const filtered=cat==="all"?specs:specs.filter(s=>s.cat===cat);
+  const navLinks=[{l:"Approche",h:"#approche"},{l:"Héritage",h:"#heritage"},{l:"Spécialisations",h:"#specs"},{l:"Parcours",h:"#parcours"},{l:"Paris 7e",h:"/osteopathe-paris-7",isRoute:true},{l:"Blog",h:"#blog"},{l:"FAQ",h:"#faq"},{l:"Contact",h:"#contact"}];
+  const cats=[{k:"all",l:"Tout voir (18)"},{k:"d",l:"Douleurs & Mouvement"},{k:"f",l:"Femme & Enfant"},{k:"s",l:"Spécialisé"}];
 
-/* ═══ Consultation : une vraie séquence, donc numérotée ═══ */
-function Consultation() {
-  return (
-    <section className="chapter chapter--linen" id="consultation" aria-labelledby="consultation-title">
-      <div className="wrap">
-        <div className="chapter__head" data-build>
-          <h2 id="consultation-title" className="t-title">
-            Le temps d'une vraie consultation.
-          </h2>
-          <p className="t-lede">
-            45 minutes à une heure, jamais de patient pressé. Vingt-deux ans de palpation clinique, le pouls de Paul
-            Nogier et des dissections à la Faculté de Médecine : mes mains perçoivent ce que les appareils ne montrent
-            pas.
-          </p>
-        </div>
-        <ol className="steps">
-          {STEPS.map((s, i) => (
-            <li className="step" key={s.title}>
-              <span className="step__num" aria-hidden="true">
-                {i + 1}
-              </span>
-              <h3 className="t-subtitle">{s.title}</h3>
-              <p>{s.text}</p>
-            </li>
-          ))}
-        </ol>
-        <div className="techniques">
-          <div>
-            <h3 className="t-subtitle">Techniques pratiquées</h3>
-            <p className="t-small techniques__note">
-              Techniques douces exclusivement, modèles personnels.{" "}
-              <Link className="link" to="/osteopathe-sans-craquement-paris-7">
-                Pourquoi une ostéopathie sans craquement
-              </Link>
-            </p>
-          </div>
-          <ul className="techniques__list">
-            {TECHNIQUES.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══ Champs d'expertise : un index, pas une grille de cartes ═══ */
-function Expertise() {
-  return (
-    <section className="chapter" id="expertise" aria-labelledby="expertise-title">
-      <span id="specs" className="anchor-alias" aria-hidden="true" />
-      <div className="wrap">
-        <div className="chapter__head" data-build>
-          <p className="t-kicker">18 champs d'expertise</p>
-          <h2 id="expertise-title" className="t-title">
-            Généraliste hyperspécialiste.
-          </h2>
-          <p className="t-lede">
-            Là où d'autres orientent, je prends en charge. Un vertige peut venir des cervicales, une infertilité du
-            bassin, un trouble de la voix du thorax. Tout est connecté.
-          </p>
-        </div>
-        {FIELD_GROUPS.map((group) => (
-          <div className="field-group" key={group.title}>
-            <h3 className="field-group__title">
-              {group.title}
-              <span className="field-group__count">{group.fields.length} champs</span>
-            </h3>
-            <ul className="field-list">
-              {group.fields.map((f) => (
-                <li className="field" key={f.title}>
-                  <h4>{f.title}</h4>
-                  <p>{f.text}</p>
-                  {f.href && (
-                    <Link className="link field__link" to={f.href}>
-                      {f.linkLabel} <IconArrow />
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-        <p className="also">
-          <span className="also__label">Également</span>
-          <Link className="link" to="/cervicalgie-torticolis-paris-7">
-            Cervicalgie et torticolis
-          </Link>
-          <Link className="link" to="/urgence-osteopathe-paris-7">
-            Douleur aiguë, dos bloqué
-          </Link>
-          <Link className="link" to="/osteopathe-paris-7">
-            Votre ostéopathe à Paris 7
-          </Link>
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ═══ Filiation : le chapitre sombre ═══ */
-function Lineage() {
-  return (
-    <section className="chapter chapter--night" id="filiation" aria-labelledby="filiation-title">
-      <span id="heritage" className="anchor-alias" aria-hidden="true" />
-      <div className="wrap">
-        <div className="chapter__head" data-build>
-          <p className="t-kicker">Héritage</p>
-          <h2 id="filiation-title" className="t-title">
-            Une filiation directe, de main à main, depuis 1874.
-          </h2>
-          <p className="t-lede">
-            L'ostéopathie se transmet de maître à élève, par les mains. J'ai reçu cette chaîne directement, auprès de
-            Viola Frymann, John Wernham, René Briend, Serge Paoletti et Roger Caporossi. Une formation que les écoles
-            d'aujourd'hui ne transmettent plus.
-          </p>
-        </div>
-
-        <figure className="lineage">
-          <figcaption className="sr-only">
-            Deux branches issues de W.G. Sutherland, la tradition crânienne et la biodynamique fluidique, réunies dans la
-            pratique de Nicolas Mildner.
-          </figcaption>
-          <div className="lineage__node">
-            <span className="lineage__name">Andrew Taylor Still</span>
-            <span className="lineage__meta">Fondateur de l'ostéopathie, 1874</span>
-          </div>
-          <div className="lineage__stem" aria-hidden="true" />
-          <div className="lineage__node">
-            <span className="lineage__name">W.G. Sutherland</span>
-            <span className="lineage__meta">Concept crânien (1873–1954)</span>
-          </div>
-          <div className="lineage__stem" aria-hidden="true" />
-          <div className="lineage__branches">
-            <div className="lineage__branch">
-              <p className="lineage__branch-title">Tradition crânienne</p>
-              <p className="lineage__branch-role">Formation initiale</p>
-              <ol>
-                <li>
-                  <span className="lineage__name">Viola Frymann</span>
-                  <span className="lineage__meta">1921–2016 · Magoun, Schooley</span>
-                </li>
-                <li>
-                  <span className="lineage__name">F. Peyralade</span>
-                  <span className="lineage__meta">1928–2013 · SERETO, 1978</span>
-                </li>
-                <li>
-                  <span className="lineage__name">Roger Caporossi</span>
-                  <span className="lineage__meta">Fonde l'ESO, 1990</span>
-                </li>
-                <li>
-                  <span className="lineage__name">ESO Paris</span>
-                  <span className="lineage__meta">Formation 1998–2004, puis 17 ans d'enseignement</span>
-                </li>
-              </ol>
-            </div>
-            <div className="lineage__branch">
-              <p className="lineage__branch-title">Biodynamique fluidique</p>
-              <p className="lineage__branch-role">Approfondissement</p>
-              <ol>
-                <li>
-                  <span className="lineage__name">R.E. Becker</span>
-                  <span className="lineage__meta">1910–1996 · travaux tardifs de Sutherland</span>
-                </li>
-                <li>
-                  <span className="lineage__name">J.A. Duval</span>
-                  <span className="lineage__meta">Élève direct de Becker</span>
-                </li>
-                <li>
-                  <span className="lineage__name">René Briend</span>
-                  <span className="lineage__meta">Modèle fluidique, 1999</span>
-                </li>
-              </ol>
-            </div>
-          </div>
-          <div className="lineage__join" aria-hidden="true" />
-          <div className="lineage__node lineage__node--heir">
-            <span className="lineage__name">Nicolas Mildner D.O.</span>
-            <span className="lineage__meta">Ostéopathe exclusif depuis 2004</span>
-          </div>
-        </figure>
-
-        <div className="masters">
-          <h3 className="t-subtitle">Les autres maîtres</h3>
-          <div>
-            <p>
-              <strong>J.M. Littlejohn</strong> et <strong>John Wernham</strong>, bâtisseurs de l'ostéopathie européenne ;{" "}
-              <strong>Serge Paoletti</strong>, pionnier de l'approche fasciale ; <strong>Didier Lehougre</strong>, le{" "}
-              <strong>GLEM de Lyon</strong>, <strong>Latour</strong> et <strong>Foissy</strong>, architectes de
-              l'ostéopathie française. René Briend m'a proposé d'intégrer son équipe pédagogique de succession : j'ai
-              décliné, par exigence envers moi-même.
-            </p>
-            <blockquote className="pullquote masters__quote">
-              « Lorsque j'ai commencé en 1998, le Registre des Ostéopathes de France ne comptait que quelques centaines
-              de D.O. Aujourd'hui, ils sont plus de 47 000. La formation que j'ai reçue appartient à un autre monde. »
-            </blockquote>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══ Parcours ═══ */
-function Background() {
-  return (
-    <section className="chapter" id="parcours" aria-labelledby="parcours-title">
-      <div className="wrap">
-        <div className="chapter__head" data-build>
-          <p className="t-kicker">Parcours</p>
-          <h2 id="parcours-title" className="t-title">
-            L'une des premières générations d'ostéopathes D.O. en France.
-          </h2>
-        </div>
-      </div>
-      <div className="wrap split">
-        <div className="split__aside">
-          <ul className="credentials">
-            {CREDENTIALS.map((c) => (
-              <li key={c.title}>
-                <strong>{c.title}</strong>
-                {c.text && <span>{c.text}</span>}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <div className="prose">
-            <p className="t-lede">
-              Diplômé D.O. en 2004 par la Collégiale Académique de France, j'appartiens à la génération charnière, celle
-              qui a reçu son diplôme pendant la structuration historique de la profession, avant les décrets de 2007.
-            </p>
-            <p>
-              J'ai validé mon diplôme européen (D.O.E.) devant la Faculté de Médecine de Genève, un diplôme que très peu
-              d'ostéopathes ont passé. Mon D.O.F. a été obtenu par Validation des Acquis de l'Expérience, alors que
-              j'enseignais déjà aux futurs diplômés à l'ESO, école d'ostéopathie située sur le campus universitaire
-              Descartes.
-            </p>
-            <p>
-              À l'ESO, j'ai enseigné cinq matières pendant dix-sept ans : clinique, générale, myofasciale
-              thoraco-abdominale, viscérale et structurelle. J'ai participé à la formation de nombreux ostéopathes
-              aujourd'hui en exercice, intégré les commissions de recherche, de pédagogie et d'évaluation, et participé
-              aux travaux d'élaboration des standards de la profession.
-            </p>
-          </div>
-
-          <figure className="dedications">
-            <div className="dedications__items">
-              <div className="dedication">
-                <img
-                  src="/autographe_Wernham.png"
-                  alt="Dédicace manuscrite de John Wernham à Nicolas Mildner, 1999"
-                  width="654"
-                  height="513"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <p>John Wernham, 1999</p>
-              </div>
-              <div className="dedication">
-                <img
-                  src="/autographe_roger.png"
-                  alt="Dédicace manuscrite de Roger Caporossi à Nicolas Mildner, 2017"
-                  width="859"
-                  height="690"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <p>Roger Caporossi, 2017</p>
-              </div>
-            </div>
-            <figcaption className="t-small">Deux dédicaces reçues de mes maîtres, à dix-huit ans d'écart.</figcaption>
-          </figure>
-
-          <details className="readmore">
-            <summary>
-              <IconPlus />
-              <span className="readmore__open">Lire la suite du parcours</span>
-              <span className="readmore__close">Réduire</span>
-            </summary>
-            <div className="prose">
-              <p>
-                Ma formation est celle d'un autre temps : Viola Frymann lors de son séminaire sur les troubles
-                neurologiques de l'enfant, Serge Paoletti (pionnier de l'approche fasciale), Roger Caporossi (approche
-                fasciale, philosophie ostéopathique crânienne et neurovégétative), René Briend (pionnier de
-                l'ostéopathie biodynamique, qui m'a proposé d'intégrer son équipe pédagogique de succession ; j'ai
-                décliné, convaincu qu'il me fallait davantage de maturité clinique), Didier Lehougre, le GLEM de Lyon et
-                l'Étiothérapie de Latour. Formé au pouls de Paul Nogier (RAC) depuis l'an 2000. De nombreuses formations
-                diplômantes complètent ce parcours.
-              </p>
-              <p>
-                Durant mes études, j'ai effectué de nombreux stages en milieu hospitalier (chirurgie de la main,
-                pédiatrie, maternité) qui m'ont forgé un regard clinique et une capacité de diagnostic différentiel que
-                la pratique en cabinet seule ne permet pas d'acquérir. J'ai également réalisé de nombreuses séances de
-                dissection à la Faculté de Médecine de l'Université Paris Descartes, rue des Saints-Pères, notamment sur
-                les nerfs crâniens : une connaissance anatomique directe, irremplaçable.
-              </p>
-              <p>
-                Dès 2004, j'ai débuté mes consultations et intégré une équipe spécialisée en urgences ostéopathiques. En
-                2005, j'ai créé un second cabinet au sein d'une équipe médicale pluridisciplinaire et contribué à un
-                article du SFDO publié dans Le Monde. Depuis 2004, je prends en charge des professeurs et élèves de yoga
-                et d'aïkido. Sensibilisé à l'homéopathie et aux avancées sur le microbiote, je propose également un
-                accompagnement dans le cadre de bilans complémentaires (tests Zamaria, ImuPro, neurotransmetteurs).
-              </p>
-              <p>
-                En vingt-deux ans de pratique, je n'ai jamais fait de publicité. Chaque patient est venu par le
-                bouche-à-oreille, de Paris, de province, d'Europe et des États-Unis : des médecins, des chirurgiens, des
-                personnalités, des musiciens, des sportifs et des familles fidèles depuis deux décennies.
-              </p>
-            </div>
-          </details>
-
-          <div className="coda">
-            <p className="pullquote">« C'est la Vie. »</p>
-            <p>
-              Je ne promets pas un résultat. La guérison dépend de ma pratique et de votre vitalité. Ce que je vous
-              offre : vingt-deux ans d'écoute, de mains et d'intelligence clinique au service de votre système vivant.
-              Chaque consultation est une rencontre unique. Pas un protocole. La vie.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══ Preuve ═══ */
-function Proof() {
-  const [featured, ...others] = TESTIMONIALS;
-  return (
-    <section className="chapter chapter--linen" id="temoignages" aria-labelledby="temoignages-title">
-      <div className="wrap">
-        <div className="chapter__head" data-build>
-          <p className="t-kicker">Témoignages</p>
-          <h2 id="temoignages-title" className="t-title">
-            Vingt-deux ans de bouche-à-oreille.
-          </h2>
-          <p className="t-lede">
-            Aucune publicité depuis 2004. Quand des médecins, des chirurgiens et des patients qui prennent l'avion
-            choisissent un praticien, c'est la meilleure preuve qui existe.
-          </p>
-        </div>
-        <div className="quotes">
-          <figure className="quote quote--featured">
-            <p className="quote__stars" aria-label="5 étoiles sur 5">
-              ★★★★★
-            </p>
-            <blockquote>« {featured.quote} »</blockquote>
-            <figcaption>{featured.author}</figcaption>
-          </figure>
-          <div className="quotes__grid">
-            {others.map((t) => (
-              <figure className="quote" key={t.author}>
-                <blockquote>« {t.quote} »</blockquote>
-                <figcaption>{t.author}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-        <p className="quotes__more">
-          <a className="link" href={REVIEW_URL} target="_blank" rel="noopener noreferrer">
-            Laisser un avis sur Google
-          </a>
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ═══ Blog ═══ */
-function Reads() {
-  const sorted = sortByDateDesc(posts);
-  const featured = sorted.slice(0, 3);
-  const rest = sorted.slice(3);
-  return (
-    <section className="chapter" id="blog" aria-labelledby="blog-title">
-      <div className="wrap">
-        <div className="chapter__head" data-build>
-          <h2 id="blog-title" className="t-title">
-            Le blog du cabinet.
-          </h2>
-          <p className="t-lede">
-            Ce que dit réellement la recherche sur les motifs de consultation les plus fréquents : des articles fondés
-            sur PubMed, vulgarisés et sourcés.
-          </p>
-        </div>
-        <div className="reads">
-          {featured.map((post) => (
-            <Link className="read" key={post.id} to={`/blog/${post.id}`}>
-              <span className="read__meta">
-                <span className="read__cat">{post.tag}</span>
-                <span>{post.readTime}</span>
-              </span>
-              <h3>{post.title}</h3>
-              <p>{post.excerpt}</p>
-              <span className="read__date">{formatDate(post.date)}</span>
-            </Link>
-          ))}
-        </div>
-        {rest.length > 0 && (
-          <ul className="reads__list">
-            {rest.map((post) => (
-              <li key={post.id}>
-                <Link to={`/blog/${post.id}`}>
-                  <span className="reads__list-title">{post.title}</span>
-                  <span className="reads__list-meta">
-                    {post.tag} · {post.readTime}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-        <p className="reads__more">
-          <Link className="link" to="/blog">
-            Tous les articles du blog
-          </Link>
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ═══ Questions fréquentes ═══ */
-function Faq() {
-  return (
-    <section className="chapter chapter--linen" id="faq" aria-labelledby="faq-title">
-      <div className="wrap split">
-        <div className="split__aside">
-          <div className="chapter__head" data-build>
-            <h2 id="faq-title" className="t-title t-title--compact">
-              Questions fréquentes — Ostéopathe Paris 7e
-            </h2>
-            <p className="t-lede">
-              Les réponses aux questions les plus courantes sur le cabinet, les motifs de consultation et la prise de
-              rendez-vous.
-            </p>
-          </div>
-        </div>
-        <div className="faq">
-          {homeFaq.questions.map((q) => (
-            <details key={q.name}>
-              <summary>
-                {q.name}
-                <IconPlus />
-              </summary>
-              <p>{q.acceptedAnswer.text}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══ Prendre rendez-vous ═══ */
-export function FactSheet({ title = "Cabinet d'ostéopathie à Paris 7 (75007) — fiche pratique" }) {
-  return (
-    <div className="factsheet">
-      <h3 className="t-subtitle">{title}</h3>
-      <dl>
-        {FACTS.map(([k, v]) => (
-          <div key={k}>
-            <dt>{k}</dt>
-            <dd>{v}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
-}
-
-export function MapFrame() {
-  return (
-    <figure className="map">
-      <iframe
-        src={MAP_EMBED}
-        title="Plan d'accès : cabinet de Nicolas Mildner, 72 avenue de la Bourdonnais, Paris 7e"
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        allowFullScreen
-      />
-      <figcaption>
-        <a className="link" href={MAPS_URL} target="_blank" rel="noopener noreferrer">
-          Ouvrir l'itinéraire dans Google Maps
-        </a>
-      </figcaption>
-    </figure>
-  );
-}
-
-function Contact() {
-  return (
-    <section className="chapter" id="contact" aria-labelledby="contact-title" data-contact>
-      <div className="wrap contact__top">
-        <div>
-          <div data-build>
-            <p className="t-kicker">Contact</p>
-            <h2 id="contact-title" className="t-title">
-              Prendre rendez-vous
-            </h2>
-            <p className="t-lede contact__lede">Par téléphone ou par SMS. Je vous réponds personnellement.</p>
-          </div>
-          <a className="contact__phone" href={PHONE_TEL} aria-label={`Appeler le cabinet au ${PHONE}`}>
-            {PHONE}
-          </a>
-          <div className="actions">
-            <a className="btn btn--primary" href={PHONE_TEL}>
-              <IconPhone /> Appeler le cabinet
-            </a>
-            <a className="btn btn--ghost" href={MOBILE_SMS}>
-              <IconMessage /> SMS ou appel <span className="btn__meta">{MOBILE}</span>
-            </a>
-          </div>
-        </div>
-        <div className="contact__why">
-          <h3 className="t-subtitle">Pourquoi pas de Doctolib ?</h3>
-          <p>
-            L'ostéopathie n'est pas un produit à réserver en ligne. C'est une relation, et elle commence par un échange
-            direct : vous m'appelez ou m'écrivez, je vous réponds moi-même.
-          </p>
-        </div>
-      </div>
-      <div className="wrap contact__details">
-        <FactSheet />
-        <MapFrame />
-      </div>
-    </section>
-  );
-}
-
-/* ═══ Lettre mensuelle ═══ */
-export function Newsletter() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle");
-  const [message, setMessage] = useState("");
-
-  const submit = async (e) => {
-    e.preventDefault();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setStatus("error");
-      setMessage("Cette adresse e-mail n'est pas valide. Vérifiez-la et réessayez.");
-      return;
-    }
-    setStatus("loading");
-    setMessage("Inscription en cours…");
-    try {
-      const r = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const ct = r.headers.get("content-type") || "";
-      if (!ct.includes("application/json")) throw new Error("bad-response");
-      const d = await r.json();
-      if (d.success) {
-        setStatus("success");
-        setEmail("");
-        setMessage(d.already ? "Vous êtes déjà inscrit. Merci de votre fidélité." : "Inscription confirmée. Le prochain conseil arrive dans votre boîte.");
-      } else {
-        setStatus("error");
-        setMessage(d.error || "L'inscription n'a pas abouti. Réessayez dans un instant.");
-      }
-    } catch {
-      setStatus("error");
-      setMessage("L'inscription n'a pas abouti : le service ne répond pas. Réessayez dans un instant.");
-    }
+  const handleSubscribe=async()=>{
+    if(!nlEmail||!nlEmail.includes("@")){setNlError("Adresse email invalide");setNlStatus("error");setTimeout(()=>{setNlStatus("idle");setNlError("");},5000);return;}
+    setNlStatus("loading");setNlError("");
+    try{
+      const r=await fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:nlEmail})});
+      const ct=r.headers.get("content-type")||"";
+      if(!ct.includes("application/json")){setNlError("Erreur serveur (réponse inattendue)");setNlStatus("error");setTimeout(()=>{setNlStatus("idle");setNlError("");},6000);return;}
+      const d=await r.json();
+      if(d.success){setNlStatus(d.already?"already":"success");setNlEmail("");setTimeout(()=>setNlStatus("idle"),8000);}
+      else{setNlError(d.error||"Erreur lors de l'inscription");setNlStatus("error");setTimeout(()=>{setNlStatus("idle");setNlError("");},6000);}
+    }catch(e){setNlError("Erreur réseau — réessayez");setNlStatus("error");setTimeout(()=>{setNlStatus("idle");setNlError("");},6000);}
   };
 
-  return (
-    <section className="newsletter" aria-labelledby="newsletter-title">
-      <div className="wrap newsletter__grid">
-        <div>
-          <h2 id="newsletter-title" className="t-subtitle">
-            Conseils ostéo, chaque mois
-          </h2>
-          <p className="t-small newsletter__note">Un conseil clinique pratique. Pas de spam, jamais.</p>
-        </div>
-        <form onSubmit={submit} noValidate>
-          <label htmlFor="newsletter-email">Adresse e-mail</label>
-          <input
-            id="newsletter-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            inputMode="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="vous@exemple.fr"
-            aria-invalid={status === "error"}
-            aria-describedby="newsletter-status"
-          />
-          <button className="btn btn--primary" type="submit" disabled={status === "loading"}>
-            S'inscrire
-          </button>
-          <p id="newsletter-status" className={`newsletter__status is-${status}`} role="status" aria-live="polite">
-            {message}
-          </p>
-        </form>
-      </div>
-    </section>
-  );
-}
+  return(
+    <div style={{fontFamily:F.b,color:C.text,background:C.cream,minHeight:"100vh"}}>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-export default function Site() {
-  return (
-    <main id="contenu">
-      <Hero />
-      <Summary />
-      <Manifesto />
-      <Approach />
-      <Consultation />
-      <Expertise />
-      <Lineage />
-      <Background />
-      <Proof />
-      <Reads />
-      <Faq />
-      <Contact />
-      <Newsletter />
-    </main>
+      {/* FAQPage : injectée une seule fois dans le <head> par prerender.js (id ld-faq-home). */}
+
+      {/* ═══ NAV ═══ */}
+      <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:scrolled?"rgba(250,247,242,0.97)":"transparent",backdropFilter:scrolled?"blur(16px)":"none",borderBottom:scrolled?"1px solid rgba(184,149,106,0.08)":"none",transition:"all 0.4s",padding:scrolled?"10px 24px":"20px 24px"}}>
+        <div style={{maxWidth:1100,margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <a href="#hero" style={{textDecoration:"none",display:"flex",alignItems:"baseline",gap:8}}>
+            <span style={{fontFamily:F.h,fontSize:mob?15:18,color:C.navy,fontWeight:600}}>Nicolas Mildner</span>
+            {!mob&&<span style={{fontSize:9,color:C.gold,letterSpacing:2.5,fontWeight:500}}>D.O. · D.O.E. · D.O.F.</span>}
+          </a>
+          {mob?(
+            <button onClick={()=>setMenuOpen(!menuOpen)} style={{background:"none",border:"none",cursor:"pointer",padding:8,fontSize:24,color:C.navy,lineHeight:1}}>{menuOpen?"✕":"☰"}</button>
+          ):(
+            <div style={{display:"flex",gap:22,alignItems:"center"}}>
+              {navLinks.map(n=>n.isRoute?<Link key={n.l} to={n.h} style={{textDecoration:"none",color:C.navy,fontSize:12.5,fontWeight:400}}>{n.l}</Link>:<a key={n.l} href={n.h} style={{textDecoration:"none",color:C.navy,fontSize:12.5,fontWeight:400}}>{n.l}</a>)}
+              <Btn href={`tel:${PHONE.replace(/\s/g,"")}`} style={{padding:"9px 18px",fontSize:12.5}}>Appeler le cabinet</Btn>
+            </div>
+          )}
+        </div>
+        {mob&&menuOpen&&(
+          <div style={{background:"rgba(250,247,242,0.98)",backdropFilter:"blur(16px)",padding:"16px 24px 20px",borderTop:"1px solid rgba(184,149,106,0.08)",display:"flex",flexDirection:"column",gap:14}}>
+            {navLinks.map(n=>n.isRoute?<Link key={n.l} to={n.h} onClick={()=>setMenuOpen(false)} style={{textDecoration:"none",color:C.navy,fontSize:15,fontWeight:400,padding:"4px 0"}}>{n.l}</Link>:<a key={n.l} href={n.h} onClick={()=>setMenuOpen(false)} style={{textDecoration:"none",color:C.navy,fontSize:15,fontWeight:400,padding:"4px 0"}}>{n.l}</a>)}
+            <Btn href={`tel:${PHONE.replace(/\s/g,"")}`} style={{padding:"12px 18px",fontSize:14,textAlign:"center",marginTop:4}}>01 42 02 11 18 — Appeler</Btn>
+          </div>
+        )}
+      </nav>
+
+      {/* ═══ HERO ═══ */}
+      <section id="hero" style={{minHeight:mob?"auto":"100vh",display:"flex",alignItems:"center",background:`linear-gradient(155deg,${C.cream} 0%,${C.warm} 40%,#E2DCD2 100%)`,padding:mob?"90px 20px 40px":"100px 32px 60px",position:"relative",overflow:"hidden"}}>
+        {!mob&&<div style={{position:"absolute",top:"8%",right:"-6%",width:550,height:550,borderRadius:"50%",border:"1px solid rgba(212,197,169,0.12)"}}/>}
+        {!mob&&<div style={{position:"absolute",bottom:"5%",right:"10%",width:320,height:320,borderRadius:"50%",border:"1px solid rgba(212,197,169,0.08)"}}/>}
+        <div style={{maxWidth:1100,margin:"0 auto",width:"100%",position:"relative",zIndex:1}}>
+          <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 380px",gap:mob?32:60,alignItems:"center"}}>
+            <div>
+              <div style={{display:"inline-block",background:"rgba(26,43,74,0.06)",borderRadius:20,padding:"6px 16px",marginBottom:24}}>
+                <span style={{fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:C.navy,fontWeight:500}}>
+                  Génération charnière · D.O. n°00379
+                </span>
+              </div>
+              <h1 style={{fontFamily:F.h,fontSize:mob?34:50,fontWeight:500,color:C.navy,lineHeight:1.15,marginBottom:8}}>
+                Nicolas Mildner
+                <span style={{display:"block",fontSize:mob?19:27,fontWeight:400,lineHeight:1.25,marginTop:6}}>Ostéopathe D.O. à Paris 7 — 75007</span>
+              </h1>
+              <p style={{fontFamily:F.h,fontSize:mob?18:22,fontWeight:400,fontStyle:"italic",color:C.gold,marginBottom:10}}>D.O. · D.O.E. · D.O.F. — Cabinet Bourdonnais</p>
+              <p style={{fontSize:14,color:C.muted,marginBottom:28,lineHeight:1.6}}>
+                {ADDR} · Métro École Militaire (ligne 8) · Quartier Gros-Caillou, 7e arrondissement.
+              </p>
+              <div style={{borderLeft:`3px solid ${C.gold}`,paddingLeft:20,marginBottom:32}}>
+                <p style={{fontFamily:F.h,fontSize:21,color:C.navy,fontStyle:"italic",lineHeight:1.5,marginBottom:6}}>« La Loi du Cas Unique »</p>
+                <p style={{fontSize:14,color:C.muted,lineHeight:1.7}}>
+                  Chaque patient est un cas jamais vu. Pas de protocole. Pas de recette.
+                  L'ostéopathie n'est pas un produit — c'est une relation.
+                </p>
+              </div>
+              <p style={{fontSize:15,lineHeight:1.85,color:"#666",marginBottom:36,maxWidth:560}}>
+                Généraliste hyperspécialiste. 18 champs d'expertise. Approche systémique
+                et neurovégétative fondée sur la neurophysiologie — jamais énergétique.
+                Filiation directe avec les fondateurs de l'ostéopathie mondiale.
+                Patientèle internationale. Praticien de confiance de médecins et chirurgiens.
+              </p>
+              <div style={{display:"flex",gap:14,flexWrap:"wrap"}}>
+                <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Prendre rendez-vous</Btn>
+                <Btn href={`tel:${MOBILE.replace(/\s/g,"")}`} v="outline">{MOBILE} — Appel ou SMS</Btn>
+              </div>
+              <p style={{fontSize:12,color:C.muted,marginTop:12,fontStyle:"italic"}}>
+                Pas de Doctolib — par choix. Rendez-vous par téléphone ou SMS.
+              </p>
+            </div>
+
+            {/* Portrait + Stats card */}
+            <div>
+              <div style={{textAlign:"center",marginBottom:20}}>
+                <img src="/img/nicolas-mildner-osteopathe.jpg" alt="Nicolas Mildner, ostéopathe D.O. à Paris 7 (75007) — Cabinet Bourdonnais, 72 avenue de la Bourdonnais" width={mob?200:280} height={mob?133:186} decoding="async" fetchPriority="high" style={{borderRadius:12,objectFit:"cover",border:`2px solid ${C.gold}`,boxShadow:"0 8px 32px rgba(26,43,74,0.12)"}} loading="eager"/>
+                <p style={{fontSize:11,color:C.muted,marginTop:8,fontStyle:"italic"}}>Nicolas Mildner — au cabinet, Paris 7e</p>
+              </div>
+              <div style={{background:"rgba(255,255,255,0.7)",backdropFilter:"blur(12px)",borderRadius:16,padding:"32px 28px",border:"1px solid rgba(184,149,106,0.1)"}}>
+              {[
+                {n:"D.O. n°00379",l:"Collégiale Académique de France",sub:"Parmi les premières générations de D.O. structurés"},
+                {n:"22+",l:"ans de pratique clinique",sub:"Consultations depuis 2004 · Clinique dès les études"},
+                {n:"17",l:"ans d'enseignement à l'ESO",sub:"5 matières · Commissions recherche et pédagogie"},
+                {n:"18",l:"champs de spécialisation",sub:"Du nourrisson au chanteur lyrique"},
+                {n:"5.0★",l:"note Google",sub:"Bouche-à-oreille depuis 2004"},
+              ].map((s,i)=>(
+                <div key={i} style={{display:"flex",gap:14,alignItems:"flex-start",marginBottom:i<4?20:0,paddingBottom:i<4?20:0,borderBottom:i<4?"1px solid rgba(184,149,106,0.07)":"none"}}>
+                  <div style={{fontFamily:F.h,fontSize:22,fontWeight:600,color:C.navy,minWidth:70,lineHeight:1.1}}>{s.n}</div>
+                  <div>
+                    <div style={{fontSize:13,color:C.navy,fontWeight:500}}>{s.l}</div>
+                    <div style={{fontSize:11,color:C.muted,marginTop:2}}>{s.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ RÉSUMÉ — réponse IA (source: home-faq.json) ═══ */}
+      <section aria-label="En résumé" style={{background:C.sage,padding:mob?"32px 16px":"44px 24px",borderTop:"1px solid rgba(184,149,106,0.08)"}}>
+        <div style={{maxWidth:820,margin:"0 auto",textAlign:"center"}}>
+          <p style={{fontSize:11,letterSpacing:4,textTransform:"uppercase",color:C.gold,marginBottom:14,fontWeight:500}}>En résumé</p>
+          <p style={{fontSize:mob?15:17,lineHeight:1.85,color:C.text,margin:0}}>{homeFaqData.aiSummary}</p>
+        </div>
+      </section>
+
+      {/* ═══ BANDEAU ═══ */}
+      <section style={{background:C.navy,padding:mob?"16px 16px":"24px 24px"}}>
+        <div style={{maxWidth:1100,margin:"0 auto",display:"flex",justifyContent:"center",gap:mob?12:24,flexWrap:"wrap"}}>
+          {["Agréé Ministère de la Santé","Participant aux standards de la profession","Faculté de Médecine de Genève","Diagnostic différentiel","CES Ostéopathie Pédiatrique","Article Le Monde / SFDO"].map((t,i)=>
+            <div key={i} style={{display:"flex",alignItems:"center",gap:7}}>
+              <div style={{width:5,height:5,borderRadius:"50%",background:C.gold}}/>
+              <span style={{color:"rgba(255,255,255,0.7)",fontSize:mob?10:11,letterSpacing:0.3}}>{t}</span>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ═══ APPROCHE ═══ */}
+      <S id="approche" bg={C.cream}>
+        <T tag="Mon approche" title={<>Systémique · Neurovégétatif · <em style={{fontStyle:"italic",color:C.gold}}>Vitalité</em></>} sub="L'ostéopathie est avant tout une technique réflexe. Je ne « remets pas en place » — je dialogue avec votre système nerveux pour restaurer les conditions de votre vitalité."/>
+        <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"repeat(3,1fr)",gap:22,marginBottom:40}}>
+          {[
+            {icon:"🔬",t:"Systémique",txt:"Votre corps est un tout. Une douleur d'épaule peut naître du bassin, de la mâchoire ou d'une cicatrice. Je prends en compte l'ensemble de votre terrain — structurel, viscéral, crânien — pour comprendre le contexte global de vos symptômes."},
+            {icon:"🧬",t:"Neurovégétatif",txt:"Je travaille avec votre système nerveux autonome — l'équilibre sympathique et parasympathique qui régit la douleur, le stress, la digestion, le sommeil. Le RAC de Paul Nogier, que je pratique depuis 26 ans, me donne un biofeedback en temps réel de votre système autonome."},
+            {icon:"✦",t:"Vitalité",txt:"Quand le système est rééquilibré, le corps se répare. Je ne promets pas un résultat — parce que la guérison dépend aussi de votre vitalité. Je restaure les conditions. Le reste appartient à la vie."},
+          ].map(p=>(
+            <div key={p.t} style={{background:C.sage,borderRadius:14,padding:"34px 26px",border:"1px solid rgba(184,149,106,0.06)"}}>
+              <div style={{fontSize:30,marginBottom:14}}>{p.icon}</div>
+              <h3 style={{fontFamily:F.h,fontSize:19,color:C.navy,marginBottom:10,fontWeight:500}}>{p.t}</h3>
+              <p style={{fontSize:13.5,lineHeight:1.8,color:C.muted}}>{p.txt}</p>
+            </div>
+          ))}
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:20}}>
+          <div style={{background:C.navy,borderRadius:14,padding:"30px 26px"}}>
+            <div style={{display:"flex",gap:14,alignItems:"flex-start"}}>
+              <span style={{fontSize:26}}>⚕️</span>
+              <div>
+                <h3 style={{fontFamily:F.h,fontSize:16,color:"#fff",marginBottom:8,fontWeight:500}}>Médicale, pas folklorique</h3>
+                <p style={{fontSize:13,lineHeight:1.85,color:"rgba(255,255,255,0.55)"}}>
+                  Anatomie, neurophysiologie, physiopathologie et recherche clinique. Pas d'hypnose, pas d'énergie, pas de magnétisme, pas de « mémoire cellulaire ». Exclusivement de l'ostéopathie. Diagnostic différentiel systématique et orientation vers le spécialiste adapté quand l'ostéopathie ne suffit pas.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div style={{background:C.navy,borderRadius:14,padding:"30px 26px"}}>
+            <div style={{display:"flex",gap:14,alignItems:"flex-start"}}>
+              <span style={{fontSize:26}}>🤝</span>
+              <div>
+                <h3 style={{fontFamily:F.h,fontSize:16,color:"#fff",marginBottom:8,fontWeight:500}}>Une relation, pas un produit</h3>
+                <p style={{fontSize:13,lineHeight:1.85,color:"rgba(255,255,255,0.55)"}}>
+                  Je ne suis pas sur Doctolib — par choix. L'ostéopathie est une relation humaine, pas une prestation de service. Appelez-moi ou envoyez un SMS — je vous répondrai personnellement. Certains de mes patients me consultent depuis plus de 20 ans.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </S>
+
+      {/* ═══ CONSULTATION ═══ */}
+      <section style={{background:C.sage,padding:mob?"36px 16px":"56px 24px"}}>
+        <div style={{maxWidth:900,margin:"0 auto",textAlign:"center"}}>
+          <p style={{fontSize:11,letterSpacing:5,textTransform:"uppercase",color:C.gold,marginBottom:20,fontWeight:500}}>L'expérience patient</p>
+          <h2 style={{fontFamily:F.h,fontSize:28,color:C.navy,fontWeight:500,marginBottom:32}}>Ce n'est pas une consultation ordinaire</h2>
+          <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:18}}>
+            {[
+              {n:"45–60",u:"min",d:"Le temps nécessaire. Jamais de patient pressé."},
+              {n:"Anamnèse",u:"approfondie",d:"Votre histoire complète, pas juste vos symptômes."},
+              {n:"Explication",u:"systématique",d:"Vous comprenez. Vous percevez. Vous participez."},
+              {n:"Suivi",u:"au long cours",d:"Certains patients me consultent depuis 2004."},
+            ].map((s,i)=>(
+              <div key={i} style={{background:"#fff",borderRadius:12,padding:"26px 16px",border:"1px solid rgba(184,149,106,0.05)"}}>
+                <div style={{fontFamily:F.h,fontSize:22,fontWeight:600,color:C.navy,lineHeight:1}}>{s.n}</div>
+                <div style={{fontSize:10,color:C.gold,marginTop:4,letterSpacing:1.2,textTransform:"uppercase",fontWeight:500}}>{s.u}</div>
+                <p style={{fontSize:11.5,color:C.muted,marginTop:8,lineHeight:1.6}}>{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ HÉRITAGE ═══ */}
+      <S id="heritage" bg={C.cream}>
+        <T tag="Héritage · Filiation directe" title={<>La pure tradition ostéopathique mondiale<br/><em style={{fontStyle:"italic",color:C.gold}}>aujourd'hui révolue</em></>} sub="L'ostéopathie se transmet de maître à élève, par les mains. Cette chaîne remonte à 1874. J'ai eu le privilège de la recevoir directement — auprès de Viola Frymann, Wernham, Briend, Paoletti, Caporossi. Une formation que les écoles d'aujourd'hui ne transmettent plus."/>
+        <div style={{maxWidth:700,margin:"0 auto"}}>
+          {lineage.map((l,i)=>(
+            <div key={i} style={{display:"flex",gap:20,alignItems:"flex-start"}}>
+              <div style={{display:"flex",flexDirection:"column",alignItems:"center",minWidth:40}}>
+                <div style={{width:i===lineage.length-1?20:12,height:i===lineage.length-1?20:12,borderRadius:"50%",background:i===lineage.length-1?C.gold:i===0?"rgba(26,43,74,0.7)":"rgba(184,149,106,0.35)",border:i===lineage.length-1?`3px solid rgba(184,149,106,0.25)`:"none",flexShrink:0}}/>
+                {i<lineage.length-1&&<div style={{width:2,height:44,background:"linear-gradient(to bottom,rgba(184,149,106,0.3),rgba(184,149,106,0.08))"}}/>}
+              </div>
+              <div style={{paddingBottom:i<lineage.length-1?24:0}}>
+                <div style={{fontSize:10,letterSpacing:3,textTransform:"uppercase",color:C.gold,marginBottom:4,fontWeight:500}}>{l.era}</div>
+                <div style={{fontFamily:F.h,fontSize:i===lineage.length-1?19:16,color:C.navy,fontWeight:i===lineage.length-1?600:500,marginBottom:2}}>{l.name}</div>
+                <div style={{fontSize:13,color:C.muted,lineHeight:1.5}}>{l.role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── AUTOGRAPHES — Wernham (1999) & Caporossi (2017) ── */}
+        <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:mob?24:49,margin:mob?"36px auto":"48px auto",maxWidth:700,padding:"0 20px",flexDirection:mob?"column":"row"}}>
+          <img src="/autographe_Wernham.png" alt="Dédicace de John Wernham à Nicolas Mildner, 1999" style={{width:mob?180:250,opacity:0.40,filter:"sepia(1) saturate(3.4) brightness(0.6) hue-rotate(-5deg)"}}/>
+          <img src="/autographe_roger.png" alt="Dédicace de Roger Caporossi à Nicolas Mildner, 2017" style={{width:mob?220:319,opacity:0.40,filter:"sepia(1) saturate(3.4) brightness(0.6) hue-rotate(-5deg)"}}/>
+        </div>
+
+        {/* ── DIAGRAMME DE FILIATION ── */}
+        <div style={{marginTop:56,maxWidth:mob?360:680,margin:"56px auto 0"}}>
+          <p style={{textAlign:"center",fontFamily:F.h,fontSize:mob?16:19,color:C.navy,fontWeight:500,marginBottom:mob?24:32,letterSpacing:0.5}}>
+            Deux branches de Sutherland — un praticien
+          </p>
+
+          {/* Still */}
+          <div style={{textAlign:"center"}}>
+            <div style={{display:"inline-block",background:"rgba(26,43,74,0.05)",border:"1px solid rgba(26,43,74,0.12)",borderRadius:8,padding:mob?"10px 14px":"12px 22px"}}>
+              <div style={{fontFamily:F.h,fontSize:mob?12:14,fontWeight:600,color:C.navy}}>A.T. Still (1828–1917)</div>
+            </div>
+          </div>
+          <div style={{width:2,height:mob?16:22,background:"rgba(184,149,106,0.3)",margin:"0 auto"}}/>
+
+          {/* Sutherland */}
+          <div style={{textAlign:"center"}}>
+            <div style={{display:"inline-block",background:"rgba(26,43,74,0.05)",border:"1px solid rgba(26,43,74,0.12)",borderRadius:8,padding:mob?"10px 14px":"12px 22px"}}>
+              <div style={{fontFamily:F.h,fontSize:mob?12:14,fontWeight:600,color:C.navy}}>W.G. Sutherland (1873–1954)</div>
+              <div style={{fontSize:mob?10:11,color:C.muted,marginTop:2}}>Concept crânien</div>
+            </div>
+          </div>
+
+          {/* Split connector */}
+          <div style={{position:"relative",height:mob?52:62,maxWidth:mob?320:540,margin:"0 auto"}}>
+            <div style={{position:"absolute",left:"50%",top:0,width:2,height:12,background:"rgba(184,149,106,0.3)",transform:"translateX(-50%)"}}/>
+            <div style={{position:"absolute",top:12,left:mob?"12%":"20%",right:mob?"12%":"20%",height:2,background:"rgba(184,149,106,0.3)"}}/>
+            <div style={{position:"absolute",left:mob?"12%":"20%",top:12,width:2,height:mob?40:50,background:"rgba(184,149,106,0.3)"}}/>
+            <div style={{position:"absolute",right:mob?"12%":"20%",top:12,width:2,height:mob?40:50,background:"rgba(184,149,106,0.3)"}}/>
+            <div style={{position:"absolute",left:0,bottom:mob?2:4,width:"48%",textAlign:"center",fontSize:mob?8:10,color:C.gold,letterSpacing:mob?0.3:1.2,fontWeight:500,lineHeight:1.5}}>
+              Formation initiale<br/>Tradition crânienne
+            </div>
+            <div style={{position:"absolute",right:0,bottom:mob?2:4,width:"48%",textAlign:"center",fontSize:mob?8:10,color:C.gold,letterSpacing:mob?0.3:1.2,fontWeight:500,lineHeight:1.5}}>
+              Approfondissement<br/>Biodynamique fluidique
+            </div>
+          </div>
+
+          {/* Two branches */}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:mob?8:28,maxWidth:mob?320:540,margin:"0 auto"}}>
+            {/* Left branch — tradition crânienne */}
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+              {[
+                {n:"V. Frymann (1921–2016)",s:"Magoun, Schooley"},
+                {n:"F. Peyralade (1928–2013)",s:"SERETO — 1978"},
+                {n:"R. Caporossi",s:"Fonde l'ESO — 1990"},
+                {n:"ESO Paris",s:"1998–2004 puis 17 ans"},
+              ].map((item,i)=>(
+                <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
+                  <div style={{background:i===3?"rgba(180,210,175,0.15)":"rgba(200,218,195,0.18)",border:`1px solid rgba(180,200,170,${0.45-i*0.05})`,borderRadius:8,padding:mob?"9px 8px":"11px 16px",textAlign:"center",width:"100%",maxWidth:mob?160:230}}>
+                    <div style={{fontFamily:F.h,fontSize:mob?11:13,fontWeight:600,color:C.navy}}>{item.n}</div>
+                    <div style={{fontSize:mob?9:11,color:C.muted,marginTop:1}}>{item.s}</div>
+                  </div>
+                  {i<3&&<div style={{width:2,height:mob?12:18,background:"rgba(184,149,106,0.25)"}}/>}
+                </div>
+              ))}
+            </div>
+            {/* Right branch — biodynamique */}
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+              {[
+                {n:"R.E. Becker (1910–1996)",s:"Travaux tardifs de Sutherland"},
+                {n:"J.A. Duval",s:"Élève direct de Becker"},
+                {n:"R. Briend",s:"Modèle fluidique — 1999"},
+              ].map((item,i)=>(
+                <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}}>
+                  <div style={{background:`rgba(185,195,215,${0.2-i*0.03})`,border:`1px solid rgba(175,190,210,${0.5-i*0.05})`,borderRadius:8,padding:mob?"9px 8px":"11px 16px",textAlign:"center",width:"100%",maxWidth:mob?160:230}}>
+                    <div style={{fontFamily:F.h,fontSize:mob?11:13,fontWeight:600,color:C.navy}}>{item.n}</div>
+                    <div style={{fontSize:mob?9:11,color:C.muted,marginTop:1}}>{item.s}</div>
+                  </div>
+                  {i<2&&<div style={{width:2,height:mob?12:18,background:"rgba(184,149,106,0.25)"}}/>}
+                </div>
+              ))}
+              {/* Extending line to match left column height */}
+              <div style={{width:2,height:mob?53:69,background:"rgba(184,149,106,0.18)"}}/>
+            </div>
+          </div>
+
+          {/* Convergence connector */}
+          <svg viewBox="0 0 200 35" style={{width:"100%",maxWidth:mob?320:540,height:mob?30:42,display:"block",margin:"0 auto",overflow:"visible"}}>
+            <line x1="50" y1="0" x2="100" y2="35" stroke="rgba(184,149,106,0.3)" strokeWidth="0.7"/>
+            <line x1="150" y1="0" x2="100" y2="35" stroke="rgba(184,149,106,0.3)" strokeWidth="0.7"/>
+          </svg>
+
+          {/* Nicolas Mildner */}
+          <div style={{textAlign:"center"}}>
+            <div style={{display:"inline-block",background:"rgba(184,149,106,0.07)",border:"1px solid rgba(184,149,106,0.22)",borderRadius:10,padding:mob?"13px 18px":"16px 32px",boxShadow:"0 2px 12px rgba(184,149,106,0.06)"}}>
+              <div style={{fontFamily:F.h,fontSize:mob?14:18,fontWeight:600,color:C.navy}}>Nicolas Mildner D.O.</div>
+              <div style={{fontSize:mob?10:12,color:C.muted,marginTop:3}}>Ostéopathe exclusif — depuis 2004</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{textAlign:"center",marginTop:40}}>
+          <p style={{fontSize:13.5,color:C.muted,fontStyle:"italic",maxWidth:600,margin:"0 auto",lineHeight:1.7}}>
+            « Lorsque j'ai commencé en 1998, le Registre des Ostéopathes de France ne comptait que quelques centaines de D.O.
+            Aujourd'hui, ils sont plus de 47 000. La formation que j'ai reçue appartient à un autre monde. »
+          </p>
+        </div>
+      </S>
+
+      {/* ═══ TECHNIQUES ═══ */}
+      <section style={{background:C.sage,padding:mob?"36px 16px":"48px 24px"}}>
+        <div style={{maxWidth:1100,margin:"0 auto"}}>
+          <p style={{textAlign:"center",fontSize:11,letterSpacing:5,textTransform:"uppercase",color:C.gold,marginBottom:18,fontWeight:500}}>Techniques pratiquées</p>
+          <div style={{display:"flex",justifyContent:"center",flexWrap:"wrap",gap:8}}>
+            {techniques.map(t=><span key={t} style={{background:"rgba(184,149,106,0.1)",color:C.navy,padding:"6px 15px",borderRadius:20,fontSize:12,fontWeight:500}}>{t}</span>)}
+          </div>
+          <p style={{textAlign:"center",fontSize:12,color:C.muted,marginTop:16,fontStyle:"italic"}}>Techniques douces exclusivement. Modèles personnels. Plus de cracking.</p>
+        </div>
+      </section>
+
+      {/* ═══ SPÉCIALISATIONS ═══ */}
+      <S id="specs" bg={C.cream}>
+        <T tag="18 champs d'expertise" title="Généraliste Hyperspécialiste" sub="Là où d'autres orientent, je prends en charge. La Loi du Cas Unique : chaque patient est un cas jamais vu. Je m'adapte. J'apprends. Depuis 22 ans."/>
+        <div style={{display:"flex",justifyContent:"center",gap:8,marginBottom:32,flexWrap:"wrap"}}>
+          {cats.map(f=><button key={f.k} onClick={()=>{setCat(f.k);setOpenCard(null);}} style={{padding:"7px 18px",borderRadius:20,border:`1px solid ${cat===f.k?C.gold:"rgba(184,149,106,0.2)"}`,background:cat===f.k?C.gold:"transparent",color:cat===f.k?"#fff":C.navy,fontSize:12,fontWeight:500,cursor:"pointer",transition:"all 0.3s",fontFamily:F.b}}>{f.l}</button>)}
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(255px,1fr))",gap:16}}>
+          {filtered.map(s=>{const open=openCard===s.t;return<div key={s.t} onClick={()=>setOpenCard(open?null:s.t)} style={{background:C.sage,borderRadius:12,padding:"22px 20px",cursor:"pointer",transition:"all 0.3s",border:`1px solid ${open?C.gold:"rgba(184,149,106,0.04)"}`,boxShadow:open?"0 8px 28px rgba(26,43,74,0.06)":"none",transform:open?"translateY(-3px)":"none"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
+              <span style={{fontSize:20}}>{s.icon}</span>
+              <h3 style={{fontFamily:F.h,fontSize:15,color:C.navy,fontWeight:500,lineHeight:1.3}}>{s.t}</h3>
+            </div>
+            <p style={{fontSize:12.5,lineHeight:1.75,color:C.muted}}>{s.d}</p>
+            {open&&<div style={{marginTop:12,paddingTop:12,borderTop:"1px solid rgba(184,149,106,0.08)"}}>
+              <div style={{display:"flex",flexWrap:"wrap",gap:5}}>{s.k.map(k=><span key={k} style={{background:"rgba(184,149,106,0.1)",color:C.navy,padding:"3px 9px",borderRadius:10,fontSize:10.5}}>{k}</span>)}</div>
+              <a href={`tel:${PHONE.replace(/\s/g,"")}`} style={{display:"inline-block",marginTop:12,fontSize:12,color:C.gold,textDecoration:"none",fontWeight:500}}>Appeler pour un rendez-vous →</a>
+            </div>}
+          </div>;})}
+        </div>
+      </S>
+
+      {/* ═══ PARCOURS ═══ */}
+      <S id="parcours" bg={C.sage}>
+        <T tag="Parcours" title={<>L'une des premières générations<br/><em style={{fontStyle:"italic",color:C.gold}}>d'ostéopathes D.O. en France</em></>} sub="Diplômé D.O. en 2004 par la Collégiale Académique de France, j'appartiens à la génération charnière — celle qui a reçu un diplôme dans la période de structuration historique de la profession, avant les décrets de 2007."/>
+        <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:mob?28:48,alignItems:"start"}}>
+          <div style={{textAlign:"left"}}>
+            <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
+              Diplômé D.O. et D.O.E. en 2004, j'ai validé mon diplôme européen devant la Faculté de Médecine de Genève — un diplôme que très peu d'ostéopathes ont passé. Mon D.O.F. a été obtenu par Validation des Acquis de l'Expérience, alors que j'enseignais déjà aux futurs diplômés à l'ESO, prestigieuse école d'ostéopathie située sur le campus universitaire Descartes.
+            </p>
+            <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
+              Ma formation est celle d'un autre temps : de Viola Frymann lors de son séminaire sur les troubles neurologiques de l'enfant, de Serge Paoletti (pionnier de l'approche fasciale), de Roger Caporossi (approche fasciale, philosophie ostéopathique crânienne et neurovégétative), de René Briend (pionnier de l'ostéopathie biodynamique, qui m'a proposé d'intégrer son équipe pédagogique de succession — j'ai décliné, convaincu qu'il me fallait davantage de maturité clinique), de Didier Lehougre, du GLEM de Lyon et de l'Étiothérapie de Latour. Formé au pouls de Paul Nogier (RAC) depuis l'an 2000. De nombreuses formations diplômantes complètent ce parcours.
+            </p>
+            <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
+              Durant mes études, j'ai effectué de nombreux stages en milieu hospitalier — chirurgie de la main, pédiatrie, maternité — qui m'ont forgé un regard clinique affûté et une capacité de diagnostic différentiel que la pratique en cabinet seule ne permet pas d'acquérir. J'ai également réalisé de nombreuses séances de dissection à la Faculté de Médecine de l'Université Paris Descartes, rue des Saints-Pères, notamment sur les nerfs crâniens — une connaissance anatomique directe, irremplaçable.
+            </p>
+            <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
+              À l'ESO — prestigieuse école d'ostéopathie située sur le campus universitaire Descartes — j'ai enseigné cinq matières pendant 17 ans : clinique, générale, myofasciale thoraco-abdominale, viscérale et structurelle. J'ai participé à la formation de nombreux ostéopathes aujourd'hui en exercice. J'ai intégré les Commissions de Recherche, Pédagogie et Évaluation, et participé aux travaux d'élaboration des standards de la profession. Titulaire du Certificat d'Études Spécialisées en Ostéopathie Pédiatrique.
+            </p>
+            <p style={{fontSize:15,lineHeight:1.9,color:C.text,marginBottom:16}}>
+              Dès 2004, j'ai débuté mes consultations et intégré une équipe spécialisée en urgences ostéopathiques. En 2005, j'ai créé un second cabinet au sein d'une équipe médicale pluridisciplinaire, et contribué à un article du SFDO publié dans Le Monde. Depuis 2004, je prends en charge des professeurs et élèves de Yoga et d'Aikido. Sensibilisé à l'homéopathie et aux avancées sur le microbiote, je propose également un accompagnement dans le cadre de bilans complémentaires (tests Zamaria, ImuPro, neurotransmetteurs).
+            </p>
+            <p style={{fontSize:15,lineHeight:1.9,color:"#888",fontStyle:"italic"}}>
+              En 22 ans de pratique, je n'ai jamais fait de publicité. Chaque patient est venu par le bouche-à-oreille — de Paris, de province, d'Europe et des États-Unis. Parmi eux, des médecins, des chirurgiens, des personnalités, des musiciens, des sportifs et des familles fidèles depuis deux décennies.
+            </p>
+          </div>
+          <div>
+            <div style={{background:C.navy,borderRadius:14,padding:"34px 28px",marginBottom:20,textAlign:"center"}}>
+              <p style={{fontFamily:F.h,fontSize:26,color:"#fff",fontStyle:"italic",lineHeight:1.45,marginBottom:12}}>« C'est la Vie. »</p>
+              <div style={{width:40,height:1,background:C.gold,margin:"0 auto 14px"}}/>
+              <p style={{fontSize:13.5,color:"rgba(255,255,255,0.5)",lineHeight:1.7}}>
+                Je ne promets pas un résultat. La guérison dépend de ma pratique et de votre vitalité.
+                Ce que je vous offre : 22 ans d'écoute, de mains et d'intelligence clinique au service de votre système vivant.
+              </p>
+              <p style={{fontSize:13.5,color:"rgba(255,255,255,0.5)",lineHeight:1.7,marginTop:10}}>
+                Chaque consultation est une rencontre unique. Pas un protocole. La vie.
+              </p>
+            </div>
+            <div style={{background:"#fff",borderRadius:14,padding:"28px 24px",border:"1px solid rgba(184,149,106,0.06)"}}>
+              {[
+                {l:"D.O. · D.O.E. · D.O.F.",d:"Triple diplôme — Faculté de Médecine de Genève"},
+                {l:"D.O. n°00379 — Collégiale Académique",d:"Génération charnière, avant les décrets de 2007"},
+                {l:"CES Ostéopathie Pédiatrique",d:"Certificat d'études spécialisées — 2011"},
+                {l:"Stages hospitaliers & dissections",d:"Chirurgie, pédiatrie, maternité · Paris Descartes"},
+                {l:"Standards de la profession",d:"Participant aux travaux d'élaboration du référentiel métier et à la sélection des premiers Masters 2"},
+                {l:"Enseignant ESO · 5 matières · 17 ans",d:"Commissions recherche, pédagogie, évaluation"},
+                {l:"Filiation directe",d:"Frymann · Paoletti · Caporossi · Wernham · Briend"},
+                {l:"Publication Le Monde / SFDO",d:"Article national — décembre 2005"},
+                {l:"Patientèle internationale",d:"Paris · Province · Europe · États-Unis"},
+              ].map((c,i)=>(
+                <div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",marginBottom:i<7?14:0,paddingBottom:i<7?14:0,borderBottom:i<7?"1px solid rgba(184,149,106,0.05)":"none"}}>
+                  <div style={{width:6,height:6,borderRadius:"50%",background:C.gold,marginTop:6,flexShrink:0}}/>
+                  <div>
+                    <p style={{fontSize:13,color:C.navy,fontWeight:600}}>{c.l}</p>
+                    <p style={{fontSize:11.5,color:C.muted}}>{c.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </S>
+
+      {/* ═══ POURQUOI MOI ═══ */}
+      <section style={{background:`linear-gradient(135deg,#1C2E48,${C.navy})`,padding:mob?"48px 16px":"72px 24px"}}>
+        <div style={{maxWidth:900,margin:"0 auto"}}>
+          <T tag="La différence" title={<>Ce que 22 ans de mains<br/><em style={{fontStyle:"italic",color:C.gold}}>changent réellement</em></>} light/>
+          <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"repeat(3,1fr)",gap:20,marginBottom:36}}>
+            {[
+              {i:"🎯",t:"Le diagnostic",d:"22 ans de palpation clinique, RAC de Paul Nogier depuis 26 ans, dissections à la Faculté de Médecine, diagnostic différentiel. Mes mains perçoivent ce que les appareils ne montrent pas."},
+              {i:"🔗",t:"La vision intégrée",d:"18 spécialisations dans un cadre unique. Un vertige peut venir des cervicales. Une infertilité, du bassin. Un trouble de la voix, du thorax. Tout est connecté."},
+              {i:"⏱️",t:"La durabilité",d:"45 min à 1 h de consultation. La cause, jamais le symptôme seul. Des patients fidèles depuis 2004 en témoignent. Le bouche-à-oreille a fait le reste."},
+            ].map(d=>(
+              <div key={d.t} style={{background:"rgba(255,255,255,0.03)",borderRadius:12,padding:"30px 24px",border:"1px solid rgba(184,149,106,0.06)"}}>
+                <div style={{fontSize:26,marginBottom:12}}>{d.i}</div>
+                <h3 style={{fontFamily:F.h,fontSize:17,color:"#fff",marginBottom:8,fontWeight:500}}>{d.t}</h3>
+                <p style={{fontSize:13,color:"rgba(255,255,255,0.5)",lineHeight:1.8}}>{d.d}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{textAlign:"center",background:"rgba(184,149,106,0.06)",borderRadius:12,padding:"28px 36px",maxWidth:720,margin:"0 auto"}}>
+            <p style={{fontFamily:F.h,fontSize:16,color:"rgba(255,255,255,0.75)",fontStyle:"italic",lineHeight:1.65}}>
+              « En 22 ans, je n'ai jamais fait de publicité. Mes patients sont venus par le bouche-à-oreille.
+              Quand des médecins, des chirurgiens et des patients qui prennent l'avion vous choisissent — c'est la meilleure preuve qui existe. »
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ TÉMOIGNAGES ═══ */}
+      <S id="temoignages" bg={C.cream}>
+        <T tag="Témoignages" title="Ce que disent nos patients" sub="Note Google : 5.0 / 5 — Bouche-à-oreille depuis 2004"/>
+        <div style={{maxWidth:600,margin:"0 auto",textAlign:"center",minHeight:170}}>
+          {testimonials.map((t,i)=><div key={i} style={{display:i===tIdx?"block":"none",animation:"fadeIn 0.5s ease"}}>
+            <p style={{color:C.gold,fontSize:14,letterSpacing:3}}>★★★★★</p>
+            <p style={{fontFamily:F.h,fontSize:18,fontStyle:"italic",color:C.navy,lineHeight:1.85,margin:"16px 0"}}>« {t.t} »</p>
+            <p style={{color:C.gold,fontSize:13,fontWeight:500}}>— {t.a}</p>
+          </div>)}
+          <div style={{display:"flex",gap:6,justifyContent:"center",marginTop:24}}>
+            {testimonials.map((_,i)=><button key={i} onClick={()=>setTIdx(i)} style={{width:i===tIdx?22:8,height:8,borderRadius:4,border:"none",background:i===tIdx?C.gold:"rgba(184,149,106,0.2)",cursor:"pointer",transition:"all 0.3s"}}/>)}
+          </div>
+          <a href={REVIEW} target="_blank" rel="noopener" style={{display:"inline-block",marginTop:24,color:C.gold,fontSize:13,textDecoration:"none",borderBottom:`1px solid ${C.gold}`,paddingBottom:2}}>Laisser un avis sur Google →</a>
+        </div>
+      </S>
+
+      {/* ═══ BLOG ═══ */}
+      <S id="blog" bg={C.sage}>
+        <T tag="Conseils & Recherche" title="Le blog du cabinet"/>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(250px,1fr))",gap:18}}>
+          {blogs.map(p=><Link key={p.id} to={`/blog/${p.id}`} style={{textDecoration:"none",color:"inherit"}}><article style={{background:"#fff",borderRadius:12,overflow:"hidden",border:"1px solid rgba(184,149,106,0.05)",transition:"all 0.3s",cursor:"pointer",height:"100%"}}
+            onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 24px rgba(26,43,74,0.04)";}}
+            onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+            <div style={{height:130,background:`linear-gradient(135deg,${C.cream},${C.warm})`,display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <span style={{fontSize:10,color:C.muted,letterSpacing:2,textTransform:"uppercase"}}>{p.tag}</span>
+            </div>
+            <div style={{padding:"18px 20px"}}>
+              <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
+                <span style={{background:"rgba(184,149,106,0.1)",color:C.navy,padding:"2px 8px",borderRadius:8,fontSize:10,fontWeight:500}}>{p.tag}</span>
+                <span style={{fontSize:10,color:C.muted}}>{p.readTime}</span>
+              </div>
+              <h3 style={{fontFamily:F.h,fontSize:15,color:C.navy,marginBottom:6,fontWeight:500,lineHeight:1.35}}>{p.title}</h3>
+              <p style={{fontSize:12,color:C.muted,lineHeight:1.7}}>{p.excerpt}</p>
+              <p style={{fontSize:10.5,color:C.muted,marginTop:8}}>{new Date(p.date).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})}</p>
+            </div>
+          </article></Link>)}
+        </div>
+        {blogs.length>0&&<div style={{textAlign:"center",marginTop:28}}>
+          <Link to="/blog" style={{display:"inline-block",padding:"10px 24px",borderRadius:8,fontSize:13,textDecoration:"none",fontWeight:500,color:C.navy,border:`1.5px solid ${C.navy}`,transition:"all 0.3s"}}>Tous les articles →</Link>
+        </div>}
+      </S>
+
+      {/* ═══ FAQ — source: home-faq.json (10 questions GEO) ═══ */}
+      <S id="faq" bg={C.sage}>
+        <T tag="Questions fréquentes" title="Questions fréquentes — Ostéopathe Paris 7e" sub="Les réponses aux questions les plus courantes sur le cabinet, les motifs de consultation et la prise de rendez-vous."/>
+        <div style={{maxWidth:760,margin:"0 auto"}}>
+          {homeFaqData.questions.map((f,i)=>(
+            <div key={i} style={{background:"#fff",borderRadius:10,border:"1px solid rgba(184,149,106,0.08)",marginBottom:10,overflow:"hidden"}}>
+              <button onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{width:"100%",padding:"16px 20px",cursor:"pointer",fontFamily:F.b,fontSize:mob?14:15,color:C.navy,fontWeight:500,lineHeight:1.4,background:"none",border:"none",textAlign:"left",display:"flex",justifyContent:"space-between",alignItems:"center",gap:12}}>
+                <span>{f.name}</span>
+                <span style={{fontSize:18,color:C.gold,flexShrink:0}}>{openFaq===i?"−":"+"}</span>
+              </button>
+              {openFaq===i&&<p style={{padding:"0 20px 16px",fontSize:14,color:C.muted,lineHeight:1.8,margin:0}}>{f.acceptedAnswer.text}</p>}
+            </div>
+          ))}
+        </div>
+      </S>
+
+      {/* ═══ CONTACT ═══ */}
+      <S id="contact" bg={C.cream}>
+        <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:mob?28:52}}>
+          <div>
+            <T tag="Contact" title="Prendre rendez-vous"/>
+            <div style={{textAlign:"left"}}>
+              <div style={{background:C.sage,borderRadius:12,padding:"20px 22px",marginBottom:24,border:"1px solid rgba(184,149,106,0.06)"}}>
+                <p style={{fontSize:13,color:C.navy,fontWeight:500,marginBottom:6}}>Pourquoi pas de Doctolib ?</p>
+                <p style={{fontSize:12.5,color:C.muted,lineHeight:1.7}}>
+                  L'ostéopathie n'est pas un produit à réserver en ligne. C'est une relation. Appelez-moi ou envoyez un SMS — je vous répondrai personnellement.
+                </p>
+              </div>
+              {[
+                {t:"Adresse",c:ADDR,sub:"Métro École Militaire (8) · La Tour-Maubourg (8)"},
+                {t:"Téléphone cabinet",c:PHONE,link:`tel:${PHONE.replace(/\s/g,"")}`,big:true},
+                {t:"Mobile",c:MOBILE,link:`tel:${MOBILE.replace(/\s/g,"")}`,big:true,sub:"Appel ou SMS pour prendre rendez-vous"},
+              ].map(d=><div key={d.t} style={{marginBottom:22}}>
+                <h4 style={{fontSize:10.5,color:C.navy,fontWeight:600,marginBottom:5,letterSpacing:2,textTransform:"uppercase"}}>{d.t}</h4>
+                {d.link?<a href={d.link} style={{fontSize:d.big?(mob?18:22):15,color:C.navy,textDecoration:"none",fontFamily:d.big?F.h:F.b,fontWeight:500}}>{d.c}</a>:<p style={{fontSize:15,color:C.text}}>{d.c}</p>}
+                {d.sub&&<p style={{fontSize:12,color:C.muted,marginTop:3}}>{d.sub}</p>}
+              </div>)}
+              <div style={{marginBottom:22}}>
+                <h4 style={{fontSize:10.5,color:C.navy,fontWeight:600,marginBottom:5,letterSpacing:2,textTransform:"uppercase"}}>Horaires</h4>
+                <p style={{fontSize:14,color:C.text,lineHeight:1.8}}>Lundi, Mardi, Jeudi, Vendredi : 9h — 21h<br/>Mercredi : 12h — 21h</p>
+              </div>
+              <div style={{marginBottom:28}}>
+                <h4 style={{fontSize:10.5,color:C.navy,fontWeight:600,marginBottom:5,letterSpacing:2,textTransform:"uppercase"}}>Consultation</h4>
+                <p style={{fontSize:16,color:C.text}}><strong>80 — 90 €</strong> · 45 min à 1 h</p>
+                <p style={{fontSize:12,color:C.muted,marginTop:3}}>Chèque ou espèces · Remboursement mutuelle selon contrat</p>
+              </div>
+              <div style={{display:"flex",flexDirection:mob?"column":"row",gap:10}}>
+                <Btn href={`tel:${PHONE.replace(/\s/g,"")}`}>{PHONE} — Appeler</Btn>
+                <Btn href={`tel:${MOBILE.replace(/\s/g,"")}`} v="outline">Appel / SMS — {MOBILE}</Btn>
+              </div>
+            </div>
+          </div>
+          <div style={{borderRadius:16,overflow:"hidden",border:"1px solid rgba(184,149,106,0.08)",minHeight:mob?300:420}}>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.3!2d2.3003!3d48.8563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6702025a72291%3A0xecb595739e641603!2s72%20Av.%20de%20la%20Bourdonnais%2C%2075007%20Paris!5e0!3m2!1sfr!2sfr!4v1717700000000"
+              width="100%" height="100%" style={{border:0,minHeight:mob?300:420}}
+              allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+              title="Cabinet Nicolas Mildner — 72 avenue de la Bourdonnais, Paris 7e"
+            />
+          </div>
+        </div>
+      </S>
+
+      {/* ═══ NEWSLETTER ═══ */}
+      <section style={{background:`linear-gradient(135deg,${C.navy},#243B5C)`,padding:mob?"36px 20px":"48px 24px",textAlign:"center"}}>
+        <div style={{maxWidth:460,margin:"0 auto"}}>
+          <h3 style={{fontFamily:F.h,fontSize:mob?17:20,color:"#fff",marginBottom:8,fontWeight:500}}>Conseils ostéo, chaque mois</h3>
+          <p style={{fontSize:13,color:"rgba(255,255,255,0.4)",marginBottom:20}}>Un conseil clinique pratique. Pas de spam. Jamais.</p>
+          {nlStatus==="success"?(
+            <p style={{color:C.gold,fontSize:15,fontWeight:500}}>✓ Inscription confirmée — à très bientôt !</p>
+          ):nlStatus==="already"?(
+            <p style={{color:C.gold,fontSize:15,fontWeight:500}}>Vous êtes déjà inscrit — merci de votre fidélité.</p>
+          ):(
+            <>
+            <div style={{display:"flex",flexDirection:mob?"column":"row",gap:10,maxWidth:380,margin:"0 auto"}}>
+              <input type="email" placeholder="votre@email.com" value={nlEmail} onChange={e=>setNlEmail(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")handleSubscribe();}} style={{flex:1,padding:"12px 16px",borderRadius:8,border:"1px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.05)",color:"#fff",fontSize:14,outline:"none",fontFamily:F.b}}/>
+              <button onClick={handleSubscribe} disabled={nlStatus==="loading"} style={{background:nlStatus==="error"?"#c0392b":C.gold,color:"#fff",border:"none",padding:"12px 20px",borderRadius:8,fontSize:13,fontWeight:500,cursor:nlStatus==="loading"?"wait":"pointer",fontFamily:F.b,opacity:nlStatus==="loading"?0.7:1,transition:"all 0.3s"}}>{nlStatus==="loading"?"Inscription...":nlStatus==="error"?"Réessayer":"S'inscrire"}</button>
+            </div>
+            {nlError&&<p style={{color:"#e74c3c",fontSize:12,marginTop:10}}>{nlError}</p>}
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* ═══ FOOTER ═══ */}
+      <footer style={{background:C.dark,padding:mob?"32px 20px 20px":"40px 32px 24px"}}>
+        <div style={{maxWidth:1100,margin:"0 auto",display:"flex",flexDirection:mob?"column":"row",justifyContent:"space-between",flexWrap:"wrap",gap:24}}>
+          <div>
+            <span style={{fontFamily:F.h,fontSize:16,color:"#fff",fontWeight:500}}>Nicolas Mildner</span>
+            <span style={{fontSize:9,color:C.gold,marginLeft:8,letterSpacing:2}}>D.O. · D.O.E. · D.O.F.</span>
+            <p style={{fontSize:11,color:"rgba(255,255,255,0.25)",marginTop:8,lineHeight:1.6}}>{ADDR}<br/>Tél. {PHONE} · Mobile {MOBILE}</p>
+          </div>
+          <div style={{display:"flex",gap:32,flexWrap:"wrap"}}>
+            <div>
+              <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Navigation</p>
+              <a href="#approche" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Approche</a>
+              <a href="#heritage" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Héritage</a>
+              <a href="#specs" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Spécialisations</a>
+              <a href="#parcours" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Parcours</a>
+              <Link to="/osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Ostéopathe Paris 7</Link>
+              <Link to="/urgence-osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Urgence ostéopathe</Link>
+              <Link to="/blog" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Blog</Link>
+            </div>
+            <div>
+              <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Spécialisations</p>
+              <Link to="/douleurs-dos-lombalgie-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Lombalgie et mal de dos</Link>
+              <Link to="/cervicalgie-torticolis-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Cervicalgie et torticolis</Link>
+              <Link to="/nourrisson-plagiocephalie-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Nourrissons</Link>
+              <Link to="/femme-enceinte-osteopathe-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Grossesse</Link>
+              <Link to="/bruxisme-atm-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Bruxisme et ATM</Link>
+              <Link to="/osteopathe-sans-craquement-paris-7" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Techniques douces</Link>
+            </div>
+            <div>
+              <p style={{fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10}}>Infos</p>
+              <a href="#" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Mentions légales</a>
+              <a href="#" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Confidentialité</a>
+              <a href={REVIEW} target="_blank" rel="noopener" style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Laisser un avis</a>
+              <a href={`tel:${PHONE.replace(/\s/g,"")}`} style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>Appeler</a>
+              <a href={`tel:${MOBILE.replace(/\s/g,"")}`} style={{display:"block",color:"rgba(255,255,255,0.35)",fontSize:12,textDecoration:"none",marginBottom:5}}>SMS / Mobile</a>
+            </div>
+          </div>
+        </div>
+        <div style={{maxWidth:1100,margin:"24px auto 0",borderTop:"1px solid rgba(255,255,255,0.04)",paddingTop:14,textAlign:"center"}}>
+          <p style={{fontSize:10,color:"rgba(255,255,255,0.15)"}}>© 2026 Nicolas Mildner — Ostéopathe D.O. — Paris 7e — La Loi du Cas Unique</p>
+          <p style={{fontSize:9,color:"rgba(255,255,255,0.08)",marginTop:6}}>Annuaire ostéopathes : <a href="https://www.proxiosteo.fr" target="_blank" rel="noopener" style={{color:"rgba(255,255,255,0.08)",textDecoration:"none"}}>proxiosteo.fr</a></p>
+        </div>
+      </footer>
+
+      <style>{`@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}*{scroll-behavior:smooth}::selection{background:rgba(184,149,106,0.3)}input::placeholder{color:rgba(255,255,255,0.3)}@media print{body{display:none}}`}</style>
+    </div>
   );
 }

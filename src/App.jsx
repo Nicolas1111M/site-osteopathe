@@ -1,23 +1,32 @@
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import Site from "./Site.jsx";
 import Blog from "./Blog.jsx";
 import OsteopatheParis7 from "./OsteopatheParis7.jsx";
 import LocalSpecPage from "./LocalSpecPage.jsx";
-import NotFound from "./NotFound.jsx";
-import { SiteHeader, SiteFooter, CallBar, RouteEffects } from "./Layout.jsx";
+import ScrollToTop from "./ScrollToTop.jsx";
 
-function BlogRoute() {
+function BlogWrapper() {
+  const navigate = useNavigate();
   const { slug } = useParams();
-  return <Blog initialPost={slug || null} />;
+  return (
+    <Blog
+      onBack={() => navigate("/")}
+      initialPost={slug || null}
+    />
+  );
+}
+
+function SiteWrapper() {
+  const navigate = useNavigate();
+  return <Site onBlog={(id) => id ? navigate(`/blog/${id}`) : navigate("/blog")} />;
 }
 
 export default function App() {
   return (
     <>
-      <RouteEffects />
-      <SiteHeader />
+      <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Site />} />
+        <Route path="/" element={<SiteWrapper />} />
         <Route path="/osteopathe-paris-7" element={<OsteopatheParis7 />} />
         <Route path="/douleurs-dos-lombalgie-paris-7" element={<LocalSpecPage />} />
         <Route path="/cervicalgie-torticolis-paris-7" element={<LocalSpecPage />} />
@@ -26,12 +35,9 @@ export default function App() {
         <Route path="/bruxisme-atm-paris-7" element={<LocalSpecPage />} />
         <Route path="/urgence-osteopathe-paris-7" element={<LocalSpecPage />} />
         <Route path="/osteopathe-sans-craquement-paris-7" element={<LocalSpecPage />} />
-        <Route path="/blog" element={<BlogRoute />} />
-        <Route path="/blog/:slug" element={<BlogRoute />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/blog" element={<BlogWrapper />} />
+        <Route path="/blog/:slug" element={<BlogWrapper />} />
       </Routes>
-      <SiteFooter />
-      <CallBar />
     </>
   );
 }
