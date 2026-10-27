@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { CallActions, IconArrow, IconPlus, IconPhone, IconMessage } from "./Layout.jsx";
 import { PHONE, PHONE_TEL, MOBILE, MOBILE_SMS, FACTS, MAP_EMBED, MAPS_URL, REVIEW_URL, formatDate, sortByDateDesc } from "./site-config.js";
-import { PRINCIPLES, STEPS, TECHNIQUES, FIELD_GROUPS, CREDENTIALS, TESTIMONIALS, MARKERS } from "./homeContent.js";
+import { PRINCIPLES, STEPS, TECHNIQUES, FIELD_GROUPS, CREDENTIALS, TESTIMONIALS, HERO_MARKERS } from "./homeContent.js";
 import homeFaq from "./home-faq.json";
 import posts from "./posts-index.json";
 
@@ -29,18 +29,30 @@ function Hero() {
             72 avenue de la Bourdonnais, 75007 Paris · Métro École Militaire (ligne 8)
           </p>
         </div>
-        <figure className="hero__figure">
-          <img
-            className="hero__photo"
-            src="/img/nicolas-mildner-portrait.webp"
-            alt="Nicolas Mildner, ostéopathe D.O. à Paris 7 (75007) — Cabinet Bourdonnais, 72 avenue de la Bourdonnais"
-            width="638"
-            height="798"
-            fetchpriority="high"
-            decoding="async"
-          />
-          <figcaption className="hero__caption">Nicolas Mildner, au cabinet de l'avenue de la Bourdonnais.</figcaption>
-        </figure>
+        <div className="hero__aside">
+          <figure className="hero__figure">
+            <picture>
+              <source media="(max-width: 860px)" srcSet="/img/nicolas-mildner-cabinet.webp" width="800" height="532" />
+              <img
+                className="hero__photo"
+                src="/img/nicolas-mildner-portrait.webp"
+                alt="Nicolas Mildner, ostéopathe D.O. à Paris 7 (75007) — Cabinet Bourdonnais, 72 avenue de la Bourdonnais"
+                width="638"
+                height="798"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
+          </figure>
+          <dl className="hero__markers" aria-label="Repères">
+            {HERO_MARKERS.map((m) => (
+              <div key={m.value}>
+                <dt>{m.value}</dt>
+                <dd>{m.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );
@@ -75,9 +87,9 @@ function Summary() {
             </dd>
           </div>
           <div>
-            <dt>Diplôme</dt>
+            <dt>Rendez-vous</dt>
             <dd>
-              D.O. n°00379<span>Collégiale Académique de France · D.O.E. · D.O.F.</span>
+              Par téléphone ou SMS<span>Pas de réservation en ligne, pas de Doctolib</span>
             </dd>
           </div>
         </dl>
@@ -489,14 +501,6 @@ function Proof() {
             choisissent un praticien, c'est la meilleure preuve qui existe.
           </p>
         </div>
-        <dl className="markers">
-          {MARKERS.map((m) => (
-            <div key={m.value}>
-              <dt>{m.value}</dt>
-              <dd>{m.label}</dd>
-            </div>
-          ))}
-        </dl>
         <div className="quotes">
           <figure className="quote quote--featured">
             <p className="quote__stars" aria-label="5 étoiles sur 5">

@@ -176,8 +176,11 @@ export const TESTIMONIALS = [
   { quote: "Je n'ai jamais senti cela. Personne ne m'avait jamais expliqué ce qui se passait dans mon corps de cette façon.", author: "Nouvelle patiente" },
 ];
 
-export const MARKERS = [
-  { value: "2004", label: "Premières consultations, après une formation commencée en 1998" },
-  { value: "17 ans", label: "D'enseignement à l'ESO Paris, dans cinq matières" },
-  { value: "5,0", label: "Note Google, sans aucune publicité depuis l'ouverture" },
+// Repères affichés dès l'ouverture, sous le portrait.
+export const HERO_MARKERS = [
+  { value: "D.O. n°00379", label: "Collégiale Académique de France" },
+  { value: "22 ans", label: "de pratique clinique" },
+  { value: "17 ans", label: "d'enseignement à l'ESO Paris" },
+  { value: "18", label: "champs d'expertise" },
+  { value: "5,0 / 5", label: "note Google" },
 ];
